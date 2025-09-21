@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Face Attendance System — Overview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* small visual extras */
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(250,250,255,0.8)); }
+    pre { white-space: pre-wrap; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+  <header class="max-w-5xl mx-auto p-6">
+    <div class="flex items-center justify-between">
+      <h1 class="text-3xl font-extrabold">Face Attendance System</h1>
+      <div class="text-sm text-slate-500">Compact system overview • Student registration • Lecturer portal • Verification</div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-6 space-y-8">
+    <!-- Hero -->
+    <section class="card p-6 rounded-2xl shadow">
+      <h2 class="text-2xl font-bold">System at a glance</h2>
+      <p class="mt-2 text-slate-600">A lightweight attendance system that uses face embeddings stored in Google Sheets. Lecturers generate time-bound, WiFi-restricted verification links; students verify their faces and have attendance automatically marked on the lecturer sheet.</p>
+    </section>
+
+    <!-- Architecture -->
+    <section class="p-6 rounded-2xl">
+      <h3 class="text-xl font-bold mb-4">1. Architecture & Flow</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-lg border card">
+          <h4 class="font-semibold">Student Registration</h4>
+          <ul class="mt-2 text-sm text-slate-600 space-y-1 list-disc pl-4">
+            <li>Frontend form collects Name, Matric No, Email, Face Embedding (128-d)</li>
+            <li>Saves complete record to <strong>Main Google Sheet (Registration Sheet)</strong>.</li>
+          </ul>
+          <img class="mt-2" src="student reg with css2.png" alt="">
+        </div>
+
+        <div class="p-4 rounded-lg border card">
+          <h4 class="font-semibold">Lecturer Portal</h4>
+          <ul class="mt-2 text-sm text-slate-600 space-y-1 list-disc pl-4">
+            <li>Generate class-specific verification links with encrypted tokens.</li>
+            <li>Tokens include: class date/column name, expiry timestamp, WiFi/IP constraints.</li>
+          </ul>
+          <img class="mt-2" src="on generate link.png" alt="">
+        </div>
+
+        <div class="p-4 rounded-lg border card">
+          <h4 class="font-semibold">Verification Service</h4>
+          <ul class="mt-2 text-sm text-slate-600 space-y-1 list-disc pl-4">
+            <li>Verifies token conditions (time, WiFi/IP).</li>
+            <li>Runs face matching against Registration Sheet; if match found, marks "Present" on Lecturer Sheet for the appropriate class column.</li>
+          </ul>
+          <img class="mt-2" src="mat now show verification.png" alt="">
+          
+        </div>
+      </div>
+
+      <!-- Flow diagram -->
+      <div class="mt-6 p-4 rounded-lg bg-white border shadow-sm">
+        <h5 class="font-semibold">Quick flow diagram</h5>
+        <div class="mt-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex-1 text-center p-4">
+            <div class="p-3 rounded-full bg-indigo-50 mx-auto inline-block">🧑‍🎓</div>
+            <div class="mt-2 text-sm">Student registers → embedding saved</div>
+          </div>
+          <div class="text-3xl">➡️</div>
+          <div class="flex-1 text-center p-4">
+            <div class="p-3 rounded-full bg-amber-50 mx-auto inline-block">👩‍🏫</div>
+            <div class="mt-2 text-sm">Lecturer generates tokenized link</div>
+          </div>
+          <div class="text-3xl">➡️</div>
+          <div class="flex-1 text-center p-4">
+            <div class="p-3 rounded-full bg-emerald-50 mx-auto inline-block">🔐</div>
+            <div class="mt-2 text-sm">Verification page checks token, WiFi & time</div>
+          </div>
+          <div class="text-3xl">➡️</div>
+          <div class="flex-1 text-center p-4">
+            <div class="p-3 rounded-full bg-rose-50 mx-auto inline-block">✅</div>
+            <div class="mt-2 text-sm">Match → Mark &amp; update Lecturer Sheet</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data schema -->
+    <section class="p-6 rounded-2xl card">
+      <h3 class="text-xl font-bold">2. Data schema (Google Sheets)</h3>
+
+      <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h4 class="font-semibold">Registration Sheet (Main)</h4>
+          <table class="w-full mt-2 text-sm table-auto border-collapse">
+            <thead>
+              <tr class="text-left text-xs text-slate-500">
+                <th class="pr-4">Name</th><th class="pr-4">Matric No</th><th class="pr-4">Email</th><th>Embedding</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm">
+              <tr class="border-t"><td>Ada</td><td>CS/1001</td><td>ada@uni.edu</td><td>128-d array</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h4 class="font-semibold">Lecturer Sheet (Attendance)</h4>
+          <table class="w-full mt-2 text-sm table-auto border-collapse">
+            <thead>
+              <tr class="text-left text-xs text-slate-500">
+                <th class="pr-4">Name</th><th class="pr-4">Matric No</th><th>Class 1 (Apr 25)</th><th>Class 2 (May 2)</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm">
+              <tr class="border-t"><td>Ada</td><td>CS/1001</td><td></td><td>Present</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Token example and verification logic -->
+    <section class="p-6 rounded-2xl">
+      <h3 class="text-xl font-bold">3. Token example & verification logic</h3>
+      <p class="mt-2 text-slate-600">Tokens are short opaque strings produced by the server. They include encrypted data such as the class column label, expiry timestamp, and allowed WiFi/ IP pattern.</p>
+
+      <div class="mt-4 bg-white border rounded p-4">
+        <h4 class="font-semibold">Example (pseudo)</h4>
+        <pre class="text-sm">/verify?token=ENCRYPTED_DATA
+
+ENCRYPTED_DATA -> { "classColumn": "Class 4 (May 9)", "expiry": 1683655200, "wifi": "DEPT-LAB-SSID", "allowedIps": ["10.0.1.0/24"] }</pre>
+      </div>
+
+      <div class="mt-4 grid md:grid-cols-2 gap-4">
+        <div class="p-4 card rounded">
+          <h5 class="font-medium">Verification check flow (server)</h5>
+          <ol class="list-decimal pl-6 mt-2 text-sm text-slate-600">
+            <li>Decode and decrypt token.</li>
+            <li>Ensure current time &lt; expiry.</li>
+            <li>Check student's client WiFi name or IP address matches constraints.</li>
+            <li>If allowed, run face matching against Registration Sheet.</li>
+            <li>If match found, retrieve matricNo and update Lecturer Sheet at the target column with "Present" (idempotent write).</li>
+          </ol>
+        </div>
+
+        <div class="p-4 rounded card">
+          <h5 class="font-medium">Idempotency & safety</h5>
+          <ul class="list-disc pl-6 mt-2 text-sm text-slate-600">
+            <li>Do not overwrite an existing cell unless desired; only set "Present" if cell is blank.</li>
+            <li>Log successful writes with timestamp and verified matricNo.</li>
+            <li>Rate-limit verification requests to avoid abuse.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Implementation notes -->
+    <section class="p-6 rounded-2xl card">
+      <h3 class="text-xl font-bold">4. Implementation notes</h3>
+      <div class="prose text-sm mt-3">
+        <ul class="list-inside space-y-2">
+          <li><strong>Frontend:</strong> simple React or vanilla JS page that captures face, computes embedding (face-api.js), and POSTs to the verification endpoint.</li>
+          <li><strong>Server:</strong> Node.js/Express that issues encrypted tokens, validates token + constraints, and updates Google Sheets via the Google Sheets API using a service account.</li>
+          <li><strong>Security:</strong> use strong encryption for tokens (AES or RSA), store secrets in environment variables, verify token timestamps carefully.</li>
+          <li><strong>Face matching:</strong> cosine similarity threshold (e.g., 0.45-0.6 depending on model). Pre-normalize embeddings before comparing.</li>
+          <li><strong>Deployment:</strong> host verification page on Render, Vercel, or similar; server can be a separate Render service. Keep CORS and CSP tight.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="p-6 text-sm text-slate-500 text-center">
+      Built for quick specification & handoff — copy, adapt, and implement. 
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+
+*{
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+.body::before{
+  background-image: url('/public/bg.jpg');
+}
+
+
+.michroma-regular {
+  font-family: "Michroma", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.google-sans-code-pNameFont {
+  font-family: "Google Sans Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.animate-bounce-twice {
+  animation: bounce-twice 0.7s  ease-out 2;
+}
+
+@keyframes bounce-twice{
+    0%{
+        transform: translateY(0);
+        animation-timing-function:cubic-bezier(1, 1, 0.5, 0.5);
+    }
+    50%{
+        transform: translateY(-20px);
+        animation-timing-function:cubic-bezier(0, 0, 0.2, 1);
+    }
+}
+
+
+
+
+.theunderline{
+  animation-name: underline;
+  animation-duration: 3s;
+
+}
+
+@keyframes underline{
+
+  from{transform: translateX(0px,);}
+  to{transform: translate(60px);}
+  
+}
+
+
+.lOne{
+  animation: roll;
+  animation-duration:  0.7s  ease-out 2;
+}
+
+@keyframes roll{
+  from{transform:translateY(0px);}
+  to{transform:translate(40px);}
+}
+

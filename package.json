@@ -1,0 +1,21 @@
+{
+  "name": "mytail",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@tailwindcss/vite": "^4.1.11",
+    "aos": "^2.3.4",
+    "chart.js": "^4.5.0",
+    "tailwindcss": "^4.1.11"
+  }
+}
