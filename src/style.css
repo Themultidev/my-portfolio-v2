@@ -6,10 +6,6 @@
   box-sizing: border-box;
 }
 
-.body::before{
-  background-image: url('/public/bg.jpg');
-}
-
 
 .michroma-regular {
   font-family: "Michroma", sans-serif;
@@ -64,5 +60,17 @@
 @keyframes roll{
   from{transform:translateY(0px);}
   to{transform:translate(40px);}
+}
+
+
+
+
+.dropcap::first-letter {
+  display: inline-block;
+  background: linear-gradient(90deg, #06b6d4 0%, #fef08a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
