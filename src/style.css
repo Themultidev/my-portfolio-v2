@@ -74,3 +74,61 @@
   color: transparent;
 }
 
+/* Premium reflective steel rail — brushed lines + specular sheen */
+.steel-rail {
+  background-color: #3a4048;
+  background-image:
+  repeating-linear-gradient(
+    90deg,
+    #1a1d22 0px,
+    #2e333a 1px,
+    #4a5159 2px,
+    #7a828c 3px,
+    #c4c9d1 4px,
+    #f2f4f7 5px,
+    #a8aeb6 6px,
+    #5c636b 7px,
+    #353a42 9px,
+    #1a1d22 12px
+  ),
+  linear-gradient(
+    165deg,
+    #0f1114 0%,
+    #2a2f36 12%,
+    #5a6169 28%,
+    #9aa1aa 42%,
+    #e8ebef 50%,
+    #b8bec6 58%,
+    #6e757d 72%,
+    #3d4349 88%,
+    #1e2228 100%
+  );
+  background-blend-mode: overlay, normal;
+}
+
+.steel-rail-text {
+  background-color: #4a5159;
+  background-image:
+  repeating-linear-gradient(
+    90deg,
+    #1a1d22 0%,
+    #6e757d 2%,
+    #d8dce2 4%,
+    #f5f6f8 5%,
+    #8a9199 7%,
+    #2e333a 10%
+  ),
+  linear-gradient(
+    180deg,
+    #1e2228 0%,
+    #6b727a 35%,
+    #e2e5ea 50%,
+    #5c636b 65%,
+    #2a2f36 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
