@@ -1,0 +1,4267 @@
+{
+  "version": 1,
+  "content": [
+    {
+      "key": "mobileNavigation.text.001",
+      "value": "Home",
+      "label": "mobileNavigation: span — Home",
+      "source": {
+        "page": "/",
+        "section": "mobileNavigation",
+        "path": [
+          0,
+          1,
+          1,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "mobileNavigation.text.002",
+      "value": "About",
+      "label": "mobileNavigation: span — About",
+      "source": {
+        "page": "/",
+        "section": "mobileNavigation",
+        "path": [
+          0,
+          1,
+          1,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "mobileNavigation.text.003",
+      "value": "Projects",
+      "label": "mobileNavigation: span — Projects",
+      "source": {
+        "page": "/",
+        "section": "mobileNavigation",
+        "path": [
+          0,
+          1,
+          1,
+          5,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "mobileNavigation.text.004",
+      "value": "Contact",
+      "label": "mobileNavigation: span — Contact",
+      "source": {
+        "page": "/",
+        "section": "mobileNavigation",
+        "path": [
+          0,
+          1,
+          1,
+          7,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "mobileNavigation.text.005",
+      "value": "Resume",
+      "label": "mobileNavigation: span — Resume",
+      "source": {
+        "page": "/",
+        "section": "mobileNavigation",
+        "path": [
+          0,
+          1,
+          3,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "mobileNavigation.text.006",
+      "value": "Twitter",
+      "label": "mobileNavigation: span — Twitter",
+      "source": {
+        "page": "/",
+        "section": "mobileNavigation",
+        "path": [
+          0,
+          1,
+          5,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "mobileNavigation.text.007",
+      "value": "LinkedIn",
+      "label": "mobileNavigation: span — LinkedIn",
+      "source": {
+        "page": "/",
+        "section": "mobileNavigation",
+        "path": [
+          0,
+          1,
+          5,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "desktopNavigation.text.001",
+      "value": "Themultidev",
+      "label": "desktopNavigation: span — Themultidev",
+      "source": {
+        "page": "/",
+        "section": "desktopNavigation",
+        "path": [
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "desktopNavigation.text.002",
+      "value": "Home",
+      "label": "desktopNavigation: a — Home",
+      "source": {
+        "page": "/",
+        "section": "desktopNavigation",
+        "path": [
+          0,
+          1,
+          3,
+          1,
+          1,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "desktopNavigation.text.003",
+      "value": "About",
+      "label": "desktopNavigation: a — About",
+      "source": {
+        "page": "/",
+        "section": "desktopNavigation",
+        "path": [
+          0,
+          1,
+          3,
+          1,
+          3,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "desktopNavigation.text.004",
+      "value": "Projects",
+      "label": "desktopNavigation: a — Projects",
+      "source": {
+        "page": "/",
+        "section": "desktopNavigation",
+        "path": [
+          0,
+          1,
+          3,
+          1,
+          5,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "desktopNavigation.text.005",
+      "value": "Contact",
+      "label": "desktopNavigation: a — Contact",
+      "source": {
+        "page": "/",
+        "section": "desktopNavigation",
+        "path": [
+          0,
+          1,
+          3,
+          1,
+          7,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "desktopNavigation.text.006",
+      "value": "Resume",
+      "label": "desktopNavigation: span — Resume",
+      "source": {
+        "page": "/",
+        "section": "desktopNavigation",
+        "path": [
+          0,
+          1,
+          3,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "desktopNavigation.text.007",
+      "value": "Twitter",
+      "label": "desktopNavigation: span — Twitter",
+      "source": {
+        "page": "/",
+        "section": "desktopNavigation",
+        "path": [
+          0,
+          1,
+          5,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "desktopNavigation.text.008",
+      "value": "LinkedIn",
+      "label": "desktopNavigation: span — LinkedIn",
+      "source": {
+        "page": "/",
+        "section": "desktopNavigation",
+        "path": [
+          0,
+          1,
+          5,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.alt.001",
+      "value": "Worlu Prince — Front-end Developer avatar",
+      "label": "hero: img alt",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          1,
+          1
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "hero.text.002",
+      "value": "Hello 👋, i am   ",
+      "label": "hero: div — Hello 👋, i am",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.003",
+      "value": "WO",
+      "label": "hero: span — WO",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          5,
+          0,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.004",
+      "value": "RLU ",
+      "label": "hero: h1 — RLU",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          5,
+          0,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.005",
+      "value": "PRINCE",
+      "label": "hero: span — PRINCE",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          5,
+          0,
+          2,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.006",
+      "value": " (JNR)",
+      "label": "hero: h1 — (JNR)",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          5,
+          0,
+          3
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.007",
+      "value": "A Full Stack Web and AI developer",
+      "label": "hero: p — A Full Stack Web and AI developer",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          7,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.008",
+      "value": " Multitalented personality and a sharp-witted learner with great attention to detail.",
+      "label": "hero: p — Multitalented personality and a sharp-witted learner with great attent",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          9,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.009",
+      "value": "Connect With Me!",
+      "label": "hero: a — Connect With Me!",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          11,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.010",
+      "value": " View ",
+      "label": "hero: a — View",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          11,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.011",
+      "value": "Prjo",
+      "label": "hero: span — Prjo",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          11,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "hero.text.012",
+      "value": "ects",
+      "label": "hero: a — ects",
+      "source": {
+        "page": "/",
+        "section": "hero",
+        "path": [
+          0,
+          11,
+          3,
+          2
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.001",
+      "value": "About me",
+      "label": "about: h1 — About me",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.alt.002",
+      "value": "Worlu Prince — front-end developer portrait",
+      "label": "about: img alt",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          1,
+          1,
+          3
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "about.text.003",
+      "value": "About me",
+      "label": "about: h1 — About me",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.004",
+      "value": " \n            A Full Stack Web and AI developer  ",
+      "label": "about: p — A Full Stack Web and AI developer",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          5,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.005",
+      "value": " — building clean,secure, functional automated ",
+      "label": "about: span — — building clean,secure, functional automated",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          5,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.006",
+      "value": "🌐web experiences",
+      "label": "about: span — 🌐web experiences",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          5,
+          1,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.007",
+      "value": " and ",
+      "label": "about: span — and",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          5,
+          1,
+          1,
+          2
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.008",
+      "value": "AI tools",
+      "label": "about: span — AI tools",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          5,
+          1,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.009",
+      "value": " for Businesses that scale.",
+      "label": "about: span — for Businesses that scale.",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          5,
+          1,
+          1,
+          4
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.010",
+      "value": "Full-Stack web developement being my core strength,\n             I also leverage AI tools to brainstorm, debug, and assist with AI Developement tasks — helping me deliver complete, functional web experiences tailored to your businesses or companies taste. \n             I'm always eager to learn new technologies and constantly improve my skills to stay ahead in the fast-evolving tech world!.\n          ",
+      "label": "about: p — Full-Stack web developement being my core strength, I also leverage AI",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          7,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.011",
+      "value": "Education",
+      "label": "about: h2 — Education",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.012",
+      "value": "Bsc",
+      "label": "about: span — Bsc",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          3,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.013",
+      "value": " Computer Science ",
+      "label": "about: h4 — Computer Science",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          3,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.014",
+      "value": "🟢",
+      "label": "about: span — 🟢",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          3,
+          2,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.015",
+      "value": "Pgd",
+      "label": "about: span — Pgd",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          5,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.016",
+      "value": " Computer Hardware Eng ",
+      "label": "about: h4 — Computer Hardware Eng",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          5,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.017",
+      "value": "⚫",
+      "label": "about: span — ⚫",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          5,
+          2,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.018",
+      "value": "MsC",
+      "label": "about: span — MsC",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          7,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.019",
+      "value": " Ai Engineering ",
+      "label": "about: h4 — Ai Engineering",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          7,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.020",
+      "value": "⚫",
+      "label": "about: span — ⚫",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          7,
+          2,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.021",
+      "value": "Phd",
+      "label": "about: span — Phd",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          9,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.022",
+      "value": " Robotics ",
+      "label": "about: h4 — Robotics",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          9,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.023",
+      "value": "⚫ ",
+      "label": "about: span — ⚫",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          1,
+          9,
+          2,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.024",
+      "value": "View-Certs",
+      "label": "about: h2 — View-Certs",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.025",
+      "value": "Cisco IoT  ",
+      "label": "about: h4 — Cisco IoT",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.026",
+      "value": "🟢",
+      "label": "about: span — 🟢",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.027",
+      "value": "Amazon SWE ",
+      "label": "about: h4 — Amazon SWE",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.028",
+      "value": "⚫",
+      "label": "about: span — ⚫",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.029",
+      "value": "MicroSoft SWE ",
+      "label": "about: h4 — MicroSoft SWE",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          5,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.030",
+      "value": "⚫",
+      "label": "about: span — ⚫",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          5,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.031",
+      "value": "Codex Ai Engineering ",
+      "label": "about: h4 — Codex Ai Engineering",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          7,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.032",
+      "value": "⚫",
+      "label": "about: span — ⚫",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          7,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.033",
+      "value": "Google SWE ",
+      "label": "about: h4 — Google SWE",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          9,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.034",
+      "value": "⚫",
+      "label": "about: span — ⚫",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          9,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.035",
+      "value": "Open Ai Prompt Engineering ",
+      "label": "about: h4 — Open Ai Prompt Engineering",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          11,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.036",
+      "value": "⚫",
+      "label": "about: span — ⚫",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          11,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.037",
+      "value": "FullStack Software Developer Codecamp",
+      "label": "about: h4 — FullStack Software Developer Codecamp",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          9,
+          3,
+          3,
+          13,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.038",
+      "value": "Technical Skills",
+      "label": "about: h4 — Technical Skills",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.039",
+      "value": "HTML",
+      "label": "about: span — HTML",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.040",
+      "value": "CSS",
+      "label": "about: span — CSS",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.041",
+      "value": "JavaScript",
+      "label": "about: span — JavaScript",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          5,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.042",
+      "value": "Python",
+      "label": "about: span — Python",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          7,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.043",
+      "value": "PHP",
+      "label": "about: span — PHP",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          9,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.044",
+      "value": "SASS",
+      "label": "about: span — SASS",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          11,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.045",
+      "value": "React",
+      "label": "about: span — React",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          13,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.046",
+      "value": "TailwindCSS",
+      "label": "about: span — TailwindCSS",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          15,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.047",
+      "value": "Figma",
+      "label": "about: span — Figma",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          17,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.048",
+      "value": "Bootstrap",
+      "label": "about: span — Bootstrap",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          19,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.049",
+      "value": "AI Prompt Engineering",
+      "label": "about: span — AI Prompt Engineering",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          21,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.050",
+      "value": "Pen & Paper",
+      "label": "about: span — Pen & Paper",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          23,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.051",
+      "value": "Git",
+      "label": "about: span — Git",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          25,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.052",
+      "value": "Github",
+      "label": "about: span — Github",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          1,
+          3,
+          27,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.053",
+      "value": "Soft Skills",
+      "label": "about: h4 — Soft Skills",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.054",
+      "value": "Problem-solving",
+      "label": "about: summary — Problem-solving",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          3,
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.055",
+      "value": "I solve problems by thinking logically, creatively, and persistently until I find solutions.",
+      "label": "about: div — I solve problems by thinking logically, creatively, and persistently u",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          3,
+          3,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.056",
+      "value": "Teamwork",
+      "label": "about: summary — Teamwork",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          3,
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.057",
+      "value": "I collaborate, share ideas, support teammates, and work together to achieve common project goals.",
+      "label": "about: div — I collaborate, share ideas, support teammates, and work together to ac",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          3,
+          3,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.058",
+      "value": "Communication",
+      "label": "about: summary — Communication",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          3,
+          3,
+          5,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.059",
+      "value": "I communicate clearly, listen actively, share ideas, and ensure everyone understands project goals.",
+      "label": "about: div — I communicate clearly, listen actively, share ideas, and ensure everyo",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          3,
+          3,
+          5,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.060",
+      "value": "Adaptability",
+      "label": "about: summary — Adaptability",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          3,
+          3,
+          7,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "about.text.061",
+      "value": "I adapt quickly to new challenges, environments, and technologies to achieve project goals.",
+      "label": "about: div — I adapt quickly to new challenges, environments, and technologies to a",
+      "source": {
+        "page": "/",
+        "section": "about",
+        "path": [
+          0,
+          1,
+          3,
+          11,
+          3,
+          3,
+          7,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.001",
+      "value": " LATEST WORKS",
+      "label": "projects: h1 — LATEST WORKS",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.alt.002",
+      "value": "RD Exchange — project screenshot (HTML, CSS, JavaScript)",
+      "label": "projects: img alt",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          1,
+          1
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "projects.text.003",
+      "value": "Rd Exchange",
+      "label": "projects: h1 — Rd Exchange",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          1,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.004",
+      "value": "While learning HTML, CSS, and JavaScript, I became obsessed with creating a fully functional website. Here, for a brother I built RDExchange  — a lightweight website that lets users submit crypto trade requests, which are sent directly to the trader via email. It was my way of combining what I was learning with solving a real-world problem.",
+      "label": "projects: p — While learning HTML, CSS, and JavaScript, I became obsessed with creat",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          1,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.005",
+      "value": "VISIT",
+      "label": "projects: p — VISIT",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          1,
+          3,
+          7,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.alt.006",
+      "value": "Personal portfolio project screenshot — built with Tailwind CSS and JavaScript",
+      "label": "projects: img alt",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          3,
+          1
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "projects.text.007",
+      "value": "My Portfolio",
+      "label": "projects: h1 — My Portfolio",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.008",
+      "value": "My portfolio, proudly built with Tailwind CSS. This was my very first Tailwind project, and it completely reshaped my preference for it over Bootstrap",
+      "label": "projects: p — My portfolio, proudly built with Tailwind CSS. This was my very first ",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          3,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.009",
+      "value": "VISIT",
+      "label": "projects: p — VISIT",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          3,
+          3,
+          7,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.alt.010",
+      "value": "Face Attendance System — project screenshot (face recognition, Node.js, Google Sheets)",
+      "label": "projects: img alt",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          5,
+          1
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "projects.text.011",
+      "value": "A Three-Module Face Attendance System",
+      "label": "projects: h1 — A Three-Module Face Attendance System",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          5,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.012",
+      "value": "Unlike traditional smart attendance solutions, this system is built as a unique three-app module: a student registration portal, a lecturer portal, and a student verification page. Together, they deliver secure, automated, and tamper-proof attendance marking — powered by face recognition, tokenized class links, WiFi/IP restrictions, and real-time Google Sheets integration.",
+      "label": "projects: p — Unlike traditional smart attendance solutions, this system is built as",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          5,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.013",
+      "value": "VISIT",
+      "label": "projects: p — VISIT",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          5,
+          3,
+          7,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.alt.014",
+      "value": "NCUTS project screenshot — UI preview",
+      "label": "projects: img alt",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          1
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "projects.text.015",
+      "value": "Native Cuts",
+      "label": "projects: h1 — Native Cuts",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.016",
+      "value": "A Full Stack saloon booking website built for the Native Cuts brand",
+      "label": "projects: p — A Full Stack saloon booking website built for the Native Cuts brand",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.017",
+      "value": "Core Feautures",
+      "label": "projects: p — Core Feautures",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          5,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.018",
+      "value": "CRUD enabled",
+      "label": "projects: li — CRUD enabled",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          7,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.019",
+      "value": "Ai integration for booking and hairstyle suggestions",
+      "label": "projects: li — Ai integration for booking and hairstyle suggestions",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          7,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.020",
+      "value": "Admin Dashboard",
+      "label": "projects: li — Admin Dashboard",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          7,
+          5,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.021",
+      "value": "User Authentication",
+      "label": "projects: li — User Authentication",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          7,
+          7,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.022",
+      "value": "User Management",
+      "label": "projects: li — User Management",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          7,
+          9,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.023",
+      "value": "Notification System",
+      "label": "projects: li — Notification System",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          7,
+          11,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.024",
+      "value": "Analytics",
+      "label": "projects: li — Analytics",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          7,
+          13,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.025",
+      "value": "SEO Optimized",
+      "label": "projects: li — SEO Optimized",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          7,
+          15,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.026",
+      "value": "Responsive Design",
+      "label": "projects: li — Responsive Design",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          7,
+          17,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "projects.text.027",
+      "value": "VISIT",
+      "label": "projects: p — VISIT",
+      "source": {
+        "page": "/",
+        "section": "projects",
+        "path": [
+          0,
+          3,
+          9,
+          3,
+          11,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.001",
+      "value": "L",
+      "label": "contact: span — L",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.002",
+      "value": "e",
+      "label": "contact: span — e",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.003",
+      "value": "t",
+      "label": "contact: span — t",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          5,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.004",
+      "value": "s ",
+      "label": "contact: span — s",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          7,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.005",
+      "value": "C",
+      "label": "contact: span — C",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          9,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.006",
+      "value": "o",
+      "label": "contact: span — o",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          11,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.007",
+      "value": "n",
+      "label": "contact: span — n",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          13,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.008",
+      "value": "n",
+      "label": "contact: span — n",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          15,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.009",
+      "value": "e",
+      "label": "contact: span — e",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          17,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.010",
+      "value": "c",
+      "label": "contact: span — c",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          19,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.011",
+      "value": "t",
+      "label": "contact: span — t",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          1,
+          21,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.text.012",
+      "value": "First Name:",
+      "label": "contact: label — First Name:",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          5,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.placeholder.013",
+      "value": "John",
+      "label": "contact: input placeholder",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          5,
+          1,
+          1,
+          1,
+          3
+        ],
+        "kind": "attribute",
+        "attribute": "placeholder"
+      }
+    },
+    {
+      "key": "contact.text.014",
+      "value": "Second Name:",
+      "label": "contact: label — Second Name:",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          5,
+          1,
+          1,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.placeholder.015",
+      "value": "Doe",
+      "label": "contact: input placeholder",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          5,
+          1,
+          1,
+          3,
+          3
+        ],
+        "kind": "attribute",
+        "attribute": "placeholder"
+      }
+    },
+    {
+      "key": "contact.text.016",
+      "value": "Email:",
+      "label": "contact: label — Email:",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          5,
+          1,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.placeholder.017",
+      "value": "johndoe@gmail.com",
+      "label": "contact: input placeholder",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          5,
+          1,
+          3,
+          3
+        ],
+        "kind": "attribute",
+        "attribute": "placeholder"
+      }
+    },
+    {
+      "key": "contact.text.018",
+      "value": "Message:",
+      "label": "contact: label — Message:",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          5,
+          1,
+          5,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "contact.placeholder.019",
+      "value": "Leave me a message...",
+      "label": "contact: textarea placeholder",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          5,
+          1,
+          5,
+          3
+        ],
+        "kind": "attribute",
+        "attribute": "placeholder"
+      }
+    },
+    {
+      "key": "contact.text.020",
+      "value": "Send",
+      "label": "contact: button — Send",
+      "source": {
+        "page": "/",
+        "section": "contact",
+        "path": [
+          0,
+          5,
+          1,
+          7,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "footer.text.001",
+      "value": "Made with ",
+      "label": "footer: p — Made with",
+      "source": {
+        "page": "/",
+        "section": "footer",
+        "path": [
+          0,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "footer.text.002",
+      "value": "❤️",
+      "label": "footer: span — ❤️",
+      "source": {
+        "page": "/",
+        "section": "footer",
+        "path": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "footer.text.003",
+      "value": " by Prince.",
+      "label": "footer: p — by Prince.",
+      "source": {
+        "page": "/",
+        "section": "footer",
+        "path": [
+          0,
+          1,
+          2
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.001",
+      "value": "Face Attendance System",
+      "label": "overview: h1 — Face Attendance System",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.alt.002",
+      "value": "GitHub repository - Face Attendance System",
+      "label": "overview: img alt",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          1,
+          1,
+          1,
+          1,
+          3,
+          0
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "overview.text.003",
+      "value": " By",
+      "label": "overview: span — By",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          1,
+          1,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.004",
+      "value": "Themultidev",
+      "label": "overview: p — Themultidev",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          1,
+          1,
+          1,
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.alt.005",
+      "value": "GitHub icon",
+      "label": "overview: img alt",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          1,
+          1,
+          1,
+          3,
+          1,
+          3
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "overview.text.006",
+      "value": "Worlu Prince",
+      "label": "overview: p — Worlu Prince",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          1,
+          1,
+          1,
+          5,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.007",
+      "value": "Compact system overview • Student registration • Lecturer portal • Verification",
+      "label": "overview: div — Compact system overview • Student registration • Lecturer portal • Ver",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          1,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.008",
+      "value": "System at a glance",
+      "label": "overview: h2 — System at a glance",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.009",
+      "value": "A lightweight attendance system that uses face embeddings stored in Google Sheets. Lecturers generate time-bound, WiFi-restricted verification links; students verify their faces and have attendance automatically marked on the lecturer sheet.",
+      "label": "overview: p — A lightweight attendance system that uses face embeddings stored in Go",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.010",
+      "value": "1. Architecture & Flow",
+      "label": "overview: h3 — 1. Architecture & Flow",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.011",
+      "value": "Student Registration",
+      "label": "overview: h4 — Student Registration",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.012",
+      "value": "Frontend form collects Name, Matric No, Email, Face Embedding (128-d)",
+      "label": "overview: li — Frontend form collects Name, Matric No, Email, Face Embedding (128-d)",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          1,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.013",
+      "value": "Saves complete record to ",
+      "label": "overview: li — Saves complete record to",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.014",
+      "value": "Main Google Sheet (Registration Sheet)",
+      "label": "overview: strong — Main Google Sheet (Registration Sheet)",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.015",
+      "value": ".",
+      "label": "overview: li — .",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          1,
+          3,
+          3,
+          2
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.alt.016",
+      "value": "Student registration UI — Face Attendance System (front-end form screenshot)",
+      "label": "overview: img alt",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          1,
+          5
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "overview.text.017",
+      "value": "Lecturer Portal",
+      "label": "overview: h4 — Lecturer Portal",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.018",
+      "value": "Generate class-specific verification links with encrypted tokens.",
+      "label": "overview: li — Generate class-specific verification links with encrypted tokens.",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.019",
+      "value": "Tokens include: class date/column name, expiry timestamp, WiFi/IP constraints.",
+      "label": "overview: li — Tokens include: class date/column name, expiry timestamp, WiFi/IP cons",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.alt.020",
+      "value": "Lecturer portal — generate tokenized verification link UI",
+      "label": "overview: img alt",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          3,
+          5
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "overview.text.021",
+      "value": "Verification Service",
+      "label": "overview: h4 — Verification Service",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          5,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.022",
+      "value": "Verifies token conditions (time, WiFi/IP).",
+      "label": "overview: li — Verifies token conditions (time, WiFi/IP).",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          5,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.023",
+      "value": "Runs face matching against Registration Sheet; if match found, marks \"Present\" on Lecturer Sheet for the appropriate class column.",
+      "label": "overview: li — Runs face matching against Registration Sheet; if match found, marks \"",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          5,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.alt.024",
+      "value": "Verification page UI — face matching and confirmation",
+      "label": "overview: img alt",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          3,
+          5,
+          5
+        ],
+        "kind": "attribute",
+        "attribute": "alt"
+      }
+    },
+    {
+      "key": "overview.text.025",
+      "value": "Quick flow diagram",
+      "label": "overview: h5 — Quick flow diagram",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.026",
+      "value": "🧑‍🎓",
+      "label": "overview: div — 🧑‍🎓",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.027",
+      "value": "Student registers → embedding saved",
+      "label": "overview: div — Student registers → embedding saved",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.028",
+      "value": "➡️",
+      "label": "overview: div — ➡️",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.029",
+      "value": "👩‍🏫",
+      "label": "overview: div — 👩‍🏫",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          5,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.030",
+      "value": "Lecturer generates tokenized link",
+      "label": "overview: div — Lecturer generates tokenized link",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          5,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.031",
+      "value": "➡️",
+      "label": "overview: div — ➡️",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          7,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.032",
+      "value": "🔐",
+      "label": "overview: div — 🔐",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          9,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.033",
+      "value": "Verification page checks token, WiFi & time",
+      "label": "overview: div — Verification page checks token, WiFi & time",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          9,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.034",
+      "value": "➡️",
+      "label": "overview: div — ➡️",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          11,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.035",
+      "value": "✅",
+      "label": "overview: div — ✅",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          13,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.036",
+      "value": "Match → Mark & update Lecturer Sheet",
+      "label": "overview: div — Match → Mark & update Lecturer Sheet",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          3,
+          5,
+          3,
+          13,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.037",
+      "value": "2. Data schema (Google Sheets)",
+      "label": "overview: h3 — 2. Data schema (Google Sheets)",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.038",
+      "value": "Registration Sheet (Main)",
+      "label": "overview: h4 — Registration Sheet (Main)",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.039",
+      "value": "Name",
+      "label": "overview: th — Name",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          1,
+          3,
+          1,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.040",
+      "value": "Matric No",
+      "label": "overview: th — Matric No",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          1,
+          3,
+          1,
+          1,
+          2,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.041",
+      "value": "Email",
+      "label": "overview: th — Email",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          1,
+          3,
+          1,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.042",
+      "value": "Embedding",
+      "label": "overview: th — Embedding",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          1,
+          3,
+          1,
+          1,
+          4,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.043",
+      "value": "Ada",
+      "label": "overview: td — Ada",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          1,
+          3,
+          3,
+          1,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.044",
+      "value": "CS/1001",
+      "label": "overview: td — CS/1001",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          1,
+          3,
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.045",
+      "value": "ada@uni.edu",
+      "label": "overview: td — ada@uni.edu",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          1,
+          3,
+          3,
+          1,
+          2,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.046",
+      "value": "128-d array",
+      "label": "overview: td — 128-d array",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          1,
+          3,
+          3,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.047",
+      "value": "Lecturer Sheet (Attendance)",
+      "label": "overview: h4 — Lecturer Sheet (Attendance)",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.048",
+      "value": "Name",
+      "label": "overview: th — Name",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          3,
+          3,
+          1,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.049",
+      "value": "Matric No",
+      "label": "overview: th — Matric No",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          3,
+          3,
+          1,
+          1,
+          2,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.050",
+      "value": "Class 1 (Apr 25)",
+      "label": "overview: th — Class 1 (Apr 25)",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          3,
+          3,
+          1,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.051",
+      "value": "Class 2 (May 2)",
+      "label": "overview: th — Class 2 (May 2)",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          3,
+          3,
+          1,
+          1,
+          4,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.052",
+      "value": "Ada",
+      "label": "overview: td — Ada",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          3,
+          3,
+          3,
+          1,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.053",
+      "value": "CS/1001",
+      "label": "overview: td — CS/1001",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          3,
+          3,
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.054",
+      "value": "Present",
+      "label": "overview: td — Present",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          5,
+          3,
+          3,
+          3,
+          3,
+          1,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.055",
+      "value": "3. Token example & verification logic",
+      "label": "overview: h3 — 3. Token example & verification logic",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.056",
+      "value": "Tokens are short opaque strings produced by the server. They include encrypted data such as the class column label, expiry timestamp, and allowed WiFi/ IP pattern.",
+      "label": "overview: p — Tokens are short opaque strings produced by the server. They include e",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.057",
+      "value": "Example (pseudo)",
+      "label": "overview: h4 — Example (pseudo)",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          5,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.058",
+      "value": "/verify?token=ENCRYPTED_DATA ENCRYPTED_DATA -> { \"classColumn\": \"Class 4 (May 9)\", \"expiry\": 1683655200, \"wifi\": \"DEPT-LAB-SSID\", \"allowedIps\": [\"10.0.1.0/24\"] }",
+      "label": "overview: pre — /verify?token=ENCRYPTED_DATA ENCRYPTED_DATA -> { \"classColumn\": \"Class",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          5,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.059",
+      "value": "Verification check flow (server)",
+      "label": "overview: h5 — Verification check flow (server)",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          1,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.060",
+      "value": "Decode and decrypt token.",
+      "label": "overview: li — Decode and decrypt token.",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          1,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.061",
+      "value": "Ensure current time < expiry.",
+      "label": "overview: li — Ensure current time < expiry.",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          1,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.062",
+      "value": "Check student's client WiFi name or IP address matches constraints.",
+      "label": "overview: li — Check student's client WiFi name or IP address matches constraints.",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          1,
+          3,
+          5,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.063",
+      "value": "If allowed, run face matching against Registration Sheet.",
+      "label": "overview: li — If allowed, run face matching against Registration Sheet.",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          1,
+          3,
+          7,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.064",
+      "value": "If match found, retrieve matricNo and update Lecturer Sheet at the target column with \"Present\" (idempotent write).",
+      "label": "overview: li — If match found, retrieve matricNo and update Lecturer Sheet at the tar",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          1,
+          3,
+          9,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.065",
+      "value": "Idempotency & safety",
+      "label": "overview: h5 — Idempotency & safety",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.066",
+      "value": "Do not overwrite an existing cell unless desired; only set \"Present\" if cell is blank.",
+      "label": "overview: li — Do not overwrite an existing cell unless desired; only set \"Present\" i",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          3,
+          3,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.067",
+      "value": "Log successful writes with timestamp and verified matricNo.",
+      "label": "overview: li — Log successful writes with timestamp and verified matricNo.",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          3,
+          3,
+          3,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.068",
+      "value": "Rate-limit verification requests to avoid abuse.",
+      "label": "overview: li — Rate-limit verification requests to avoid abuse.",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          7,
+          7,
+          3,
+          3,
+          5,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.069",
+      "value": "4. Implementation notes",
+      "label": "overview: h3 — 4. Implementation notes",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          1,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.070",
+      "value": "Frontend:",
+      "label": "overview: strong — Frontend:",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          1,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.071",
+      "value": " simple React or vanilla JS page that captures face, computes embedding (face-api.js), and POSTs to the verification endpoint.",
+      "label": "overview: li — simple React or vanilla JS page that captures face, computes embedding",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          1,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.072",
+      "value": "Server:",
+      "label": "overview: strong — Server:",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          3,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.073",
+      "value": " Node.js/Express that issues encrypted tokens, validates token + constraints, and updates Google Sheets via the Google Sheets API using a service account.",
+      "label": "overview: li — Node.js/Express that issues encrypted tokens, validates token + constr",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          3,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.074",
+      "value": "Security:",
+      "label": "overview: strong — Security:",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          5,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.075",
+      "value": " use strong encryption for tokens (AES or RSA), store secrets in environment variables, verify token timestamps carefully.",
+      "label": "overview: li — use strong encryption for tokens (AES or RSA), store secrets in enviro",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          5,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.076",
+      "value": "Face matching:",
+      "label": "overview: strong — Face matching:",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          7,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.077",
+      "value": " cosine similarity threshold (e.g., 0.45-0.6 depending on model). Pre-normalize embeddings before comparing.",
+      "label": "overview: li — cosine similarity threshold (e.g., 0.45-0.6 depending on model). Pre-n",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          7,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.078",
+      "value": "Deployment:",
+      "label": "overview: strong — Deployment:",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          9,
+          0,
+          0
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.079",
+      "value": " host verification page on Render, Vercel, or similar; server can be a separate Render service. Keep CORS and CSP tight.",
+      "label": "overview: li — host verification page on Render, Vercel, or similar; server can be a ",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          11,
+          3,
+          1,
+          9,
+          1
+        ],
+        "kind": "text"
+      }
+    },
+    {
+      "key": "overview.text.080",
+      "value": "\n      Built for quick specification & handoff — copy, adapt, and implement. \n    ",
+      "label": "overview: footer — Built for quick specification & handoff — copy, adapt, and implement.",
+      "source": {
+        "page": "/overview.html",
+        "section": "overview",
+        "path": [
+          3,
+          13,
+          0
+        ],
+        "kind": "text"
+      }
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "sourceId": "boxOne",
+      "title": "Rd Exchange",
+      "description": "While learning HTML, CSS, and JavaScript, I became obsessed with creating a fully functional website. Here, for a brother I built RDExchange  — a lightweight website that lets users submit crypto trade requests, which are sent directly to the trader via email. It was my way of combining what I was learning with solving a real-world problem.",
+      "photoUrl": "/projectimgs/rdex.png",
+      "link": "https://rdexchange.vercel.app/",
+      "repoUrl": null,
+      "order": 0,
+      "published": true,
+      "stackNames": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Google Sheets",
+        "Apps Script"
+      ]
+    },
+    {
+      "id": 2,
+      "sourceId": "boxTwo",
+      "title": "My Portfolio",
+      "description": "My portfolio, proudly built with Tailwind CSS. This was my very first Tailwind project, and it completely reshaped my preference for it over Bootstrap",
+      "photoUrl": "/myport.png",
+      "link": null,
+      "repoUrl": null,
+      "order": 1,
+      "published": true,
+      "stackNames": [
+        "Tailwind CSS",
+        "JavaScript"
+      ]
+    },
+    {
+      "id": 3,
+      "sourceId": "boxThree",
+      "title": "A Three-Module Face Attendance System",
+      "description": "Unlike traditional smart attendance solutions, this system is built as a unique three-app module: a student registration portal, a lecturer portal, and a student verification page. Together, they deliver secure, automated, and tamper-proof attendance marking — powered by face recognition, tokenized class links, WiFi/IP restrictions, and real-time Google Sheets integration.",
+      "photoUrl": "/projectimgs/face attendance system.png",
+      "link": "/overview.html",
+      "repoUrl": null,
+      "order": 2,
+      "published": true,
+      "stackNames": [
+        "Express.js",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Node.js"
+      ]
+    },
+    {
+      "id": 4,
+      "sourceId": "boxFour",
+      "title": "Native Cuts",
+      "description": "A Full Stack saloon booking website built for the Native Cuts brand",
+      "photoUrl": "/projectimgs/ncuts.png",
+      "link": "https://nativecuts.vercel.app/",
+      "repoUrl": null,
+      "order": 3,
+      "published": true,
+      "stackNames": [
+        "Next.js",
+        "Tailwind CSS",
+        "Node.js",
+        "MongoDB"
+      ]
+    }
+  ],
+  "stacks": [
+    {
+      "id": 1,
+      "name": "HTML",
+      "svgPath": "/stacks/html.svg",
+      "order": 0
+    },
+    {
+      "id": 2,
+      "name": "CSS",
+      "svgPath": "/stacks/css.svg",
+      "order": 1
+    },
+    {
+      "id": 3,
+      "name": "JavaScript",
+      "svgPath": "/stacks/javascript.svg",
+      "order": 2
+    },
+    {
+      "id": 4,
+      "name": "Google Sheets",
+      "svgPath": "/stacks/google-sheets.svg",
+      "order": 3
+    },
+    {
+      "id": 5,
+      "name": "Apps Script",
+      "svgPath": "/stacks/apps-script.svg",
+      "order": 4
+    },
+    {
+      "id": 6,
+      "name": "Tailwind CSS",
+      "svgPath": "/stacks/tailwind-css.svg",
+      "order": 5
+    },
+    {
+      "id": 7,
+      "name": "Express.js",
+      "svgPath": "/stacks/express-js.svg",
+      "order": 6
+    },
+    {
+      "id": 8,
+      "name": "Node.js",
+      "svgPath": "/stacks/node-js.svg",
+      "order": 7
+    },
+    {
+      "id": 9,
+      "name": "Next.js",
+      "svgPath": "/stacks/next-js.svg",
+      "order": 8
+    },
+    {
+      "id": 10,
+      "name": "MongoDB",
+      "svgPath": "/stacks/mongodb.svg",
+      "order": 9
+    },
+    {
+      "id": 11,
+      "name": "Python",
+      "svgPath": "/stacks/python.svg",
+      "order": 10
+    },
+    {
+      "id": 12,
+      "name": "PHP",
+      "svgPath": "/stacks/php.svg",
+      "order": 11
+    },
+    {
+      "id": 13,
+      "name": "SASS",
+      "svgPath": "/stacks/sass.svg",
+      "order": 12
+    },
+    {
+      "id": 14,
+      "name": "React",
+      "svgPath": "/stacks/react.svg",
+      "order": 13
+    },
+    {
+      "id": 15,
+      "name": "Figma",
+      "svgPath": "/stacks/figma.svg",
+      "order": 14
+    },
+    {
+      "id": 16,
+      "name": "Bootstrap",
+      "svgPath": "/stacks/bootstrap.svg",
+      "order": 15
+    },
+    {
+      "id": 17,
+      "name": "AI Prompt Engineering",
+      "svgPath": "/stacks/ai-prompt-engineering.svg",
+      "order": 16
+    },
+    {
+      "id": 18,
+      "name": "Pen & Paper",
+      "svgPath": "/stacks/pen-paper.svg",
+      "order": 17
+    },
+    {
+      "id": 19,
+      "name": "Git",
+      "svgPath": "/stacks/git.svg",
+      "order": 18
+    },
+    {
+      "id": 20,
+      "name": "GitHub",
+      "svgPath": "/stacks/github.svg",
+      "order": 19
+    }
+  ]
+}

@@ -90,21 +90,67 @@ will be enforced in the project API and editor in their respective slices.
 Read memberships by `order` and then `stackId` to keep ties deterministic.
 
 `src/lib/db.ts` is restricted to server imports and reuses its Prisma client
-during development reloads. It is not yet connected to the public components;
-content seeding and database-backed rendering are subsequent work.
+during development reloads. Database-backed public rendering will be added
+with the content APIs and shared editor components in later slices.
 
 Run `npm run test:db` to apply the migrations to a unique temporary SQLite
 file and check uniqueness, foreign keys, deletion behavior, and persisted
 icon order through a second client connection. The tests never touch your
-configured database. Admin credentials and content are added by the upcoming
-seed script; this slice creates no real admin account.
+configured database.
+
+## Seed existing content
+
+Before managing content, set `ADMIN_EMAIL` and `ADMIN_PASSWORD` privately in
+`.env.local`, using `.env.example` for the variable names. The password must
+have at least 12 characters and at most 72 UTF-8 bytes (bcrypt's input limit).
+Intentional spaces are preserved. There is no default password. Never commit
+your environment file or send the password in chat.
+
+```sh
+npm run db:migrate
+npm run db:seed
+```
+
+The seed imports 218 plain-text blocks from the portfolio and overview, all
+four projects in their original order, 20 stack definitions, and their ordered
+project memberships. Text whitespace, mixed inline copy, placeholders, image
+descriptions, and Native Cuts' existing feature list are retained. Existing
+SVG artwork is bundled under `public/stacks/`, including the original mismatches
+between some technology labels and their icons. Metadata and SVG titles stay
+in the original components. The Portfolio card's absent link remains `null`.
+
+The admin email is trimmed and lowercased; the password is hashed with bcrypt
+cost 12. Missing or invalid credentials fail before writes. All imports run
+in one transaction, so a conflict leaves no partial seed. Existing admin email
+must match `ADMIN_EMAIL`, and more than one admin is rejected. Re-running the
+seed preserves saved copy, renamed stacks, replacement icons, project fields,
+chip selections/order, and the existing password hash. Changing the environment
+password and seeding again does **not** reset the account password.
+
+Seed a fresh database before creating content: project IDs 1–4 and stack IDs
+1–20 identify the original entries. Missing original entries are restored on
+an explicit re-run; existing entries are never overwritten. New entries use
+auto-incremented IDs beyond these originals.
+
+`prisma/seed-data.json` is the checked-in source manifest. Each block has a stable
+key and its source location in the frozen baseline. Do not regenerate it from
+edited content: `node scripts/capture-seed-data.mjs` deliberately derives it and
+the bundled icons from `migration/static-baseline.json`, without using the
+legacy standalone HTML pages. Project titles/descriptions are also represented
+in the source text inventory; the upcoming project renderer will use Project
+fields as their authoritative editable values.
+
+`npm run test:seed` checks baseline coverage, bundled artwork, initial database
+content, password hashes, repeat-run preservation, and atomic failures using
+temporary SQLite files. It never seeds your configured database.
+`npx prisma db seed` uses the same script through `prisma.config.ts`.
 
 ## Migration status
 
 The public portfolio and `/overview.html` are ported, with separate layouts
-preserving each page's original body styles and metadata. The schema and
-database client are ready. Content seeding, authentication, and the inline editor are planned in subsequent
-commits. Blog work awaits clarification.
+preserving each page's original body styles and metadata. The schema, database
+client, and content seed are ready. Authentication and the inline editor are
+planned in subsequent commits. Blog work awaits clarification.
 
 The original HTML components and Vite tools are retained as a reference until
 the migration comparisons are needed. React components under

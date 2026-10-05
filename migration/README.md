@@ -31,6 +31,16 @@ to overwrite the reference unless explicitly run with `--update`.
 Each slice is verified and paused for the owner to commit. Additional fixes
 can be separate commits when warranted. No commits are made automatically.
 
+## Seed reference
+
+`prisma/seed-data.json` records every nonempty text node outside SVG/script/style
+subtrees in the two frozen public pages, plus placeholder, alt, title, and
+aria-label attributes. Original whitespace is retained. Keys and source paths
+are fixed to this reference so removing legacy HTML does not affect seeding.
+The original four project IDs and 20 stack IDs are stable seed identities;
+reruns create missing rows while preserving existing edits and passwords.
+The seed does not change the public rendering in this commit.
+
 ## Blog finding
 
 The repository contains `blog.html`, an incomplete HTML fragment containing
