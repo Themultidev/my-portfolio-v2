@@ -58,11 +58,52 @@ This verifies layout using these font fixtures, not availability of Google's
 font service or the live map. Contact tests mock EmailJS responses; no email
 is sent.
 
+## Database setup
+
+The database layer uses SQLite and matching Prisma 6 CLI/client versions to
+retain the schema syntax specified in the PRD. Prisma commands load `.env`
+and `.env.local` with the same precedence as Next.js. Set `DATABASE_URL` in
+`.env.local`; the development default is `file:./dev.db`, relative to the
+schema directory (`prisma/dev.db`). A production database connection requires
+an explicit URL. For deployment, use an absolute `file:` URL on a persistent,
+writable disk; the database file is not committed to Git.
+
+Prisma CLI commands use `RUST_LOG=info` so missing-file errors are parsed
+correctly even in environments that suppress engine logs. This works around
+the Prisma 6 CLI's [first-stderr-line parsing issue](https://github.com/prisma/orm/pull/29845)
+and does not change application logging.
+
+```sh
+npm run db:generate
+npm run db:migrate
+```
+
+`db:migrate` applies the committed migration history. During development,
+`npm run db:push` can synchronize a disposable database with the schema;
+use committed migrations for shared and production databases. Builds generate
+the client but do not migrate or seed a database.
+
+The models cover the single admin, plain-text content blocks, projects, stack
+definitions, and ordered project/stack memberships. Project deletion removes
+its memberships. Referenced stacks cannot be deleted. The five-stack limit
+will be enforced in the project API and editor in their respective slices.
+Read memberships by `order` and then `stackId` to keep ties deterministic.
+
+`src/lib/db.ts` is restricted to server imports and reuses its Prisma client
+during development reloads. It is not yet connected to the public components;
+content seeding and database-backed rendering are subsequent work.
+
+Run `npm run test:db` to apply the migrations to a unique temporary SQLite
+file and check uniqueness, foreign keys, deletion behavior, and persisted
+icon order through a second client connection. The tests never touch your
+configured database. Admin credentials and content are added by the upcoming
+seed script; this slice creates no real admin account.
+
 ## Migration status
 
 The public portfolio and `/overview.html` are ported, with separate layouts
-preserving each page's original body styles and metadata. Database-backed
-content, authentication, and the inline editor are planned in subsequent
+preserving each page's original body styles and metadata. The schema and
+database client are ready. Content seeding, authentication, and the inline editor are planned in subsequent
 commits. Blog work awaits clarification.
 
 The original HTML components and Vite tools are retained as a reference until

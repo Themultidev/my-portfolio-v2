@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model ContentBlock {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  label     String
+  updatedAt DateTime @updatedAt
+}
+
+model Stack {
+  id       Int            @id @default(autoincrement())
+  name     String         @unique
+  svgPath  String
+  order    Int            @default(0)
+  projects ProjectStack[]
+}
+
+model Project {
+  id          Int            @id @default(autoincrement())
+  title       String
+  photoUrl    String?
+  description String?
+  link        String?
+  repoUrl     String?
+  order       Int            @default(0)
+  published   Boolean        @default(true)
+  stacks      ProjectStack[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model ProjectStack {
+  projectId Int
+  stackId   Int
+  order     Int     @default(0)
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  stack     Stack   @relation(fields: [stackId], references: [id], onDelete: Restrict)
+
+  @@id([projectId, stackId])
+  @@index([stackId])
+}
