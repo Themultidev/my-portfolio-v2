@@ -62,9 +62,21 @@ const originalSections = [
   ...original.matchAll(/<(header|section)\b[^>]*>[\s\S]*?<\/\1>/g),
 ].map((match) => match[0]);
 assert.equal(originalSections.length, names.length);
-for (const [index, name] of names.entries()) {
+const comparisons = names.map((name, index) => ({
+  name,
+  directory: "portfolio",
+  original: originalSections[index],
+}));
+comparisons.push({
+  name: "OverviewContent",
+  directory: "overview",
+  original: baseline.pages["/overview.html"].match(
+    /<body[^>]*>([\s\S]*?)<\/body>/,
+  )[1],
+});
+for (const { name, directory, original: reference } of comparisons) {
   const source = readFileSync(
-    resolve(root, `src/components/portfolio/${name}.tsx`),
+    resolve(root, `src/components/${directory}/${name}.tsx`),
     "utf8",
   );
   const output = ts.transpileModule(source, {
@@ -76,7 +88,7 @@ for (const [index, name] of names.entries()) {
   const rendered = renderToStaticMarkup(createElement(Component));
   assert.deepEqual(
     tree(parseFragment(rendered)),
-    tree(parseFragment(originalSections[index])),
+    tree(parseFragment(reference)),
     `${name} differs from the static baseline`,
   );
   console.log(

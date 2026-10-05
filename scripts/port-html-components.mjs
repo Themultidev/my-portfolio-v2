@@ -62,7 +62,8 @@ function style(value) {
   );
 }
 
-function render(node) {
+function render(node, compactHead = false) {
+  if (compactHead && node.nodeName === "#text" && !node.value.trim()) return "";
   if (node.nodeName === "#text") return `{${JSON.stringify(node.value)}}`;
   if (!node.tagName) return "";
   const attributes = node.attrs
@@ -93,14 +94,15 @@ function render(node) {
     return `${open} dangerouslySetInnerHTML={{ __html: ${JSON.stringify(content)} }} />`;
   }
   if (!node.childNodes?.length) return `${open} />`;
-  return `${open}>${node.childNodes.map(render).join("")}</${node.tagName}>`;
+  return `${open}>${node.childNodes.map((child) => render(child, compactHead)).join("")}</${node.tagName}>`;
 }
 
-function component(name, html) {
+function component(name, html, directory = target) {
   const tree = parseFragment(html);
+  mkdirSync(directory, { recursive: true });
   writeFileSync(
-    resolve(target, `${name}.tsx`),
-    `// Ported from the static HTML. Preserve classes and markup during migration.\n${html.includes("style=") ? "import type { CSSProperties } from 'react';\n" : ""}export default function ${name}() {\n  return (<>${tree.childNodes.map(render).join("")}</>);\n}\n`,
+    resolve(directory, `${name}.tsx`),
+    `// Ported from the static HTML. Preserve classes and markup during migration.\n${html.includes("style=") ? "import type { CSSProperties } from 'react';\n" : ""}export default function ${name}() {\n  return (<>${tree.childNodes.map((node) => render(node, name.endsWith("Head"))).join("")}</>);\n}\n`,
   );
 }
 
@@ -123,6 +125,20 @@ const head = index
   .match(/<head>([\s\S]*?)<\/head>/)[1]
   .replace(/<link href="src\/style.css" rel="stylesheet">/, "");
 component("PortfolioHead", head);
+const overview = readFileSync(resolve(root, "overview.html"), "utf8");
+const overviewTarget = resolve(root, "src/components/overview");
+component(
+  "OverviewContent",
+  overview.match(/<body[^>]*>([\s\S]*?)<\/body>/)[1],
+  overviewTarget,
+);
+component(
+  "OverviewHead",
+  overview
+    .match(/<head>([\s\S]*?)<\/head>/)[1]
+    .replace(/<link rel="stylesheet" href="\/src\/style.css"\s*\/>/, ""),
+  overviewTarget,
+);
 console.log(
-  "Ported seven sections and the original head without rewriting class strings.",
+  "Ported portfolio and overview markup without rewriting class strings.",
 );

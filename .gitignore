@@ -27,6 +27,8 @@
 .next/
 out/
 *.tsbuildinfo
+test-results/
+playwright-report/
 
 
 # Logs
