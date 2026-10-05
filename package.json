@@ -1,24 +1,40 @@
 {
   "name": "mytail",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint src/app src/components/portfolio src/components/PortfolioEffects.tsx",
+    "typecheck": "tsc --noEmit",
+    "check:parity": "node scripts/check-static-parity.mjs",
+    "port:html": "node scripts/port-html-components.mjs"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.17",
+    "@types/aos": "^3.0.8",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.4.22",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.8",
+    "parse5": "^8.0.1",
     "postcss": "^8.5.6",
+    "prettier": "^3.9.9",
     "tailwindcss": "^4.1.17",
+    "typescript": "^6.0.3",
     "vite": "^7.0.0"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@tailwindcss/vite": "^4.1.11",
     "aos": "^2.3.4",
-    "chart.js": "^4.5.0"
+    "chart.js": "^4.5.0",
+    "next": "^16.3.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   }
 }
