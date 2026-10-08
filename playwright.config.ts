@@ -27,6 +27,13 @@ export default defineConfig({
       url: "http://127.0.0.1:3100",
       reuseExistingServer: false,
       timeout: 60_000,
+      env: {
+        ADMIN_EMAIL: "parity-only@example.invalid",
+        ADMIN_PASSWORD: "parity-only-password",
+        SESSION_SECRET: "parity-only-session-secret-at-least-32-bytes",
+        APP_ORIGIN: "http://127.0.0.1:3100",
+        DATABASE_URL: "file:./dev.db",
+      },
     },
   ],
 });

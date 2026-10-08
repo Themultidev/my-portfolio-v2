@@ -1,4 +1,9 @@
 import type { NextConfig } from "next";
+import { getAuthConfig } from "./src/lib/auth-env";
+
+// Fail startup when private authentication settings are incomplete.
+// Next.js loads .env/.env.local before evaluating this configuration.
+getAuthConfig();
 
 const config: NextConfig = {
   // Keep the existing public EmailJS values working during the migration.

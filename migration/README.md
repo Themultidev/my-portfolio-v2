@@ -41,6 +41,17 @@ The original four project IDs and 20 stack IDs are stable seed identities;
 reruns create missing rows while preserving existing edits and passwords.
 The seed does not change the public rendering in this commit.
 
+## Authentication boundary
+
+Next 16's Proxy verifies the signed cookie before admin routes; every current
+admin page and logout handler also checks the live SQLite account. The login
+route compares bcrypt hashes, checks the configured Origin, and limits attempts.
+The protected project page currently reuses the original project markup without
+editing controls. Public section markup and global CSS remain unchanged.
+
+`npm run test:auth` checks authentication through unit tests, direct production
+HTTP requests, and a headless Chrome login/logout, using disposable data.
+
 ## Blog finding
 
 The repository contains `blog.html`, an incomplete HTML fragment containing
