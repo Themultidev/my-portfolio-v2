@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function LoginPage() {
-  if (await getSession()) redirect("/admin/projects");
+  if (await getSession()) redirect("/admin/edit/portfolio");
 
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-10">

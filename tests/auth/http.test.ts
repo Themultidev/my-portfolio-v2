@@ -235,6 +235,8 @@ test("anonymous direct admin visits redirect and protected mutations return401",
     "/admin/projects",
     "/admin/stacks",
     "/admin/edit/home",
+    "/admin/edit/portfolio",
+    "/admin/edit/overview",
   ]) {
     const response = await request(path);
     assert.equal(response.status, 307, path);
@@ -375,7 +377,7 @@ test("signed sessions access admin and logout requires the live account and exac
     assert.equal(redirected.status, 307);
     assert.equal(
       new URL(redirected.headers.get("location")!, origin).pathname,
-      "/admin/projects",
+      "/admin/edit/portfolio",
     );
   }
   for (const supplied of [undefined, "null", "https://evil.example"]) {
@@ -419,6 +421,12 @@ test(
       context.setDefaultTimeout(15_000);
       context.setDefaultNavigationTimeout(30_000);
       await replayFonts(context);
+      await context.route("https://www.google.com/maps/embed**", (route) =>
+        route.fulfill({
+          contentType: "text/html",
+          body: "<!doctype html><title>Map fixture</title>",
+        }),
+      );
       const page = await context.newPage();
       const errors: string[] = [];
       page.on("pageerror", (error) => errors.push(error.message));
@@ -434,7 +442,7 @@ test(
         .waitFor();
       await page.getByLabel("Password", { exact: true }).fill(password);
       await page.getByRole("button", { name: "Sign in", exact: true }).click();
-      await page.waitForURL(`${origin}/admin/projects`);
+      await page.waitForURL(`${origin}/admin/edit/portfolio`);
       const cookies = await context.cookies();
       const session = cookies.find(
         ({ name }) => name === "__Host-portfolio_session",

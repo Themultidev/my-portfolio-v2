@@ -1,8 +1,8 @@
-// Ported from the static HTML. Preserve classes and markup during migration.
+// Generated from the frozen static source; run node scripts/bind-content-components.mjs.
+import EditableText from "../editor/EditableText";
 export default function DesktopNavigation() {
   return (
     <>
-      {"  "}
       <header className={"hidden lg:block"}>
         {"\n\n    "}
         <nav
@@ -16,7 +16,11 @@ export default function DesktopNavigation() {
             href={"https://github.com/Themultidev"}
           >
             {"\n        "}
-            <span>{"Themultidev"}</span>
+            <span>
+              <EditableText blockKey="desktopNavigation.text.001">
+                {"Themultidev"}
+              </EditableText>
+            </span>
             {" \n        "}
             <svg
               fill={"#ffffffff"}
@@ -50,7 +54,9 @@ export default function DesktopNavigation() {
                   }
                   href={"#home"}
                 >
-                  {"Home"}
+                  <EditableText blockKey="desktopNavigation.text.002">
+                    {"Home"}
+                  </EditableText>
                 </a>
               </li>
               {"\n          "}
@@ -61,7 +67,9 @@ export default function DesktopNavigation() {
                   }
                   href={"#about"}
                 >
-                  {"About"}
+                  <EditableText blockKey="desktopNavigation.text.003">
+                    {"About"}
+                  </EditableText>
                 </a>
               </li>
               {"\n          "}
@@ -72,7 +80,9 @@ export default function DesktopNavigation() {
                   }
                   href={"#projects"}
                 >
-                  {"Projects"}
+                  <EditableText blockKey="desktopNavigation.text.004">
+                    {"Projects"}
+                  </EditableText>
                 </a>
               </li>
               {"\n          "}
@@ -83,7 +93,9 @@ export default function DesktopNavigation() {
                   }
                   href={"#contact"}
                 >
-                  {"Contact"}
+                  <EditableText blockKey="desktopNavigation.text.005">
+                    {"Contact"}
+                  </EditableText>
                 </a>
               </li>
               {"\n        "}
@@ -149,7 +161,9 @@ export default function DesktopNavigation() {
                   "hidden  absolute top-15 right-2.4   text-sm font-semibold p-2 rounded-[5px] text-center bg-white/30 backdrop-blur-2xl opacity-90 translate-x-2  group-hover:inline-block animate-none"
                 }
               >
-                {"Resume"}
+                <EditableText blockKey="desktopNavigation.text.006">
+                  {"Resume"}
+                </EditableText>
               </span>
               {"\n        "}
             </a>
@@ -194,7 +208,9 @@ export default function DesktopNavigation() {
                   " p-1.5 top-15 rounded text-sm bg-zinc-700 absolute hidden group-hover:block "
                 }
               >
-                {"Twitter"}
+                <EditableText blockKey="desktopNavigation.text.007">
+                  {"Twitter"}
+                </EditableText>
               </span>
               {"\n  \n        "}
             </li>
@@ -239,7 +255,9 @@ export default function DesktopNavigation() {
                   " p-1.5 top-15 rounded text-sm bg-zinc-700 absolute hidden group-hover:block "
                 }
               >
-                {"LinkedIn"}
+                <EditableText blockKey="desktopNavigation.text.008">
+                  {"LinkedIn"}
+                </EditableText>
               </span>
               {"  \n  \n        "}
             </li>
@@ -249,7 +267,6 @@ export default function DesktopNavigation() {
         </nav>
         {"\n  "}
       </header>
-      {"\n"}
     </>
   );
 }

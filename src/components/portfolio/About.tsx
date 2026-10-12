@@ -1,9 +1,10 @@
-// Ported from the static HTML. Preserve classes and markup during migration.
+// Generated from the frozen static source; run node scripts/bind-content-components.mjs.
 import type { CSSProperties } from "react";
+import EditableText from "../editor/EditableText";
+import EditableElement from "../editor/EditableElement";
 export default function About() {
   return (
     <>
-      {"  "}
       <section className={"h-fit md:h-full md:py-30 lg:px-10 "} id={"about"}>
         {"\n\n\n\n    "}
         <div className={"grid grid-cols-1 lg:p-4  md:grid-cols-[1fr_2fr]  "}>
@@ -17,14 +18,20 @@ export default function About() {
             <div className={"h-fit md:h-[70%] lg:h-full   border-1  p-5  "}>
               {"\n          "}
               <h1 className={"text-3xl font-semibold md:hidden"}>
-                {"About me"}
+                <EditableText blockKey="about.text.001">
+                  {"About me"}
+                </EditableText>
               </h1>
               {"\n          "}
-              <img
-                className={"w-full h-auto md:h-full lg:h-full object-cover"}
-                data-aos={"fade-up"}
-                src={"/me.jpg"}
-                alt={"Worlu Prince — front-end developer portrait"}
+              <EditableElement
+                tag="img"
+                blockKeys={{ alt: "about.alt.002" }}
+                elementProps={{
+                  className: "w-full h-auto md:h-full lg:h-full object-cover",
+                  "data-aos": "fade-up",
+                  src: "/me.jpg",
+                  alt: "Worlu Prince — front-end developer portrait",
+                }}
               />
               {"\n        "}
             </div>
@@ -39,7 +46,9 @@ export default function About() {
           >
             {"\n          "}
             <h1 className={"hidden text-3xl font-semibold md:block"}>
-              {"About me"}
+              <EditableText blockKey="about.text.003">
+                {"About me"}
+              </EditableText>
             </h1>
             {"\n          "}
             {"\n          "}
@@ -50,26 +59,40 @@ export default function About() {
                   "dropcap font-semibold text-base leading-7 first-letter:font-bold first-letter:leading-none first-letter:text-4xl sm:first-letter:text-5xl md:first-letter:text-6xl lg:first-letter:text-8xl sm:first-letter:mr-2 md:first-letter:mr-3 md:first-letter:float-left  first-letter:bg-gradient-to-r from-cyan-400 to-yellow-200 bg-clip-text bg-transparent uppercase"
                 }
               >
-                {" \n            A Full Stack Web and AI developer  "}
+                <EditableText blockKey="about.text.004">
+                  {" \n            A Full Stack Web and AI developer  "}
+                </EditableText>
                 <span className={"font-normal"}>
-                  {" — building clean,secure, functional automated "}
+                  <EditableText blockKey="about.text.005">
+                    {" — building clean,secure, functional automated "}
+                  </EditableText>
                   <span className={"text-zinc-300 font-light"}>
-                    {"🌐web experiences"}
+                    <EditableText blockKey="about.text.006">
+                      {"🌐web experiences"}
+                    </EditableText>
                   </span>
-                  {" and "}
+                  <EditableText blockKey="about.text.007">
+                    {" and "}
+                  </EditableText>
                   <span className={"text-zinc-300 font-light"}>
-                    {"AI tools"}
+                    <EditableText blockKey="about.text.008">
+                      {"AI tools"}
+                    </EditableText>
                   </span>
-                  {" for Businesses that scale."}
+                  <EditableText blockKey="about.text.009">
+                    {" for Businesses that scale."}
+                  </EditableText>
                 </span>
               </p>
               {"\n          "}
             </div>
             {"\n\n       \n          "}
             <p className={"text-base/6 text-[15px]"}>
-              {
-                "Full-Stack web developement being my core strength,\n             I also leverage AI tools to brainstorm, debug, and assist with AI Developement tasks — helping me deliver complete, functional web experiences tailored to your businesses or companies taste. \n             I'm always eager to learn new technologies and constantly improve my skills to stay ahead in the fast-evolving tech world!.\n          "
-              }
+              <EditableText blockKey="about.text.010">
+                {
+                  "Full-Stack web developement being my core strength,\n             I also leverage AI tools to brainstorm, debug, and assist with AI Developement tasks — helping me deliver complete, functional web experiences tailored to your businesses or companies taste. \n             I'm always eager to learn new technologies and constantly improve my skills to stay ahead in the fast-evolving tech world!.\n          "
+                }
+              </EditableText>
             </p>
             {"\n           \n            \n\n          "}
             <div className={"grid grid-cols-[2fr_2fr] gap-4"}>
@@ -80,30 +103,74 @@ export default function About() {
                 }
               >
                 {"\n              \n              "}
-                <h2 className={"text-lg font-bold"}>{"Education"}</h2>
+                <h2 className={"text-lg font-bold"}>
+                  <EditableText blockKey="about.text.011">
+                    {"Education"}
+                  </EditableText>
+                </h2>
                 {" \n             \n              "}
                 <h4 className={"text-sm font-semibold"}>
-                  <span className={"text-cyan-400"}>{"Bsc"}</span>
-                  {" Computer Science "}
-                  <span id={"Edstatus"}>{"🟢"}</span>
+                  <span className={"text-cyan-400"}>
+                    <EditableText blockKey="about.text.012">
+                      {"Bsc"}
+                    </EditableText>
+                  </span>
+                  <EditableText blockKey="about.text.013">
+                    {" Computer Science "}
+                  </EditableText>
+                  <span id={"Edstatus"}>
+                    <EditableText blockKey="about.text.014">
+                      {"🟢"}
+                    </EditableText>
+                  </span>
                 </h4>
                 {"\n              "}
                 <h4 className={"text-sm font-semibold"}>
-                  <span className={"text-cyan-400"}>{"Pgd"}</span>
-                  {" Computer Hardware Eng "}
-                  <span id={"Edstatus"}>{"⚫"}</span>
+                  <span className={"text-cyan-400"}>
+                    <EditableText blockKey="about.text.015">
+                      {"Pgd"}
+                    </EditableText>
+                  </span>
+                  <EditableText blockKey="about.text.016">
+                    {" Computer Hardware Eng "}
+                  </EditableText>
+                  <span id={"Edstatus"}>
+                    <EditableText blockKey="about.text.017">
+                      {"⚫"}
+                    </EditableText>
+                  </span>
                 </h4>
                 {"\n              "}
                 <h4 className={"text-sm font-semibold"}>
-                  <span className={"text-cyan-400"}>{"MsC"}</span>
-                  {" Ai Engineering "}
-                  <span id={"Edstatus"}>{"⚫"}</span>
+                  <span className={"text-cyan-400"}>
+                    <EditableText blockKey="about.text.018">
+                      {"MsC"}
+                    </EditableText>
+                  </span>
+                  <EditableText blockKey="about.text.019">
+                    {" Ai Engineering "}
+                  </EditableText>
+                  <span id={"Edstatus"}>
+                    <EditableText blockKey="about.text.020">
+                      {"⚫"}
+                    </EditableText>
+                  </span>
                 </h4>
                 {"\n              "}
                 <h4 className={"text-sm font-semibold"}>
-                  <span className={"text-cyan-400"}>{"Phd"}</span>
-                  {" Robotics "}
-                  <span id={"Edstatus"}>{"⚫ "}</span>
+                  <span className={"text-cyan-400"}>
+                    <EditableText blockKey="about.text.021">
+                      {"Phd"}
+                    </EditableText>
+                  </span>
+                  <EditableText blockKey="about.text.022">
+                    {" Robotics "}
+                  </EditableText>
+                  <span id={"Edstatus"}>
+                    <EditableText blockKey="about.text.023">
+                      {"⚫ "}
+                    </EditableText>
+                  </span>
                 </h4>
                 {"\n              \n\n            "}
               </div>
@@ -115,44 +182,84 @@ export default function About() {
               >
                 {"\n              "}
                 <h2 className={"text-lg font-bold underline"}>
-                  {"View-Certs"}
+                  <EditableText blockKey="about.text.024">
+                    {"View-Certs"}
+                  </EditableText>
                 </h2>
                 {"\n              "}
                 <div className={"flex-wrap  *:border-r *:px-2 text-[11px]"}>
                   {"\n                "}
                   <h4 className={" font-semibold"}>
-                    {"Cisco IoT  "}
-                    <span id={"certStatus"}>{"🟢"}</span>
+                    <EditableText blockKey="about.text.025">
+                      {"Cisco IoT  "}
+                    </EditableText>
+                    <span id={"certStatus"}>
+                      <EditableText blockKey="about.text.026">
+                        {"🟢"}
+                      </EditableText>
+                    </span>
                   </h4>
                   {"\n                "}
                   <h4 className={" font-semibold "}>
-                    {"Amazon SWE "}
-                    <span id={"certStatus"}>{"⚫"}</span>
+                    <EditableText blockKey="about.text.027">
+                      {"Amazon SWE "}
+                    </EditableText>
+                    <span id={"certStatus"}>
+                      <EditableText blockKey="about.text.028">
+                        {"⚫"}
+                      </EditableText>
+                    </span>
                     {"  "}
                   </h4>
                   {"\n                "}
                   <h4 className={" font-semibold"}>
-                    {"MicroSoft SWE "}
-                    <span id={"certStatus"}>{"⚫"}</span>{" "}
+                    <EditableText blockKey="about.text.029">
+                      {"MicroSoft SWE "}
+                    </EditableText>
+                    <span id={"certStatus"}>
+                      <EditableText blockKey="about.text.030">
+                        {"⚫"}
+                      </EditableText>
+                    </span>{" "}
                   </h4>
                   {"\n                "}
                   <h4 className={" font-semibold"}>
-                    {"Codex Ai Engineering "}
-                    <span id={"certStatus"}>{"⚫"}</span>{" "}
+                    <EditableText blockKey="about.text.031">
+                      {"Codex Ai Engineering "}
+                    </EditableText>
+                    <span id={"certStatus"}>
+                      <EditableText blockKey="about.text.032">
+                        {"⚫"}
+                      </EditableText>
+                    </span>{" "}
                   </h4>
                   {"\n                "}
                   <h4 className={" font-semibold "}>
-                    {"Google SWE "}
-                    <span id={"certStatus"}>{"⚫"}</span>{" "}
+                    <EditableText blockKey="about.text.033">
+                      {"Google SWE "}
+                    </EditableText>
+                    <span id={"certStatus"}>
+                      <EditableText blockKey="about.text.034">
+                        {"⚫"}
+                      </EditableText>
+                    </span>{" "}
                   </h4>
                   {"\n                "}
                   <h4 className={" font-semibold"}>
-                    {"Open Ai Prompt Engineering "}
-                    <span id={"certStatus"}>{"⚫"}</span>{" "}
+                    <EditableText blockKey="about.text.035">
+                      {"Open Ai Prompt Engineering "}
+                    </EditableText>
+                    <span id={"certStatus"}>
+                      <EditableText blockKey="about.text.036">
+                        {"⚫"}
+                      </EditableText>
+                    </span>{" "}
                   </h4>
                   {"\n                "}
                   <h4 className={" font-semibold"}>
-                    {"FullStack Software Developer Codecamp"}
+                    <EditableText blockKey="about.text.037">
+                      {"FullStack Software Developer Codecamp"}
+                    </EditableText>
                   </h4>
                   {"\n                \n              "}
                 </div>
@@ -166,7 +273,9 @@ export default function About() {
               <div className={"space-y-2 "}>
                 {"\n\n            "}
                 <h4 className={"text-2xl font-semibold "}>
-                  {"Technical Skills"}
+                  <EditableText blockKey="about.text.038">
+                    {"Technical Skills"}
+                  </EditableText>
                 </h4>
                 {"\n\n            "}
                 <div
@@ -185,7 +294,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"HTML"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.039">
+                        {"HTML"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -244,7 +357,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"CSS"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.040">
+                        {"CSS"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -309,7 +426,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"JavaScript"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.041">
+                        {"JavaScript"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -358,7 +479,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"Python"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.042">
+                        {"Python"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -407,7 +532,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"PHP"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.043">
+                        {"PHP"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -456,7 +585,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"SASS"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.044">
+                        {"SASS"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -485,7 +618,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"React"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.045">
+                        {"React"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -534,7 +671,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"TailwindCSS"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.046">
+                        {"TailwindCSS"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -563,7 +704,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"Figma"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.047">
+                        {"Figma"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20px"}
@@ -616,7 +761,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"Bootstrap"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.048">
+                        {"Bootstrap"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -644,7 +793,9 @@ export default function About() {
                     />
                     {"\n                "}
                     <span className={"text-black "}>
-                      {"AI Prompt Engineering"}
+                      <EditableText blockKey="about.text.049">
+                        {"AI Prompt Engineering"}
+                      </EditableText>
                     </span>
                     {"\n                "}
                     <svg
@@ -678,7 +829,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"Pen & Paper"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.050">
+                        {"Pen & Paper"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       version={"1.1"}
@@ -778,7 +933,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"Git"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.051">
+                        {"Git"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       width={"20"}
@@ -813,7 +972,11 @@ export default function About() {
                       className={"inline-block w-2 h-2 bg-black rounded-full"}
                     />
                     {"\n                "}
-                    <span className={"text-black "}>{"Github"}</span>
+                    <span className={"text-black "}>
+                      <EditableText blockKey="about.text.052">
+                        {"Github"}
+                      </EditableText>
+                    </span>
                     {"\n                "}
                     <svg
                       fill={"#000000"}
@@ -838,7 +1001,11 @@ export default function About() {
               {"\n\n          "}
               <div className={"space-y-2 "}>
                 {"\n            "}
-                <h4 className={"text-2xl font-semibold "}>{"Soft Skills"}</h4>
+                <h4 className={"text-2xl font-semibold "}>
+                  <EditableText blockKey="about.text.053">
+                    {"Soft Skills"}
+                  </EditableText>
+                </h4>
                 {"\n\n          "}
                 <div className={"font-semibold space-y-2 *:px-1 "}>
                   {"\n            "}
@@ -849,13 +1016,17 @@ export default function About() {
                         "text-sm font-semibold text-gray-200 select-none"
                       }
                     >
-                      {"Problem-solving"}
+                      <EditableText blockKey="about.text.054">
+                        {"Problem-solving"}
+                      </EditableText>
                     </summary>
                     {"\n              "}
                     <div className={"mt-2 text-sm text-gray-200"}>
-                      {
-                        "I solve problems by thinking logically, creatively, and persistently until I find solutions."
-                      }
+                      <EditableText blockKey="about.text.055">
+                        {
+                          "I solve problems by thinking logically, creatively, and persistently until I find solutions."
+                        }
+                      </EditableText>
                     </div>
                     {"\n            "}
                   </details>
@@ -867,13 +1038,17 @@ export default function About() {
                         "text-sm font-semibold text-gray-200 select-none"
                       }
                     >
-                      {"Teamwork"}
+                      <EditableText blockKey="about.text.056">
+                        {"Teamwork"}
+                      </EditableText>
                     </summary>
                     {"\n              "}
                     <div className={"mt-2 text-sm text-gray-200"}>
-                      {
-                        "I collaborate, share ideas, support teammates, and work together to achieve common project goals."
-                      }
+                      <EditableText blockKey="about.text.057">
+                        {
+                          "I collaborate, share ideas, support teammates, and work together to achieve common project goals."
+                        }
+                      </EditableText>
                     </div>
                     {"\n            "}
                   </details>
@@ -885,13 +1060,17 @@ export default function About() {
                         "text-sm font-semibold text-gray-200 select-none"
                       }
                     >
-                      {"Communication"}
+                      <EditableText blockKey="about.text.058">
+                        {"Communication"}
+                      </EditableText>
                     </summary>
                     {"\n              "}
                     <div className={"mt-2 text-sm text-gray-200"}>
-                      {
-                        "I communicate clearly, listen actively, share ideas, and ensure everyone understands project goals."
-                      }
+                      <EditableText blockKey="about.text.059">
+                        {
+                          "I communicate clearly, listen actively, share ideas, and ensure everyone understands project goals."
+                        }
+                      </EditableText>
                     </div>
                     {"\n            "}
                   </details>
@@ -903,13 +1082,17 @@ export default function About() {
                         "text-sm font-semibold text-gray-200 select-none"
                       }
                     >
-                      {"Adaptability"}
+                      <EditableText blockKey="about.text.060">
+                        {"Adaptability"}
+                      </EditableText>
                     </summary>
                     {"\n              "}
                     <div className={"mt-2 text-sm text-gray-200"}>
-                      {
-                        "I adapt quickly to new challenges, environments, and technologies to achieve project goals."
-                      }
+                      <EditableText blockKey="about.text.061">
+                        {
+                          "I adapt quickly to new challenges, environments, and technologies to achieve project goals."
+                        }
+                      </EditableText>
                     </div>
                     {"\n            "}
                   </details>
@@ -923,7 +1106,6 @@ export default function About() {
           </div>
         </div>
       </section>
-      {"\n"}
     </>
   );
 }

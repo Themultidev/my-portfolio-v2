@@ -22,8 +22,7 @@ export default defineConfig({
       timeout: 60_000,
     },
     {
-      command:
-        "node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100",
+      command: "node --import tsx tests/migration/start-next-preview.ts",
       url: "http://127.0.0.1:3100",
       reuseExistingServer: false,
       timeout: 60_000,
@@ -32,7 +31,6 @@ export default defineConfig({
         ADMIN_PASSWORD: "parity-only-password",
         SESSION_SECRET: "parity-only-session-secret-at-least-32-bytes",
         APP_ORIGIN: "http://127.0.0.1:3100",
-        DATABASE_URL: "file:./dev.db",
       },
     },
   ],

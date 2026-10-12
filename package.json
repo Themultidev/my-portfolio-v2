@@ -7,9 +7,9 @@
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "eslint src/app src/components/portfolio src/components/overview src/components/auth src/components/PortfolioEffects.tsx src/lib src/proxy.ts tests prisma/*.ts prisma.config.ts next.config.ts playwright.config.ts",
+    "lint": "eslint src/app src/components/portfolio src/components/overview src/components/auth src/components/editor src/components/PortfolioEffects.tsx src/lib src/proxy.ts tests prisma/*.ts prisma.config.ts next.config.ts playwright.config.ts",
     "typecheck": "tsc --noEmit",
-    "check:parity": "node scripts/check-static-parity.mjs",
+    "check:parity": "node --import tsx scripts/check-static-parity.mjs",
     "port:html": "node scripts/port-html-components.mjs",
     "check:visual": "playwright test",
     "postinstall": "prisma generate",
@@ -22,7 +22,8 @@
     "test:seed": "node --import tsx --test tests/database/seed.test.ts tests/database/seed-artifacts.test.ts",
     "auth:setup": "node scripts/setup-auth-env.mjs",
     "test:auth": "node --conditions=react-server --import tsx --test tests/auth/unit.test.ts tests/auth/http.test.ts",
-    "test:content": "node --conditions=react-server --import tsx --test tests/content/content-api.test.ts"
+    "test:content": "node --conditions=react-server --import tsx --test tests/content/content-api.test.ts",
+    "test:editor": "node --conditions=react-server --import tsx --test tests/editor/inline-editor.test.ts"
   },
   "devDependencies": {
     "@fontsource-variable/google-sans-code": "^5.3.1",

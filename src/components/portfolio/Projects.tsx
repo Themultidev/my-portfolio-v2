@@ -1,9 +1,10 @@
-// Ported from the static HTML. Preserve classes and markup during migration.
+// Generated from the frozen static source; run node scripts/bind-content-components.mjs.
 import type { CSSProperties } from "react";
+import EditableText from "../editor/EditableText";
+import EditableElement from "../editor/EditableElement";
 export default function Projects() {
   return (
     <>
-      {"  "}
       <section
         className={
           "px-10 py-40 space-y-20 h-fit md:h-full md:py-30 md:px-16 lg:px-24"
@@ -17,7 +18,9 @@ export default function Projects() {
               " text-center text-[27px] md:text-[40px] font-bold font-[Michroma]  text-cyan-400 mb-4"
             }
           >
-            {" LATEST WORKS"}
+            <EditableText blockKey="projects.text.001">
+              {" LATEST WORKS"}
+            </EditableText>
           </h1>
         </div>
         {"\n    "}
@@ -36,10 +39,14 @@ export default function Projects() {
             id={"boxOne"}
           >
             {"\n  "}
-            <img
-              className={"w-full h-auto md:h-[100%] object-cover"}
-              src={"/projectimgs/rdex.png"}
-              alt={"RD Exchange — project screenshot (HTML, CSS, JavaScript)"}
+            <EditableElement
+              tag="img"
+              blockKeys={{ alt: "projects.alt.002" }}
+              elementProps={{
+                className: "w-full h-auto md:h-[100%] object-cover",
+                src: "/projectimgs/rdex.png",
+                alt: "RD Exchange — project screenshot (HTML, CSS, JavaScript)",
+              }}
             />
             {"\n       \n       "}
             <div
@@ -49,13 +56,17 @@ export default function Projects() {
             >
               {"\n\n        "}
               <h1 className={"text-[20px]  text-cyan-400   "}>
-                {"Rd Exchange"}
+                <EditableText blockKey="projects.text.003">
+                  {"Rd Exchange"}
+                </EditableText>
               </h1>
               {"\n        "}
               <p>
-                {
-                  "While learning HTML, CSS, and JavaScript, I became obsessed with creating a fully functional website. Here, for a brother I built RDExchange  — a lightweight website that lets users submit crypto trade requests, which are sent directly to the trader via email. It was my way of combining what I was learning with solving a real-world problem."
-                }
+                <EditableText blockKey="projects.text.004">
+                  {
+                    "While learning HTML, CSS, and JavaScript, I became obsessed with creating a fully functional website. Here, for a brother I built RDExchange  — a lightweight website that lets users submit crypto trade requests, which are sent directly to the trader via email. It was my way of combining what I was learning with solving a real-world problem."
+                  }
+                </EditableText>
               </p>
               {"\n\n        "}
               <ul
@@ -390,7 +401,11 @@ export default function Projects() {
                     {"\n            "}
                   </svg>
                   {"\n            "}
-                  <p>{"VISIT"}</p>
+                  <p>
+                    <EditableText blockKey="projects.text.005">
+                      {"VISIT"}
+                    </EditableText>
+                  </p>
                   {"\n          "}
                 </a>
                 {"\n        "}
@@ -408,24 +423,30 @@ export default function Projects() {
             id={"boxTwo"}
           >
             {"\n      \n  "}
-            <img
-              className={"w-full h-auto md:h-[80%] object-cover"}
-              src={"/myport.png"}
-              alt={
-                "Personal portfolio project screenshot — built with Tailwind CSS and JavaScript"
-              }
+            <EditableElement
+              tag="img"
+              blockKeys={{ alt: "projects.alt.006" }}
+              elementProps={{
+                className: "w-full h-auto md:h-[80%] object-cover",
+                src: "/myport.png",
+                alt: "Personal portfolio project screenshot — built with Tailwind CSS and JavaScript",
+              }}
             />
             {"\n\n       "}
             <div className={"flex flex-col gap-6 p-3 "}>
               {"\n        \n        "}
               <h1 className={"text-[20px] uppercase text-cyan-400 "}>
-                {"My Portfolio"}
+                <EditableText blockKey="projects.text.007">
+                  {"My Portfolio"}
+                </EditableText>
               </h1>
               {"\n        "}
               <p className={""}>
-                {
-                  "My portfolio, proudly built with Tailwind CSS. This was my very first Tailwind project, and it completely reshaped my preference for it over Bootstrap"
-                }
+                <EditableText blockKey="projects.text.008">
+                  {
+                    "My portfolio, proudly built with Tailwind CSS. This was my very first Tailwind project, and it completely reshaped my preference for it over Bootstrap"
+                  }
+                </EditableText>
               </p>
               {"\n        \n        "}
               <ul
@@ -562,7 +583,11 @@ export default function Projects() {
                     {"\n            "}
                   </svg>
                   {"\n            "}
-                  <p>{"VISIT"}</p>
+                  <p>
+                    <EditableText blockKey="projects.text.009">
+                      {"VISIT"}
+                    </EditableText>
+                  </p>
                   {"\n          "}
                 </a>
                 {"\n        "}
@@ -581,24 +606,30 @@ export default function Projects() {
             id={"boxThree"}
           >
             {"\n      \n  "}
-            <img
-              className={"w-full h-auto md:h-[100%] object-cover"}
-              src={"/projectimgs/face attendance system.png"}
-              alt={
-                "Face Attendance System — project screenshot (face recognition, Node.js, Google Sheets)"
-              }
+            <EditableElement
+              tag="img"
+              blockKeys={{ alt: "projects.alt.010" }}
+              elementProps={{
+                className: "w-full h-auto md:h-[100%] object-cover",
+                src: "/projectimgs/face attendance system.png",
+                alt: "Face Attendance System — project screenshot (face recognition, Node.js, Google Sheets)",
+              }}
             />
             {"\n\n       "}
             <div className={"flex flex-col gap-6 p-3 pb-4 "}>
               {"\n        \n        "}
               <h1 className={"text-[20px]  uppercase text-cyan-400 "}>
-                {"A Three-Module Face Attendance System"}
+                <EditableText blockKey="projects.text.011">
+                  {"A Three-Module Face Attendance System"}
+                </EditableText>
               </h1>
               {"\n        "}
               <p className={""}>
-                {
-                  "Unlike traditional smart attendance solutions, this system is built as a unique three-app module: a student registration portal, a lecturer portal, and a student verification page. Together, they deliver secure, automated, and tamper-proof attendance marking — powered by face recognition, tokenized class links, WiFi/IP restrictions, and real-time Google Sheets integration."
-                }
+                <EditableText blockKey="projects.text.012">
+                  {
+                    "Unlike traditional smart attendance solutions, this system is built as a unique three-app module: a student registration portal, a lecturer portal, and a student verification page. Together, they deliver secure, automated, and tamper-proof attendance marking — powered by face recognition, tokenized class links, WiFi/IP restrictions, and real-time Google Sheets integration."
+                  }
+                </EditableText>
               </p>
               {"\n        \n        "}
               <ul
@@ -883,7 +914,11 @@ export default function Projects() {
                     {"\n            "}
                   </svg>
                   {"\n            "}
-                  <p>{"VISIT"}</p>
+                  <p>
+                    <EditableText blockKey="projects.text.013">
+                      {"VISIT"}
+                    </EditableText>
+                  </p>
                   {"\n          "}
                 </a>
                 {"\n        "}
@@ -903,10 +938,14 @@ export default function Projects() {
             id={"boxFour"}
           >
             {"\n  "}
-            <img
-              className={"h-auto  "}
-              src={"/projectimgs/ncuts.png"}
-              alt={"NCUTS project screenshot — UI preview"}
+            <EditableElement
+              tag="img"
+              blockKeys={{ alt: "projects.alt.014" }}
+              elementProps={{
+                className: "h-auto  ",
+                src: "/projectimgs/ncuts.png",
+                alt: "NCUTS project screenshot — UI preview",
+              }}
             />
             {"\n       \n       "}
             <div
@@ -916,40 +955,80 @@ export default function Projects() {
             >
               {"\n\n        "}
               <h1 className={"text-[20px]  text-cyan-400  "}>
-                {"Native Cuts"}
+                <EditableText blockKey="projects.text.015">
+                  {"Native Cuts"}
+                </EditableText>
               </h1>
               {"\n        "}
               <p className={"text-center text-base"}>
-                {
-                  "A Full Stack saloon booking website built for the Native Cuts brand"
-                }
+                <EditableText blockKey="projects.text.016">
+                  {
+                    "A Full Stack saloon booking website built for the Native Cuts brand"
+                  }
+                </EditableText>
               </p>
               {"\n        "}
               <p className={" text-base text-left text-yellow-400"}>
-                {"Core Feautures"}
+                <EditableText blockKey="projects.text.017">
+                  {"Core Feautures"}
+                </EditableText>
               </p>
               {"\n        "}
               <ul className={"list-disc list-inside text-left"}>
                 {"\n          "}
-                <li>{"CRUD enabled"}</li>
-                {"\n          "}
                 <li>
-                  {"Ai integration for booking and hairstyle suggestions"}
+                  <EditableText blockKey="projects.text.018">
+                    {"CRUD enabled"}
+                  </EditableText>
                 </li>
                 {"\n          "}
-                <li>{"Admin Dashboard"}</li>
+                <li>
+                  <EditableText blockKey="projects.text.019">
+                    {"Ai integration for booking and hairstyle suggestions"}
+                  </EditableText>
+                </li>
                 {"\n          "}
-                <li>{"User Authentication"}</li>
+                <li>
+                  <EditableText blockKey="projects.text.020">
+                    {"Admin Dashboard"}
+                  </EditableText>
+                </li>
                 {"\n          "}
-                <li>{"User Management"}</li>
+                <li>
+                  <EditableText blockKey="projects.text.021">
+                    {"User Authentication"}
+                  </EditableText>
+                </li>
                 {"\n          "}
-                <li>{"Notification System"}</li>
+                <li>
+                  <EditableText blockKey="projects.text.022">
+                    {"User Management"}
+                  </EditableText>
+                </li>
                 {"\n          "}
-                <li>{"Analytics"}</li>
+                <li>
+                  <EditableText blockKey="projects.text.023">
+                    {"Notification System"}
+                  </EditableText>
+                </li>
                 {"\n          "}
-                <li>{"SEO Optimized"}</li>
+                <li>
+                  <EditableText blockKey="projects.text.024">
+                    {"Analytics"}
+                  </EditableText>
+                </li>
                 {"\n          "}
-                <li>{"Responsive Design"}</li>
+                <li>
+                  <EditableText blockKey="projects.text.025">
+                    {"SEO Optimized"}
+                  </EditableText>
+                </li>
+                {"\n          "}
+                <li>
+                  <EditableText blockKey="projects.text.026">
+                    {"Responsive Design"}
+                  </EditableText>
+                </li>
                 {"\n        "}
               </ul>
               {"\n\n        "}
@@ -1111,7 +1190,11 @@ export default function Projects() {
                     {"\n            "}
                   </svg>
                   {"\n            "}
-                  <p>{"VISIT"}</p>
+                  <p>
+                    <EditableText blockKey="projects.text.027">
+                      {"VISIT"}
+                    </EditableText>
+                  </p>
                   {"\n          "}
                 </a>
                 {"\n        "}
@@ -1124,7 +1207,6 @@ export default function Projects() {
         </div>
         {"\n\n    \n\n    \n  "}
       </section>
-      {"\n"}
     </>
   );
 }

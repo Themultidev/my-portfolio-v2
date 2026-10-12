@@ -46,8 +46,9 @@ The seed does not change the public rendering in this commit.
 Next 16's Proxy verifies the signed cookie before admin routes; every current
 admin page and logout handler also checks the live SQLite account. The login
 route compares bcrypt hashes, checks the configured Origin, and limits attempts.
-The protected project page currently reuses the original project markup without
-editing controls. Public section markup and global CSS remain unchanged.
+Login and `/admin` open the complete portfolio editor. The shared provider wraps
+all admin pages, while each page also checks the live session. Public section
+markup and global CSS remain unchanged.
 
 `npm run test:auth` checks authentication through unit tests, direct production
 HTTP requests, and a headless Chrome login/logout, using disposable data.
@@ -59,8 +60,18 @@ the live admin session and trusted Origin in the handler. JSON is bounded to
 64 KiB, plain text to 10,000 JavaScript string units, and keys/labels remain
 immutable. Invalid requests do not write; missing blocks are not recreated.
 `npm run test:content` exercises persistence, validation, and guards through
-HTTP and direct handler calls with isolated data. Public rendering and inline
-editing are added in the next slice.
+HTTP and direct handler calls with isolated data.
+
+## Inline editing boundary
+
+The eight section components bind all 218 seeded text/attribute keys. Public
+providers return the same native markup with saved values; admin providers add
+click-to-edit affordances and guarded navigation. Both public routes read fresh
+database content per request. `/admin/edit/portfolio` reuses all seven portfolio
+sections; `/admin/edit/overview` preserves the original light layout. The owner
+requested the full portfolio as the landing page after login instead of Projects.
+`npm run test:editor` verifies editing and persistence with isolated data; visual
+parity uses a separately seeded test database.
 
 ## Blog finding
 

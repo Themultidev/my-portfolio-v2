@@ -1,9 +1,10 @@
-// Ported from the static HTML. Preserve classes and markup during migration.
+// Generated from the frozen static source; run node scripts/bind-content-components.mjs.
 import type { CSSProperties } from "react";
+import EditableText from "../editor/EditableText";
+import EditableElement from "../editor/EditableElement";
 export default function Contact() {
   return (
     <>
-      {"  "}
       <section
         className={
           "px-10 py-40 space-y-15 h-fit md:h-full md:py-30 md:px-16 lg:px-24 "
@@ -18,11 +19,11 @@ export default function Contact() {
         >
           {"\n      "}
           <span className={"lOne"} data-aos={"fade-up"}>
-            {"L"}
+            <EditableText blockKey="contact.text.001">{"L"}</EditableText>
           </span>
           {" \n      "}
           <span className={"lTwo"} data-aos={"fade-up"} data-aos-delay={"200"}>
-            {"e"}
+            <EditableText blockKey="contact.text.002">{"e"}</EditableText>
           </span>
           {" \n      "}
           <span
@@ -30,35 +31,35 @@ export default function Contact() {
             data-aos={"fade-up"}
             data-aos-delay={"300"}
           >
-            {"t"}
+            <EditableText blockKey="contact.text.003">{"t"}</EditableText>
           </span>
           {" \n      "}
           <span className={"lFour"} data-aos={"fade-up"} data-aos-delay={"400"}>
-            {"s "}
+            <EditableText blockKey="contact.text.004">{"s "}</EditableText>
           </span>
           {" \n      "}
           <span className={"lFive"} data-aos={"fade-up"} data-aos-delay={"500"}>
-            {"C"}
+            <EditableText blockKey="contact.text.005">{"C"}</EditableText>
           </span>
           {" \n      "}
           <span className={"lSix"} data-aos={"fade-up"} data-aos-delay={"600"}>
-            {"o"}
+            <EditableText blockKey="contact.text.006">{"o"}</EditableText>
           </span>
           {" \n      "}
           <span className={"lSev"} data-aos={"fade-up"} data-aos-delay={"700"}>
-            {"n"}
+            <EditableText blockKey="contact.text.007">{"n"}</EditableText>
           </span>
           {" \n      "}
           <span className={"lEig"} data-aos={"fade-up"} data-aos-delay={"800"}>
-            {"n"}
+            <EditableText blockKey="contact.text.008">{"n"}</EditableText>
           </span>
           {" \n      "}
           <span className={"lNine"} data-aos={"fade-up"} data-aos-delay={"900"}>
-            {"e"}
+            <EditableText blockKey="contact.text.009">{"e"}</EditableText>
           </span>
           {" \n      "}
           <span className={"lTen"} data-aos={"fade-up"} data-aos-delay={"1000"}>
-            {"c"}
+            <EditableText blockKey="contact.text.010">{"c"}</EditableText>
           </span>
           {" \n      "}
           <span
@@ -66,7 +67,7 @@ export default function Contact() {
             data-aos={"fade-up"}
             data-aos-delay={"1100"}
           >
-            {"t"}
+            <EditableText blockKey="contact.text.011">{"t"}</EditableText>
           </span>
           {"\n    "}
         </h1>
@@ -359,28 +360,44 @@ export default function Contact() {
               {"\n          "}
               <div className={""}>
                 {"\n            "}
-                <label>{"First Name:"}</label>
+                <label>
+                  <EditableText blockKey="contact.text.012">
+                    {"First Name:"}
+                  </EditableText>
+                </label>
                 {"\n            "}
-                <input
-                  type={"text"}
-                  placeholder={"John"}
-                  className={"w-full p-5 border-b-2 rounded-b-md outline-0"}
-                  name={"fName"}
-                  required={true}
+                <EditableElement
+                  tag="input"
+                  blockKeys={{ placeholder: "contact.placeholder.013" }}
+                  elementProps={{
+                    type: "text",
+                    placeholder: "John",
+                    className: "w-full p-5 border-b-2 rounded-b-md outline-0",
+                    name: "fName",
+                    required: true,
+                  }}
                 />
                 {"\n          "}
               </div>
               {"\n\n          "}
               <div>
                 {"\n            "}
-                <label>{"Second Name:"}</label>
+                <label>
+                  <EditableText blockKey="contact.text.014">
+                    {"Second Name:"}
+                  </EditableText>
+                </label>
                 {"\n            "}
-                <input
-                  type={"text"}
-                  placeholder={"Doe"}
-                  className={"w-full p-5 border-b-2 rounded-b-sm outline-0"}
-                  name={"sName"}
-                  required={true}
+                <EditableElement
+                  tag="input"
+                  blockKeys={{ placeholder: "contact.placeholder.015" }}
+                  elementProps={{
+                    type: "text",
+                    placeholder: "Doe",
+                    className: "w-full p-5 border-b-2 rounded-b-sm outline-0",
+                    name: "sName",
+                    required: true,
+                  }}
                 />
                 {"\n          "}
               </div>
@@ -389,30 +406,45 @@ export default function Contact() {
             {"\n\n        "}
             <div>
               {"\n          "}
-              <label>{"Email:"}</label>
+              <label>
+                <EditableText blockKey="contact.text.016">
+                  {"Email:"}
+                </EditableText>
+              </label>
               {"\n          "}
-              <input
-                type={"email"}
-                placeholder={"johndoe@gmail.com"}
-                className={"w-full p-5 border-b-2 rounded-b-sm outline-0"}
-                name={"email"}
-                required={true}
+              <EditableElement
+                tag="input"
+                blockKeys={{ placeholder: "contact.placeholder.017" }}
+                elementProps={{
+                  type: "email",
+                  placeholder: "johndoe@gmail.com",
+                  className: "w-full p-5 border-b-2 rounded-b-sm outline-0",
+                  name: "email",
+                  required: true,
+                }}
               />
               {"\n        "}
             </div>
             {"\n\n        "}
             <div className={""}>
               {"\n          "}
-              <label>{"Message:"}</label>
+              <label>
+                <EditableText blockKey="contact.text.018">
+                  {"Message:"}
+                </EditableText>
+              </label>
               {"\n          "}
-              <textarea
-                {...{ type: "text" }}
-                className={
-                  "w-full px-5 py-8 rounded-b-sm resize-none overflow- border-b2 outline-0 "
-                }
-                placeholder={"Leave me a message..."}
-                required={true}
-                name={"mSg"}
+              <EditableElement
+                tag="textarea"
+                blockKeys={{ placeholder: "contact.placeholder.019" }}
+                elementProps={{
+                  type: "text",
+                  className:
+                    "w-full px-5 py-8 rounded-b-sm resize-none overflow- border-b2 outline-0 ",
+                  placeholder: "Leave me a message...",
+                  required: true,
+                  name: "mSg",
+                }}
               />
               {"\n        "}
             </div>
@@ -423,7 +455,7 @@ export default function Contact() {
                 "px-5 py-3 text-lg text-center font-semibold  rounded-md w-[100%]  bg-cyan-800 border-2 border-double  hover:bg-gradient-to-r from-blue-200 to-yellow-300 hover:text-gray-800 hover:border-blue-950"
               }
             >
-              {"Send"}
+              <EditableText blockKey="contact.text.020">{"Send"}</EditableText>
             </button>
             {"\n\n      "}
           </form>
@@ -453,7 +485,6 @@ export default function Contact() {
         </div>
         {"\n    \n\n  "}
       </section>
-      {"\n"}
     </>
   );
 }

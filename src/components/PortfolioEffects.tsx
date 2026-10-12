@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import AOS from "aos";
 import emailjs from "@emailjs/browser";
 
-export default function PortfolioEffects() {
+export default function PortfolioEffects({
+  editable = false,
+}: {
+  editable?: boolean;
+}) {
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
 
@@ -15,6 +19,7 @@ export default function PortfolioEffects() {
 
     function submit(event: SubmitEvent) {
       event.preventDefault();
+      if (editable) return;
       emailjs
         .sendForm(
           process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
@@ -34,7 +39,7 @@ export default function PortfolioEffects() {
 
     form.addEventListener("submit", submit);
     return () => form.removeEventListener("submit", submit);
-  }, []);
+  }, [editable]);
 
   return null;
 }

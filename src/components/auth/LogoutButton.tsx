@@ -8,6 +8,8 @@ export default function LogoutButton() {
 
   async function logout() {
     if (isSubmitting) return;
+    const leave = new Event("portfolio:before-leave", { cancelable: true });
+    if (!window.dispatchEvent(leave)) return;
     setError("");
     setIsSubmitting(true);
 
@@ -35,6 +37,7 @@ export default function LogoutButton() {
     <div className="fixed right-4 top-4 z-50 text-right">
       <button
         type="button"
+        onPointerDown={(event) => event.preventDefault()}
         onClick={logout}
         disabled={isSubmitting}
         className="cursor-pointer rounded-lg border border-cyan-400 bg-black px-4 py-2 text-cyan-400 hover:bg-cyan-400 hover:text-black disabled:cursor-wait disabled:opacity-50"

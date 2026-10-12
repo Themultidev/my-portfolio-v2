@@ -40,7 +40,7 @@ export default function LoginForm() {
 
       // Auth and portfolio routes use different root layouts.
       // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-      window.location.assign("/admin/projects");
+      window.location.assign("/admin/edit/portfolio");
     } catch {
       setError(fallbackError);
       setIsSubmitting(false);

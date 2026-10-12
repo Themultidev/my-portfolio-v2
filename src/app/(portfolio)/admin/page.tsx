@@ -3,5 +3,5 @@ import { getSession } from "../../../lib/auth";
 
 export default async function AdminPage() {
   if (!(await getSession())) redirect("/login");
-  redirect("/admin/projects");
+  redirect("/admin/edit/portfolio");
 }

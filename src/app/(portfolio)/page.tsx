@@ -1,23 +1,14 @@
-import MobileNavigation from "../../components/portfolio/MobileNavigation";
-import DesktopNavigation from "../../components/portfolio/DesktopNavigation";
-import Home from "../../components/portfolio/Home";
-import About from "../../components/portfolio/About";
-import Projects from "../../components/portfolio/Projects";
-import Contact from "../../components/portfolio/Contact";
-import Footer from "../../components/portfolio/Footer";
-import PortfolioEffects from "../../components/PortfolioEffects";
+import PortfolioContent from "../../components/portfolio/PortfolioContent";
+import EditModeProvider from "../../components/editor/EditModeProvider";
+import { getContentBlocks } from "../../lib/content";
 
-export default function PortfolioPage() {
+export const dynamic = "force-dynamic";
+
+export default async function PortfolioPage() {
+  const blocks = await getContentBlocks();
   return (
-    <>
-      <MobileNavigation />
-      <DesktopNavigation />
-      <Home />
-      <About />
-      <Projects />
-      <Contact />
-      <Footer />
-      <PortfolioEffects />
-    </>
+    <EditModeProvider blocks={blocks} editable={false}>
+      <PortfolioContent />
+    </EditModeProvider>
   );
 }

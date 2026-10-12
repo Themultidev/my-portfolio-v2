@@ -1,8 +1,9 @@
-// Ported from the static HTML. Preserve classes and markup during migration.
+// Generated from the frozen static source; run node scripts/bind-content-components.mjs.
+import EditableText from "../editor/EditableText";
+import EditableElement from "../editor/EditableElement";
 export default function Home() {
   return (
     <>
-      {"  "}
       <section
         className={
           " min-h-[100vh] md:h-full text-center text-white flex flex-col justify-center items-center   space-y-4 px-5 md:px-20 md:py-30 "
@@ -16,41 +17,55 @@ export default function Home() {
           }
         >
           {" "}
-          <img
-            className={"w-full h-40 max-w-[160px] rounded-full object-cover"}
-            src={"/mypictop.jpg"}
-            alt={"Worlu Prince — Front-end Developer avatar"}
+          <EditableElement
+            tag="img"
+            blockKeys={{ alt: "hero.alt.001" }}
+            elementProps={{
+              className: "w-full h-40 max-w-[160px] rounded-full object-cover",
+              src: "/mypictop.jpg",
+              alt: "Worlu Prince — Front-end Developer avatar",
+            }}
           />{" "}
         </div>
         {"\n    "}
         <div className={"font-mono text-2xl font-bold"}>
-          {"Hello 👋, i am   "}
+          <EditableText blockKey="hero.text.002">
+            {"Hello 👋, i am   "}
+          </EditableText>
         </div>
         {"\n    "}
         <div className={"text-4xl md:text-[40px] font-bold font-[Michroma]"}>
           <h1>
-            <span className={"text-cyan-400"}>{"WO"}</span>
-            {"RLU "}
+            <span className={"text-cyan-400"}>
+              <EditableText blockKey="hero.text.003">{"WO"}</EditableText>
+            </span>
+            <EditableText blockKey="hero.text.004">{"RLU "}</EditableText>
             <span
               className={
                 "text-transparent bg-gradient-to-r from-yellow-300 to-cyan-400 bg-clip-text "
               }
             >
-              {"PRINCE"}
+              <EditableText blockKey="hero.text.005">{"PRINCE"}</EditableText>
             </span>
-            {" (JNR)"}
+            <EditableText blockKey="hero.text.006">{" (JNR)"}</EditableText>
           </h1>
         </div>
         {"\n    "}
         <div className={"text-[15px]"}>
-          <p>{"A Full Stack Web and AI developer"}</p>
+          <p>
+            <EditableText blockKey="hero.text.007">
+              {"A Full Stack Web and AI developer"}
+            </EditableText>
+          </p>
         </div>
         {"\n    "}
         <div>
           <p className={"leading-loose "}>
-            {
-              " Multitalented personality and a sharp-witted learner with great attention to detail."
-            }
+            <EditableText blockKey="hero.text.008">
+              {
+                " Multitalented personality and a sharp-witted learner with great attention to detail."
+              }
+            </EditableText>
           </p>
         </div>
         {"\n    "}
@@ -62,7 +77,9 @@ export default function Home() {
             }
             href={"#contact"}
           >
-            {"Connect With Me!"}
+            <EditableText blockKey="hero.text.009">
+              {"Connect With Me!"}
+            </EditableText>
           </a>
           {"\n      "}
           <a
@@ -71,17 +88,16 @@ export default function Home() {
             }
             href={"#contact"}
           >
-            {" View "}
+            <EditableText blockKey="hero.text.010">{" View "}</EditableText>
             <span className={"text-zinc-800 font-mono font-bold text-md"}>
-              {"Prjo"}
+              <EditableText blockKey="hero.text.011">{"Prjo"}</EditableText>
             </span>
-            {"ects"}
+            <EditableText blockKey="hero.text.012">{"ects"}</EditableText>
           </a>
           {"\n    "}
         </div>
         {"\n\n  "}
       </section>
-      {"\n"}
     </>
   );
 }

@@ -1,19 +1,6 @@
 import type { ReactNode } from "react";
-import { redirect } from "next/navigation";
-import LogoutButton from "../../../components/auth/LogoutButton";
-import { getSession } from "../../../lib/auth";
+import AdminEditorLayout from "../../../components/editor/AdminEditorLayout";
 
-export default async function AdminLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  if (!(await getSession())) redirect("/login");
-
-  return (
-    <>
-      {children}
-      <LogoutButton />
-    </>
-  );
+export default function AdminLayout({ children }: { children: ReactNode }) {
+  return <AdminEditorLayout>{children}</AdminEditorLayout>;
 }

@@ -1,18 +1,15 @@
 import assert from "node:assert/strict";
-import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseFragment } from "parse5";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import ts from "typescript";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const baseline = JSON.parse(
   readFileSync(resolve(root, "migration/static-baseline.json"), "utf8"),
 );
-const temporary = resolve(root, ".next/parity-check");
-mkdirSync(temporary, { recursive: true });
 
 function normalizeStyle(value) {
   return value
@@ -75,15 +72,9 @@ comparisons.push({
   )[1],
 });
 for (const { name, directory, original: reference } of comparisons) {
-  const source = readFileSync(
-    resolve(root, `src/components/${directory}/${name}.tsx`),
-    "utf8",
-  );
-  const output = ts.transpileModule(source, {
-    compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.ESNext },
-  }).outputText;
-  const file = resolve(temporary, `${name}.mjs`);
-  writeFileSync(file, output);
+  // Import the actual graph through tsx, including the editor's client leaves.
+  // Without a provider those leaves render the original fallback markup.
+  const file = resolve(root, `src/components/${directory}/${name}.tsx`);
   const { default: Component } = await import(pathToFileURL(file).href);
   const rendered = renderToStaticMarkup(createElement(Component));
   assert.deepEqual(

@@ -1,8 +1,8 @@
-// Ported from the static HTML. Preserve classes and markup during migration.
+// Generated from the frozen static source; run node scripts/bind-content-components.mjs.
+import EditableText from "../editor/EditableText";
 export default function MobileNavigation() {
   return (
     <>
-      {"  "}
       <header className={"flex items-center justify-center lg:hidden"}>
         {"\n\n    "}
         <nav
@@ -50,7 +50,9 @@ export default function MobileNavigation() {
                   " p-1.5 top-15 rounded text-sm bg-zinc-700 absolute hidden group-hover:block "
                 }
               >
-                {"Home"}
+                <EditableText blockKey="mobileNavigation.text.001">
+                  {"Home"}
+                </EditableText>
               </span>
               {"\n        "}
             </li>
@@ -84,7 +86,9 @@ export default function MobileNavigation() {
                   " p-1.5 top-15 rounded text-sm bg-zinc-700 absolute hidden group-hover:block "
                 }
               >
-                {"About"}
+                <EditableText blockKey="mobileNavigation.text.002">
+                  {"About"}
+                </EditableText>
               </span>
               {"\n\n        "}
             </li>
@@ -118,7 +122,9 @@ export default function MobileNavigation() {
                   " p-1.5 top-15 rounded text-sm bg-zinc-700 absolute hidden group-hover:block "
                 }
               >
-                {"Projects"}
+                <EditableText blockKey="mobileNavigation.text.003">
+                  {"Projects"}
+                </EditableText>
               </span>
               {"\n  \n        "}
             </li>
@@ -156,7 +162,9 @@ export default function MobileNavigation() {
                   " p-1.5 top-15 rounded text-sm bg-zinc-700 absolute hidden  group-hover:block  "
                 }
               >
-                {"Contact"}
+                <EditableText blockKey="mobileNavigation.text.004">
+                  {"Contact"}
+                </EditableText>
               </span>
               {"\n  \n        "}
             </li>
@@ -225,7 +233,9 @@ export default function MobileNavigation() {
                   " p-1.5 rounded  text-sm bg-zinc-700 top-15 absolute hidden group-hover:block animate-none "
                 }
               >
-                {"Resume"}
+                <EditableText blockKey="mobileNavigation.text.005">
+                  {"Resume"}
+                </EditableText>
               </span>
               {"\n\n          "}
             </a>
@@ -270,7 +280,9 @@ export default function MobileNavigation() {
                   " p-1.5 top-15 rounded text-sm bg-zinc-700 absolute hidden group-hover:block "
                 }
               >
-                {"Twitter"}
+                <EditableText blockKey="mobileNavigation.text.006">
+                  {"Twitter"}
+                </EditableText>
               </span>
               {"\n  \n        "}
             </li>
@@ -315,7 +327,9 @@ export default function MobileNavigation() {
                   " p-1.5 top-15 rounded text-sm bg-zinc-700 absolute hidden group-hover:block "
                 }
               >
-                {"LinkedIn"}
+                <EditableText blockKey="mobileNavigation.text.007">
+                  {"LinkedIn"}
+                </EditableText>
               </span>
               {"  \n  \n        "}
             </li>
@@ -325,7 +339,6 @@ export default function MobileNavigation() {
         </nav>
         {"\n  "}
       </header>
-      {"\n"}
     </>
   );
 }

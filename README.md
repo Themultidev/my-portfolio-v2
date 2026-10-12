@@ -8,7 +8,8 @@ and `migration/README.md` for the commit sequence and static reference.
 ## Local development
 
 Use Node.js 20.9 or newer. For a fresh setup, copy `.env.example` to `.env`
-(or `.env.local`) and fill in the three public EmailJS identifiers before running
+(or `.env.local`) and fill in the public EmailJS identifiers and private
+`ADMIN_EMAIL`/`ADMIN_PASSWORD` before running
 the commands below. Keep your existing environment file if you already have one.
 
 Then:
@@ -16,6 +17,8 @@ Then:
 ```sh
 npm ci
 npm run auth:setup
+npm run db:migrate
+npm run db:seed
 npm run dev
 ```
 
@@ -98,8 +101,8 @@ will be enforced in the project API and editor in their respective slices.
 Read memberships by `order` and then `stackId` to keep ties deterministic.
 
 `src/lib/db.ts` is restricted to server imports and reuses its Prisma client
-during development reloads. Database-backed public rendering will be added
-with the shared editor components in later slices.
+during development reloads. Public pages read the content blocks on each request;
+React's request-scoped cache deduplicates reads without retaining stale content.
 
 Run `npm run test:db` to apply the migrations to a unique temporary SQLite
 file and check uniqueness, foreign keys, deletion behavior, and persisted
@@ -164,9 +167,10 @@ npm run dev
 local `DATABASE_URL` to your ignored `.env` (or `.env.local` when present). It
 preserves existing values and does not print the secret. Restart Next.js after
 changing environment settings. Open `http://localhost:3000/login` and sign in
-with the credentials you seeded. The protected `/admin/projects` currently
-shows the original project section; editing controls follow in later commits.
-`/admin` redirects there. Sign out appears only on admin pages as a fixed control.
+with the credentials you seeded. Login and `/admin` now open
+`/admin/edit/portfolio`, the complete portfolio in edit mode. Use the fixed toolbar
+to switch to `/admin/edit/overview` or `/admin/projects`, or view the public site.
+Sign out appears only on admin pages as a fixed control.
 
 The signed session expires after eight hours. The cookie is HttpOnly and
 SameSite=Strict, with Secure and a `__Host-` name in production. Development over
@@ -240,16 +244,45 @@ Run `npm run build`, then `npm run test:content`. The tests use a temporary
 migrated/seeded database and production server, plus direct handler calls to
 verify protection without Proxy. They never edit your configured database.
 
-The inline editor and database-backed public text rendering follow in the
-next slice. This API slice leaves the current public pages and readonly admin
-project page unchanged.
+## Inline editor
+
+`/admin/edit/portfolio` renders navigation, hero, about, projects, contact, and
+footer using the same sections as `/`. `/admin/edit/overview` uses the same
+content and light layout as `/overview.html`. All 218 seeded blocks are bound:
+203 text fragments and 15 image descriptions/contact placeholders. Public views
+render saved values without editor wrappers or controls.
+
+Click text to edit it where it appears. Blur, the Save button, or Ctrl/Cmd+Enter
+saves it; Escape or Cancel restores the prior value. Long text and code blocks
+use a textarea overlay. Failed saves retain the draft with an error and Retry.
+Changes are stored as plain text and appear on public pages after refresh.
+Image clicks edit their descriptions, and contact inputs edit placeholders.
+The contact form sends messages only in the public view.
+Cleared text keeps a small dashed marker in edit mode so it can be restored.
+
+Unsaved edits prompt before leaving the page or signing out. Section links keep
+the draft open while scrolling. A request already sent can finish after leaving.
+Hover/edit outlines and the fixed toolbar appear only in edit mode.
+
+Run `npm run build`, then `npm run test:editor`. Eight Chrome checks use a
+disposable database and account to verify complete page coverage, text and
+attribute persistence, exact code whitespace, safe text display, cancellation,
+failed-save retry, navigation, and logout. Public visual checks now seed their
+own temporary database so your content edits do not affect the frozen baseline.
+
+`scripts/bind-content-components.mjs` regenerates the eight section components
+from the frozen baseline and their stable seed paths, checking complete coverage
+before writes. It preserves SVGs, classes, and inner whitespace. This is a
+development generator and overwrites those component files, not database edits.
+Original project copy currently uses content-block bindings; the project board
+slice must carry those saved edits into its authoritative Project fields.
 
 ## Migration status
 
 The public portfolio and `/overview.html` are ported, with separate layouts
 preserving each page's original body styles and metadata. The schema, database
-client, content seed, authentication, and text content API are ready. The inline
-editor and project/stack/upload APIs are planned in subsequent commits. Blog work
+client, content seed, authentication, text content API, and inline editor are ready.
+Project creation/deletion, photo uploads, and stack management follow in subsequent commits. Blog work
 awaits clarification.
 
 The original HTML components and Vite tools are retained as a reference until
