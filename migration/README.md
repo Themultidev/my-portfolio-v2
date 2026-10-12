@@ -52,6 +52,16 @@ editing controls. Public section markup and global CSS remain unchanged.
 `npm run test:auth` checks authentication through unit tests, direct production
 HTTP requests, and a headless Chrome login/logout, using disposable data.
 
+## Content API boundary
+
+`PATCH /api/blocks/[key]` updates only an existing block's value after checking
+the live admin session and trusted Origin in the handler. JSON is bounded to
+64 KiB, plain text to 10,000 JavaScript string units, and keys/labels remain
+immutable. Invalid requests do not write; missing blocks are not recreated.
+`npm run test:content` exercises persistence, validation, and guards through
+HTTP and direct handler calls with isolated data. Public rendering and inline
+editing are added in the next slice.
+
 ## Blog finding
 
 The repository contains `blog.html`, an incomplete HTML fragment containing

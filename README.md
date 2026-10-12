@@ -99,7 +99,7 @@ Read memberships by `order` and then `stackId` to keep ties deterministic.
 
 `src/lib/db.ts` is restricted to server imports and reuses its Prisma client
 during development reloads. Database-backed public rendering will be added
-with the content APIs and shared editor components in later slices.
+with the shared editor components in later slices.
 
 Run `npm run test:db` to apply the migrations to a unique temporary SQLite
 file and check uniqueness, foreign keys, deletion behavior, and persisted
@@ -197,20 +197,60 @@ Next 16 uses [`src/proxy.ts`](https://nextjs.org/docs/app/api-reference/file-con
 for the preliminary admin/API cookie checks. Server page guards and the
 `requireSession()` helper separately check the current database admin. Every
 new mutation handler must call that helper and check the trusted origin.
-Future content API namespaces are already gated by Proxy; their handlers are
-added in subsequent slices. No admin link or logout control appears publicly.
+The content-block handler repeats both checks. Project, stack, and upload API
+namespaces are already gated by Proxy; their handlers follow in later slices.
+No admin link or logout control appears publicly.
 
 Run `npm run build` and then `npm run test:auth`. Authentication tests use an
 isolated migrated/seeded SQLite file and a production server with dummy
 environment values, plus headless Chrome for login/logout. They never use your
 account or database. Public parity tests supply their own dummy startup settings.
 
+## Text content API
+
+`PATCH /api/blocks/[key]` updates the value of an existing content block. Send
+`Content-Type: application/json` with `{"value":"Your text"}`, using the signed
+session cookie and an Origin matching `APP_ORIGIN`. Keys are the stable values
+in `prisma/seed-data.json`; the API does not create blocks or change their keys
+or labels.
+
+Successful requests return `{"block":{"key":"...","value":"...","label":"...","updatedAt":"..."}}`,
+with an ISO timestamp. PATCH responses use `Cache-Control: no-store`.
+
+Text is preserved exactly, including empty strings, leading/trailing spaces,
+tabs, newlines, and literal markup. There is no rich-text interpretation.
+Values are limited to 10,000 JavaScript string units (an emoji can occupy two),
+and the complete JSON body is limited to 65,536 UTF-8 bytes. Invalid UTF-8,
+unpaired surrogates, and ASCII control characters other than tab, LF, and CR
+are rejected. Only the `value` field is accepted.
+
+Errors use `{"error":{"code":"...","message":"...","fields":{"value":["..."]}}}`;
+`fields` is present for validation errors and can identify `body`, `key`, or
+`value`.
+
+| Status | Code           | Meaning                                       |
+| ------ | -------------- | --------------------------------------------- |
+| 400    | `VALIDATION`   | Invalid key, JSON, fields, encoding, or size  |
+| 401    | `UNAUTHORIZED` | Missing, invalid, expired, or revoked session |
+| 403    | `ORIGIN`       | Missing or different request Origin           |
+| 404    | `NOT_FOUND`    | Content block does not exist                  |
+| 503    | `UNAVAILABLE`  | Request failed; database details are withheld |
+
+Run `npm run build`, then `npm run test:content`. The tests use a temporary
+migrated/seeded database and production server, plus direct handler calls to
+verify protection without Proxy. They never edit your configured database.
+
+The inline editor and database-backed public text rendering follow in the
+next slice. This API slice leaves the current public pages and readonly admin
+project page unchanged.
+
 ## Migration status
 
 The public portfolio and `/overview.html` are ported, with separate layouts
 preserving each page's original body styles and metadata. The schema, database
-client, content seed, and authentication are ready. The inline editor and
-content APIs are planned in subsequent commits. Blog work awaits clarification.
+client, content seed, authentication, and text content API are ready. The inline
+editor and project/stack/upload APIs are planned in subsequent commits. Blog work
+awaits clarification.
 
 The original HTML components and Vite tools are retained as a reference until
 the migration comparisons are needed. React components under

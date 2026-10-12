@@ -21,7 +21,8 @@
     "db:seed": "tsx prisma/seed.ts",
     "test:seed": "node --import tsx --test tests/database/seed.test.ts tests/database/seed-artifacts.test.ts",
     "auth:setup": "node scripts/setup-auth-env.mjs",
-    "test:auth": "node --conditions=react-server --import tsx --test tests/auth/unit.test.ts tests/auth/http.test.ts"
+    "test:auth": "node --conditions=react-server --import tsx --test tests/auth/unit.test.ts tests/auth/http.test.ts",
+    "test:content": "node --conditions=react-server --import tsx --test tests/content/content-api.test.ts"
   },
   "devDependencies": {
     "@fontsource-variable/google-sans-code": "^5.3.1",
