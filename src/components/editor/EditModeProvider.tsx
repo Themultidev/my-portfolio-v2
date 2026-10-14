@@ -117,7 +117,7 @@ export default function EditModeProvider({
     const approved = window.confirm(
       pendingRef.current.size
         ? "Changes are still saving and may finish after you leave. Leave this page?"
-        : "You have unsaved changes. Leave this page and discard them?",
+        : "You have unsaved changes. Leave this page and discard unsaved drafts? Saves already sent may still finish.",
     );
     approvedLeaveRef.current = approved;
     if (approved) {
@@ -259,7 +259,8 @@ export default function EditModeProvider({
       if (
         target.origin === current.origin &&
         target.pathname === current.pathname &&
-        target.search === current.search
+        target.search === current.search &&
+        Boolean(target.hash)
       )
         return null;
       return anchor;

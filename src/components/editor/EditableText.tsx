@@ -11,7 +11,11 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { CONTENT_MAX_LENGTH } from "../../lib/content-validation";
-import { useEditMode, type EditModeContextValue } from "./EditModeProvider";
+import {
+  useEditMode,
+  type EditModeContextValue,
+  type SaveResult,
+} from "./EditModeProvider";
 
 interface EditableTextProps {
   blockKey: string;
@@ -19,6 +23,8 @@ interface EditableTextProps {
   multiline?: boolean;
   as?: "pre";
   elementProps?: Record<string, unknown>;
+  controlledValue?: string;
+  saveValue?: (value: string) => Promise<SaveResult>;
 }
 
 interface Rect {
@@ -100,7 +106,7 @@ function editorPosition(element: HTMLElement): EditorPosition {
 
 export default function EditableText(props: EditableTextProps) {
   const context = useEditMode();
-  const value = context?.blocks[props.blockKey]?.value;
+  const value = props.controlledValue ?? context?.blocks[props.blockKey]?.value;
 
   // A public render adds no elements, attributes, listeners, or editor effects.
   if (!context?.editable) {
@@ -118,10 +124,12 @@ function AdminEditableText({
   multiline = false,
   as,
   elementProps,
+  controlledValue,
+  saveValue,
   context,
 }: EditableTextProps & { context: EditModeContextValue }) {
   const label = context.blocks[blockKey]?.label ?? blockKey;
-  const value = context.blocks[blockKey]?.value;
+  const value = controlledValue ?? context.blocks[blockKey]?.value;
   const empty = (value ?? children) === "";
   const emptyStyle: CSSProperties = empty
     ? { minWidth: "1ch", minHeight: "1em", outline: "1px dashed #06b6d4" }
@@ -185,10 +193,13 @@ function AdminEditableText({
     busyRef.current = true;
     setSaving(true);
     setError("");
-    const result = await context.saveBlock(blockKey, draft);
+    const result = await (saveValue
+      ? saveValue(draft)
+      : context.saveBlock(blockKey, draft));
     busyRef.current = false;
     setSaving(false);
     if (result.ok) {
+      context.setDirty(blockKey, false);
       originalRef.current = result.value;
       context.deactivateBlock(blockKey);
     } else {

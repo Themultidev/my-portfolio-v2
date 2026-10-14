@@ -24,6 +24,12 @@ export default function AdminToolbar() {
         Projects
       </a>
       <a
+        href="/admin/stacks"
+        className="rounded px-2 py-1 text-cyan-400 hover:bg-cyan-400 hover:text-black"
+      >
+        Stack icons
+      </a>
+      <a
         href="/"
         className="rounded px-2 py-1 text-cyan-400 hover:bg-cyan-400 hover:text-black"
       >

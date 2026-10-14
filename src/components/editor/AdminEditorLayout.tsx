@@ -12,7 +12,7 @@ export default async function AdminEditorLayout({
   children: ReactNode;
 }) {
   if (!(await getSession())) redirect("/login");
-  const blocks = await getContentBlocks();
+  const blocks = await getContentBlocks(true);
 
   return (
     <EditModeProvider blocks={blocks} editable={true}>
