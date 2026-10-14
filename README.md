@@ -274,15 +274,96 @@ own temporary database so your content edits do not affect the frozen baseline.
 from the frozen baseline and their stable seed paths, checking complete coverage
 before writes. It preserves SVGs, classes, and inner whitespace. This is a
 development generator and overwrites those component files, not database edits.
-Original project copy currently uses content-block bindings; the project board
-slice must carry those saved edits into its authoritative Project fields.
+The generator also rebuilds the shared project board and its original card/icon
+variants. Project titles and descriptions retain their existing editor keys;
+those keys and the Project fields save together in one transaction.
+
+## Project data and API
+
+Run `npm run db:migrate` when updating from the text-editor version. Its one-time
+data migration copies saved original project titles and descriptions into the
+Project table, preserving whitespace and cleared fields. Repeated migration
+runs do not overwrite subsequent edits. Other content, accounts, and stack
+memberships remain unchanged.
+
+Public and admin project views share `ProjectBoard`. Cards read Project fields
+and ordered stack memberships from SQLite on each request. Public pages render
+only published cards and omit unpublished/deleted card copy from their content
+payload. Admin views include unpublished cards. Original seeded cards retain
+their individual markup, classes, SVG artwork, and feature lists.
+
+The authenticated project endpoints are:
+
+| Method | Route | Result |
+| ------ | ----- | ------ |
+| GET | `/api/projects` | All projects and the stack catalog |
+| GET | `/api/projects/[id]` | One project |
+| POST | `/api/projects` | Create a project (201) |
+| PATCH | `/api/projects/[id]` | Update supplied fields |
+| DELETE | `/api/projects/[id]` | Delete the project and its memberships |
+
+Mutations require a live session and trusted Origin. Supported JSON fields are
+`title`, `description`, `photoUrl`, `link`, `repoUrl`, `order`, `published`, and
+`stackIds`. A new title is required; omitted fields default to null, published
+true, no stacks, and an order after the last card. Text is plain text with the
+same 10,000-unit limit as content blocks. URLs accept HTTP(S) or local paths;
+photos accept local JPG/PNG/WebP/GIF/AVIF paths. Use null to clear optional fields.
+At most five distinct existing stack IDs are accepted, in display order.
+Invalid updates leave both project fields and memberships unchanged. Deleting
+a project preserves its stacks and existing content aliases.
+
+Run `npm run build`, then `npm run test:projects`. Twenty checks use disposable
+databases to exercise CRUD, validation, permissions, publication, ordering,
+public rendering, inline-key synchronization, and the historical data upgrade.
+The shared board includes an admin-only trailing add tile. Its photo dropzone,
+title input, and stack picker create a project without leaving the page. Clicking
+an existing photo replaces it; titles and descriptions save inline. Project
+options edit destination/repository URLs, publication and display order, and
+delete after confirmation. Failed saves retain drafts for retry. Seeding creates missing
+original cards, so rerunning seed after deliberately deleting an original card
+restores it.
+
+## Stack icons and selection
+
+Open `/admin/stacks`, choose Stack icons in the admin toolbar, or use Manage
+stack names and SVG icons inside the project picker. Add a name with a
+bundled icon or upload an SVG/PNG/JPEG/WebP/GIF/AVIF image. Each catalog row can
+rename the stack, change its catalog order, replace its icon, or delete it when
+unused. Referenced stacks show their project count and cannot be deleted until
+removed from those projects. Failed saves retain the form values; Cancel or
+Escape restores the saved values, and leaving with a draft prompts first.
+
+Use the plus control in a project's stack row to choose technologies by name.
+The picker loads the current catalog, supports search and removal, and blocks
+a sixth selection. Selecting a name immediately commits and renders its icon;
+clicking a chip removes it. Done closes the picker, with no separate save step. The API
+also enforces the five-stack cap. Catalog edits appear on linked public project
+cards after refresh.
+
+`GET/POST /api/stacks`, `PATCH/DELETE /api/stacks/[id]`, and
+`POST /api/upload?kind=stack` require live admin sessions. Mutations also verify
+the Origin. Duplicate names return 409; referenced-stack deletion returns
+409 `IN_USE`. Uploaded icons are decoded and stored as proportion-preserving,
+transparent 128×128 PNGs using [Sharp](https://sharp.pixelplumbing.com/api-resize/).
+SVG input is restricted to self-contained artwork before conversion; raw SVG
+uploads are never served. Files are limited to 5 MiB and decoded images to
+16 million pixels. Uploads live under `public/uploads`, excluded from Git;
+back up that directory with the SQLite database and use persistent writable
+storage. A public image handler serves newly uploaded files immediately.
+Deleting a stack retains uploaded files so other references remain valid.
+
+`npm run test:stacks` uses a disposable account/database and removes only its
+own generated images. It checks API guards, CRUD, icon conversion, upload
+validation, and the browser catalog/picker workflow.
 
 ## Migration status
 
 The public portfolio and `/overview.html` are ported, with separate layouts
 preserving each page's original body styles and metadata. The schema, database
-client, content seed, authentication, text content API, and inline editor are ready.
-Project creation/deletion, photo uploads, and stack management follow in subsequent commits. Blog work
+client, content seed, authentication, inline editor, project API, and shared
+database-backed project board, stack icon CRUD, uploads, and project stack picker
+are ready, including project creation, photo replacement, inline copy, order,
+publication and confirmed deletion. Blog work
 awaits clarification.
 
 The original HTML components and Vite tools are retained as a reference until
