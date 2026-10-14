@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
 import { replayFonts } from "./font-fixtures";
+import { iconCorrections } from "../../scripts/lib/approved-icon-corrections.mjs";
 const baseline: {
   viewports: number[];
   assets: { url: string; sha256: string | null }[];
@@ -111,6 +112,19 @@ for (const width of baseline.viewports) {
       const errors: string[] = [];
       migrated.on("pageerror", (error) => errors.push(error.message));
       await ready(original, `${staticOrigin}${route}`);
+      // Explicit owner-requested artwork changes; compare all remaining markup
+      // and pixels strictly against the frozen original without rewriting it.
+      if (route === "/")
+        await original.evaluate((icons) => {
+          for (const [name, svg] of Object.entries(icons)) {
+            const label = [...document.querySelectorAll("#about span")].find(
+              (span) => span.textContent?.trim() === name,
+            );
+            const old = label?.parentElement?.querySelector("svg");
+            if (!old) throw new Error(`Missing original icon ${name}`);
+            old.outerHTML = svg;
+          }
+        }, iconCorrections());
       await ready(migrated, `${nextOrigin}${route}`);
       writeFileSync(
         testInfo.outputPath("browser-errors.json"),

@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseFragment } from "parse5";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { correctedAboutHtml } from "./lib/approved-icon-corrections.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const baseline = JSON.parse(
@@ -79,11 +80,15 @@ for (const { name, directory, original: reference } of comparisons) {
   const rendered = renderToStaticMarkup(createElement(Component));
   assert.deepEqual(
     tree(parseFragment(rendered)),
-    tree(parseFragment(reference)),
+    tree(
+      parseFragment(
+        name === "About" ? correctedAboutHtml(reference) : reference,
+      ),
+    ),
     `${name} differs from the static baseline`,
   );
   console.log(
-    `${name}: structure, classes, attributes, and visible text match.`,
+    `${name}: structure, classes, attributes, and visible text match${name === "About" ? " (with the three requested logo corrections)" : ""}.`,
   );
 }
 assert.equal(

@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { extractSeedData } from "./lib/static-seed.mjs";
+import { correctedIcons } from "./lib/approved-icon-corrections.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const baseline = JSON.parse(
@@ -9,14 +10,19 @@ const baseline = JSON.parse(
 );
 const { data, icons } = extractSeedData(baseline);
 mkdirSync(resolve(root, "public/stacks"), { recursive: true });
-for (const [path, svg] of icons)
+for (const [path, svg] of icons) {
+  if (
+    Object.values(correctedIcons).some((slug) => path === `/stacks/${slug}.svg`)
+  )
+    continue;
   writeFileSync(resolve(root, `public${path}`), `${svg}\n`);
+}
 writeFileSync(
   resolve(root, "prisma/seed-data.json"),
   `${JSON.stringify(data, null, 2)}\n`,
 );
 console.log(
-  `Captured ${data.content.length} text blocks, ${data.projects.length} projects, and ${data.stacks.length} original stack icons.`,
+  `Captured ${data.content.length} text blocks, ${data.projects.length} projects, and ${data.stacks.length} stack icons; the three requested logo corrections are retained.`,
 );
 console.log(
   JSON.stringify(
