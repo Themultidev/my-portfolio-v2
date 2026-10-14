@@ -30,6 +30,7 @@ out/
 test-results/
 playwright-report/
 .tmp/
+public/uploads/
 prisma/*.db
 prisma/*.db-journal
 prisma/*.db-wal

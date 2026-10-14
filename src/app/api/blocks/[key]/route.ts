@@ -13,6 +13,7 @@ import {
 } from "../../../../lib/content-validation";
 import { db } from "../../../../lib/db";
 import { readJsonBody } from "../../../../lib/json-body";
+import { getProjectContentBinding } from "../../../../lib/project-reference";
 
 export const runtime = "nodejs";
 
@@ -48,11 +49,23 @@ export async function PATCH(
       throw new ApiError(400, "VALIDATION", "Invalid content update.", fields);
     }
 
-    const block = await db.contentBlock.update({
+    const update = {
       where: { key: key.data },
       data: { value: patch.data.value },
       select: { key: true, value: true, label: true, updatedAt: true },
-    });
+    } as const;
+    const binding = getProjectContentBinding(key.data);
+    const block = binding
+      ? await db.$transaction(async (transaction) => {
+          // Keep the established inline keys working with model-backed cards.
+          await transaction.project.update({
+            where: { id: binding.projectId },
+            data: { [binding.field]: patch.data.value },
+            select: { id: true },
+          });
+          return transaction.contentBlock.update(update);
+        })
+      : await db.contentBlock.update(update);
     return apiJson({ block });
   } catch (error) {
     if (
