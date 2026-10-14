@@ -25,7 +25,7 @@ export default defineConfig({
       command: "node --import tsx tests/migration/start-next-preview.ts",
       url: "http://127.0.0.1:3100",
       reuseExistingServer: false,
-      timeout: 60_000,
+      timeout: 180_000,
       env: {
         ADMIN_EMAIL: "parity-only@example.invalid",
         ADMIN_PASSWORD: "parity-only-password",

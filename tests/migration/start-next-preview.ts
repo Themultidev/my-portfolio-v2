@@ -41,7 +41,7 @@ async function main() {
       cwd: root,
       env: { ...process.env, DATABASE_URL: databaseUrl },
       stdio: "pipe",
-      timeout: 30_000,
+      timeout: 120_000,
     },
   );
   await seedPortfolio(database, credentials);
