@@ -2,6 +2,8 @@ import "server-only";
 import { Prisma } from "@prisma/client";
 import { ApiError } from "./api-response";
 import { db } from "./db";
+import { portfolioTransaction } from "./portfolio-history";
+import { validProjectLocation } from "./countries";
 import { projectContentBindings } from "./project-reference";
 import type { ProjectRecord } from "./project-types";
 import {
@@ -29,6 +31,8 @@ function projectRecord(project: StoredProject): ProjectRecord {
     photoUrl: project.photoUrl,
     link: project.link,
     repoUrl: project.repoUrl,
+    countryCode: project.countryCode,
+    regionCode: project.regionCode,
     order: project.order,
     published: project.published,
     stacks: project.stacks.map(({ stack, order }) => ({
@@ -93,7 +97,15 @@ function stackRows(stackIds: number[]) {
 export async function createProject(
   input: ProjectCreateInput,
 ): Promise<ProjectRecord> {
-  return db.$transaction(async (transaction) => {
+  return portfolioTransaction("Create project", async (transaction) => {
+    if (
+      !validProjectLocation(input.countryCode ?? null, input.regionCode ?? null)
+    )
+      throw new ApiError(
+        400,
+        "VALIDATION",
+        "Choose a country before selecting a Nigerian state.",
+      );
     const stackIds = input.stackIds ?? [];
     await checkStacks(transaction, stackIds);
     let order = input.order;
@@ -114,6 +126,8 @@ export async function createProject(
         photoUrl: input.photoUrl ?? null,
         link: input.link ?? null,
         repoUrl: input.repoUrl ?? null,
+        countryCode: input.countryCode ?? null,
+        regionCode: input.regionCode ?? null,
         order,
         published: input.published ?? true,
         stacks: { create: stackRows(stackIds) },
@@ -128,12 +142,25 @@ export async function updateProject(
   id: number,
   input: ProjectPatchInput,
 ): Promise<ProjectRecord> {
-  return db.$transaction(async (transaction) => {
+  return portfolioTransaction("Edit project", async (transaction) => {
     const existing = await transaction.project.findUnique({
       where: { id },
-      select: { id: true },
+      select: { id: true, countryCode: true, regionCode: true },
     });
     if (!existing) throw notFound();
+    if (
+      !validProjectLocation(
+        input.countryCode === undefined
+          ? existing.countryCode
+          : input.countryCode,
+        input.regionCode === undefined ? existing.regionCode : input.regionCode,
+      )
+    )
+      throw new ApiError(
+        400,
+        "VALIDATION",
+        "A Nigerian state requires Nigeria as the project country. Clear the state when changing country.",
+      );
     if (input.stackIds !== undefined)
       await checkStacks(transaction, input.stackIds);
 
@@ -167,9 +194,11 @@ export async function updateProject(
 }
 
 export async function deleteProject(id: number): Promise<number> {
-  const project = await db.project.delete({
-    where: { id },
-    select: { id: true },
+  return portfolioTransaction("Delete project", async (transaction) => {
+    const project = await transaction.project.delete({
+      where: { id },
+      select: { id: true },
+    });
+    return project.id;
   });
-  return project.id;
 }

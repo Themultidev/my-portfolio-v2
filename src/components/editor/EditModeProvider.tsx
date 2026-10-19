@@ -201,6 +201,7 @@ export default function EditModeProvider({
           setBlocks(next);
           setDirty(key, false);
           setStatus("Saved.");
+          window.dispatchEvent(new Event("portfolio:saved"));
           return { ok: true, value: saved.value };
         } catch (error) {
           const next = { ...blocksRef.current };

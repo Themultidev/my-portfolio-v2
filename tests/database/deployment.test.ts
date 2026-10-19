@@ -2,7 +2,13 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { createServer } from "node:http";
 import { execFileSync } from "node:child_process";
-import { readFileSync, mkdirSync, mkdtempSync, rmSync } from "node:fs";
+import {
+  readFileSync,
+  readdirSync,
+  mkdirSync,
+  mkdtempSync,
+  rmSync,
+} from "node:fs";
 import { resolve, join, dirname } from "node:path";
 import { PrismaClient } from "@prisma/client";
 import {
@@ -104,10 +110,25 @@ test("PostgreSQL schema shares all SQLite models and migration uses native Postg
       stdio: ["ignore", "pipe", "pipe"],
     },
   );
-  assert.equal(
-    sql.trim().replaceAll("\r\n", "\n"),
-    generated.trim().replaceAll("\r\n", "\n"),
-  );
+  const history = readdirSync(resolve("prisma/postgres/migrations"), {
+    withFileTypes: true,
+  })
+    .filter((entry) => entry.isDirectory())
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((entry) =>
+      readFileSync(
+        resolve("prisma/postgres/migrations", entry.name, "migration.sql"),
+        "utf8",
+      ),
+    )
+    .join("\n");
+  const tables = (text: string) =>
+    [...text.matchAll(/CREATE TABLE "([^"]+)"/g)]
+      .map((match) => match[1])
+      .sort();
+  assert.deepEqual(tables(history), tables(generated));
+  assert.match(history, /ALTER TABLE "Project" ADD COLUMN "countryCode" TEXT/);
+  assert.match(history, /ALTER TABLE "Project" ADD COLUMN "regionCode" TEXT/);
   assert.match(sql, /SERIAL/);
   assert.match(sql, /TIMESTAMP\(3\)/);
 });

@@ -2,8 +2,19 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getAuthConfig, isTrustedOrigin } from "./lib/auth-config";
 import { verifySessionToken } from "./lib/session-token";
 import { readSessionCookie } from "./lib/session-cookie";
+import { INJECTION_MESSAGE, isInjectionQuery } from "./lib/injection-probe";
 
 export function proxy(request: NextRequest) {
+  if (isInjectionQuery(request.nextUrl)) {
+    return new NextResponse(INJECTION_MESSAGE, {
+      status: 400,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+      },
+    });
+  }
   const config = getAuthConfig();
   const claims = verifySessionToken(
     readSessionCookie(request.headers, config),
@@ -40,5 +51,6 @@ export const config = {
     "/api/projects/:path*",
     "/api/stacks/:path*",
     "/api/upload/:path*",
+    "/api/history/:path*",
   ],
 };

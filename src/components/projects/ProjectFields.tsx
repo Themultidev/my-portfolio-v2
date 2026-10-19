@@ -3,6 +3,7 @@ import { useRef, useState, type ReactNode } from "react";
 import type { ProjectRecord } from "../../lib/project-types";
 import EditableText from "../editor/EditableText";
 import EditableElement from "../editor/EditableElement";
+import { countries, nigeriaStates } from "../../lib/countries";
 import { useEditMode } from "../editor/EditModeProvider";
 import {
   projectRequest,
@@ -283,6 +284,8 @@ export function ProjectActions({ project }: { project: ProjectRecord }) {
     repoUrl: project.repoUrl ?? "",
     order: project.order,
     published: project.published,
+    countryCode: project.countryCode ?? "",
+    regionCode: project.regionCode ?? "",
   });
   function close() {
     if (busy) return;
@@ -310,6 +313,8 @@ export function ProjectActions({ project }: { project: ProjectRecord }) {
               ...draft,
               link: draft.link || null,
               repoUrl: draft.repoUrl || null,
+              countryCode: draft.countryCode || null,
+              regionCode: draft.regionCode || null,
             },
       );
       board.setRecords((records) =>
@@ -324,6 +329,8 @@ export function ProjectActions({ project }: { project: ProjectRecord }) {
                       repoUrl: body.project.repoUrl,
                       order: body.project.order,
                       published: body.project.published,
+                      countryCode: body.project.countryCode,
+                      regionCode: body.project.regionCode,
                     }
                   : record,
               )
@@ -357,6 +364,8 @@ export function ProjectActions({ project }: { project: ProjectRecord }) {
                 repoUrl: project.repoUrl ?? "",
                 order: project.order,
                 published: project.published,
+                countryCode: project.countryCode ?? "",
+                regionCode: project.regionCode ?? "",
               });
               setOpened(true);
             }
@@ -371,6 +380,52 @@ export function ProjectActions({ project }: { project: ProjectRecord }) {
             if (event.key === "Escape") close();
           }}
         >
+          <label className="block">
+            Client country
+            <select
+              aria-label="Client country"
+              disabled={busy}
+              value={draft.countryCode}
+              className="mt-1 w-full rounded border border-gray-600 bg-black p-2 text-white"
+              onChange={(event) => {
+                setDraft({
+                  ...draft,
+                  countryCode: event.target.value,
+                  regionCode: "",
+                });
+                editor?.setDirty(key, true);
+              }}
+            >
+              <option value="">No country assigned</option>
+              {countries.map(({ code, name }) => (
+                <option key={code} value={code}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+          {draft.countryCode === "NG" && (
+            <label className="block">
+              Nigerian state
+              <select
+                aria-label="Nigerian state"
+                disabled={busy}
+                value={draft.regionCode}
+                className="mt-1 w-full rounded border border-gray-600 bg-black p-2 text-white"
+                onChange={(event) => {
+                  setDraft({ ...draft, regionCode: event.target.value });
+                  editor?.setDirty(key, true);
+                }}
+              >
+                <option value="">All Nigeria / state not assigned</option>
+                {nigeriaStates.map(({ code, name }) => (
+                  <option key={code} value={code}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           {(["link", "repoUrl"] as const).map((field) => (
             <label key={field}>
               {field === "link" ? "Project URL" : "Repository URL"}

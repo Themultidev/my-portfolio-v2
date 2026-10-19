@@ -11,6 +11,10 @@ import {
 } from "../../../../lib/auth-response";
 import { loginRateLimiter } from "../../../../lib/login-rate-limit";
 import { createSessionToken } from "../../../../lib/session-token";
+import {
+  INJECTION_MESSAGE,
+  isInjectionProbe,
+} from "../../../../lib/injection-probe";
 
 export const runtime = "nodejs";
 const loginSchema = z.strictObject({
@@ -58,7 +62,8 @@ export async function POST(request: Request) {
     const config = getAuthConfig();
     if (!isTrustedOrigin(request, config))
       return authFailure(403, "ORIGIN", "Request origin is not allowed.");
-    const input = loginSchema.safeParse(await boundedJson(request));
+    const raw = await boundedJson(request);
+    const input = loginSchema.safeParse(raw);
     // Invalid requests share a rate-limit bucket; all accepted origins consume
     // the global limit before any potentially expensive password comparison.
     const key = input.success
@@ -74,12 +79,19 @@ export async function POST(request: Request) {
       response.headers.set("Retry-After", String(limit.retryAfterSeconds));
       return response;
     }
-    if (!input.success)
+    if (!input.success) {
+      if (
+        raw &&
+        typeof raw === "object" &&
+        (isInjectionProbe(raw.email) || isInjectionProbe(raw.password))
+      )
+        return authFailure(400, "INJECTION_PROBE", INJECTION_MESSAGE);
       return authFailure(
         400,
         "VALIDATION",
         "Enter a valid email and password (at most 72 UTF-8 bytes).",
       );
+    }
     const admin = await db.admin.findUnique({
       where: { email: input.data.email },
     });
@@ -87,8 +99,14 @@ export async function POST(request: Request) {
       input.data.password,
       admin?.passwordHash ?? dummyHash,
     );
-    if (!admin || !matches)
+    if (!admin || !matches) {
+      if (
+        isInjectionProbe(input.data.email) ||
+        isInjectionProbe(input.data.password)
+      )
+        return authFailure(400, "INJECTION_PROBE", INJECTION_MESSAGE);
       return authFailure(401, "CREDENTIALS", "Email or password is incorrect.");
+    }
     const response = NextResponse.json(
       { ok: true },
       { headers: { "Cache-Control": "no-store" } },

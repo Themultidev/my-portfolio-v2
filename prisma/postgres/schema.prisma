@@ -39,6 +39,8 @@ model Project {
   description String?
   link        String?
   repoUrl     String?
+  countryCode String?
+  regionCode  String?
   order       Int            @default(0)
   published   Boolean        @default(true)
   stacks      ProjectStack[]
@@ -55,4 +57,18 @@ model ProjectStack {
 
   @@id([projectId, stackId])
   @@index([stackId])
+}
+
+model PortfolioRevision {
+  id        Int      @id @default(autoincrement())
+  label     String
+  before    String
+  after     String
+  undone    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model PortfolioHistoryState {
+  id      Int @id
+  version Int @default(0)
 }

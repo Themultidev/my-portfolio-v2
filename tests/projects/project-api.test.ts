@@ -149,6 +149,7 @@ async function saved(response: Response, status = 200): Promise<ProjectDto> {
   assert.deepEqual(Object.keys(body), ["project"]);
   const project = body.project as ProjectDto;
   assert.deepEqual(Object.keys(project).sort(), [
+    "countryCode",
     "createdAt",
     "description",
     "id",
@@ -156,6 +157,7 @@ async function saved(response: Response, status = 200): Promise<ProjectDto> {
     "order",
     "photoUrl",
     "published",
+    "regionCode",
     "repoUrl",
     "stacks",
     "title",

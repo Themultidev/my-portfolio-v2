@@ -35,6 +35,8 @@ export async function projectRequest(
     Object.assign(error, { fields: body?.error?.fields ?? {} });
     throw error;
   }
+  if (!["GET", "HEAD"].includes(method))
+    window.dispatchEvent(new Event("portfolio:saved"));
   return body;
 }
 

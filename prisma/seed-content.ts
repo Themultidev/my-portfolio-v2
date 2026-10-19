@@ -106,6 +106,7 @@ export async function seedPortfolio(
         });
         await transaction.project.upsert({
           where: { id: project.id },
+          select: { id: true },
           create: { ...project, stacks: { create: memberships } },
           update: {},
         });

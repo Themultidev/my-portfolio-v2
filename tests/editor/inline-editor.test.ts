@@ -216,6 +216,138 @@ async function assertPublicOnly(page: Page) {
   await expect(page.locator('[contenteditable="true"]')).toHaveCount(0);
 }
 
+test(
+  "browser undo/redo shortcuts preserve native text undo and full defaults can be reversed",
+  { timeout: 180_000 },
+  async () => {
+    await withEditor(async (page) => {
+      await page.goto(`${origin}${editorPath}`);
+      const key = "hero.text.003";
+      const seeded = manifest.content.find((block) => block.key === key);
+      assert.ok(seeded);
+      const before = await blockValue(key);
+      await saveWithKeyboard(page, key, "Mistaken headline for undo test");
+      const undo = page.getByRole("button", { name: "Undo", exact: true });
+      await expect(undo).toBeEnabled();
+      await undo.click();
+      await expect(marker(page, key)).toHaveText(before);
+      const redo = page.getByRole("button", { name: "Redo", exact: true });
+      await expect(redo).toBeEnabled();
+      await page.locator("body").click({ position: { x: 2, y: 2 } });
+      await page.keyboard.press("Control+Shift+Z");
+      await expect(marker(page, key)).toHaveText(
+        "Mistaken headline for undo test",
+      );
+      await page.locator("body").click({ position: { x: 2, y: 2 } });
+      await page.keyboard.press("Control+Z");
+      await expect(marker(page, key)).toHaveText(before);
+      const input = await openEditor(page, key);
+      await input.press("End");
+      await input.pressSequentially(" draft");
+      await input.press("Control+Z");
+      await expect(input).toBeVisible();
+      await expect(
+        page.getByRole("button", { name: "Undo", exact: true }),
+      ).toBeDisabled();
+      await input.press("Escape");
+      await saveWithKeyboard(page, key, "Headline before defaults");
+      await page
+        .getByRole("button", { name: "Restore defaults", exact: true })
+        .click();
+      const dialog = page.getByRole("dialog", {
+        name: "Restore the original portfolio?",
+      });
+      await expect(dialog).toBeVisible();
+      await expect(
+        dialog.getByRole("button", {
+          name: "Restore original portfolio",
+          exact: true,
+        }),
+      ).toBeDisabled();
+      await dialog
+        .getByLabel("Restore confirmation")
+        .fill("RESTORE ORIGINAL PORTFOLIO");
+      await dialog
+        .getByRole("button", {
+          name: "Restore original portfolio",
+          exact: true,
+        })
+        .click();
+      await expect(marker(page, key)).toHaveText(seeded.value);
+      await page.getByRole("button", { name: "Undo", exact: true }).click();
+      await expect(marker(page, key)).toHaveText("Headline before defaults");
+      await saveWithKeyboard(page, key, before);
+      assert.ok(await db.admin.findUnique({ where: { id: admin.id } }));
+    });
+  },
+);
+
+test("browser assigns country and Nigerian state through project options", { timeout: 90_000 }, async () => {
+  await withEditor(async (page) => {
+    const actions = page.locator('[data-project-actions="1"]');
+    await actions.getByRole("button", { name: "Project options", exact: true }).click();
+    await actions.getByLabel("Client country", { exact: true }).selectOption("NG");
+    await actions.getByLabel("Nigerian state", { exact: true }).selectOption("AN");
+    await actions.getByRole("button", { name: "Save options", exact: true }).click();
+    await expect(actions.getByLabel("Client country", { exact: true })).toHaveCount(0);
+    let project = await db.project.findUniqueOrThrow({ where: { id: 1 } });
+    assert.equal(project.countryCode, "NG"); assert.equal(project.regionCode, "AN");
+    await page.reload();
+    await actions.getByRole("button", { name: "Project options", exact: true }).click();
+    await expect(actions.getByLabel("Nigerian state", { exact: true })).toHaveValue("AN");
+    await actions.getByLabel("Client country", { exact: true }).selectOption("");
+    await actions.getByRole("button", { name: "Save options", exact: true }).click();
+    await expect(actions.getByLabel("Client country", { exact: true })).toHaveCount(0);
+    project = await db.project.findUniqueOrThrow({ where: { id: 1 } });
+    assert.equal(project.countryCode, null); assert.equal(project.regionCode, null);
+  });
+});
+
+test(
+  "public nearby prompt shows Anambra matches while all main project cards remain visible",
+  { timeout: 90_000 },
+  async () => {
+    const context = await newContext(false);
+    try {
+      await context.route("**/api/nearby", (route) =>
+        route.fulfill({
+          contentType: "application/json",
+          body: JSON.stringify({
+            country: { code: "NG", name: "Nigeria" },
+            region: { code: "AN", name: "Anambra" },
+            scope: "region",
+            projects: [
+              {
+                id: 1,
+                title: "Anambra client project",
+                description: "Local work",
+                photoUrl: null,
+                link: null,
+                repoUrl: null,
+              },
+            ],
+          }),
+        }),
+      );
+      const page = await context.newPage();
+      await page.goto(origin);
+      const prompt = page.locator("[data-nearby-projects]");
+      await expect(prompt).toContainText("Looks like you’re in Anambra.");
+      await prompt
+        .getByRole("button", { name: "See projects in Anambra", exact: true })
+        .click();
+      await expect(prompt).toContainText("Anambra client project");
+      for (const id of ["boxOne", "boxTwo", "boxThree", "boxFour"])
+        await expect(page.locator(`#${id}`)).toHaveCount(1);
+      await expect(
+        page.getByRole("button", { name: "Restore defaults", exact: true }),
+      ).toHaveCount(0);
+    } finally {
+      await context.close();
+    }
+  },
+);
+
 before(
   async () => {
     execFileSync(

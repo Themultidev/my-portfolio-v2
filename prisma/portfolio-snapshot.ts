@@ -45,6 +45,12 @@ export const snapshotSchema = z
           description: z.string().nullable(),
           link: z.string().nullable(),
           repoUrl: z.string().nullable(),
+          countryCode: z
+            .string()
+            .regex(/^[A-Z]{2}$/)
+            .nullable()
+            .default(null),
+          regionCode: z.string().max(10).nullable().default(null),
           order,
           published: z.boolean(),
           createdAt: date,

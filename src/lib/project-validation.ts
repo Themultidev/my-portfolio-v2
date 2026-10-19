@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { contentPatchSchema } from "./content-validation";
+import { isCountryCode, nigeriaRegion } from "./countries";
 
 export const PROJECT_MAX_ID = 2_147_483_647;
 export const PROJECT_MAX_STACKS = 5;
@@ -103,6 +104,17 @@ const projectFields = {
   photoUrl: photo,
   link,
   repoUrl: link,
+  countryCode: z
+    .string()
+    .refine(isCountryCode, "Choose a valid country.")
+    .nullable(),
+  regionCode: z
+    .string()
+    .refine(
+      (value) => nigeriaRegion(value) === value,
+      "Choose a Nigerian state or FCT.",
+    )
+    .nullable(),
   order: z.number().int().nonnegative().max(PROJECT_MAX_ID),
   published: z.boolean(),
   stackIds,
@@ -119,6 +131,8 @@ export const projectCreateSchema = z
     photoUrl: photo.optional(),
     link: link.optional(),
     repoUrl: link.optional(),
+    countryCode: projectFields.countryCode.optional(),
+    regionCode: projectFields.regionCode.optional(),
     order: projectFields.order.optional(),
     published: projectFields.published.optional(),
     stackIds: stackIds.optional(),

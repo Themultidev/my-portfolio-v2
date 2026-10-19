@@ -76,14 +76,42 @@ export function getAuthConfig(
 
 export function isTrustedOrigin(request: Request, config: AuthConfig): boolean {
   const supplied = request.headers.get("origin");
-  if (!supplied || supplied === "null") return false;
-  if (config.origin) return supplied === config.origin;
   // Development fallback is limited to literal local hosts. Forwarded headers
   // never define the trusted origin; production always has a fixed APP_ORIGIN.
   const target = new URL(request.url);
-  return (
-    ["http:", "https:"].includes(target.protocol) &&
-    isLoopback(target.hostname) &&
-    supplied === target.origin
-  );
+  const expected =
+    config.origin ??
+    (["http:", "https:"].includes(target.protocol) &&
+    isLoopback(target.hostname)
+      ? target.origin
+      : null);
+  const trusted =
+    !!supplied &&
+    supplied !== "null" &&
+    expected !== null &&
+    supplied === expected;
+  if (!trusted) {
+    // Log only public origins, never cookies, credentials, request bodies or the
+    // environment. Malformed headers may contain arbitrary data: redact them.
+    let received = supplied === null ? "<missing>" : "<invalid>";
+    if (supplied === "null") received = "null";
+    else if (supplied) {
+      try {
+        const parsed = new URL(supplied);
+        if (
+          ["http:", "https:"].includes(parsed.protocol) &&
+          parsed.origin === supplied
+        )
+          received = parsed.origin;
+      } catch {
+        /* Keep invalid header contents out of logs. */
+      }
+    }
+    console.warn("[auth-origin]", {
+      expectedOrigin: expected,
+      receivedOrigin: received,
+      requestOrigin: target.origin,
+    });
+  }
+  return trusted;
 }

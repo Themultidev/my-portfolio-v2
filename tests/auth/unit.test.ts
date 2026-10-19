@@ -105,6 +105,63 @@ test("a configured app origin binds browser requests and controls secure cookies
   }
 });
 
+test("origin rejection logs the runtime comparison without credentials or attacker-controlled paths", (context) => {
+  const warning = context.mock.method(console, "warn", () => {});
+  const config = getAuthConfig(productionEnvironment);
+  const request = (origin?: string) =>
+    new Request(
+      "https://deployment.example/api/login?token=private-query-value",
+      {
+        method: "POST",
+        headers: {
+          ...(origin === undefined ? {} : { origin }),
+          cookie: "session=private-cookie-value",
+          authorization: "Bearer private-token-value",
+        },
+        body: "private-body-value",
+      },
+    );
+  assert.equal(isTrustedOrigin(request(config.origin!), config), true);
+  assert.equal(warning.mock.callCount(), 0);
+  assert.equal(
+    isTrustedOrigin(request("https://preview.example"), config),
+    false,
+  );
+  assert.deepEqual(warning.mock.calls[0].arguments, [
+    "[auth-origin]",
+    {
+      expectedOrigin: "https://portfolio.example",
+      receivedOrigin: "https://preview.example",
+      requestOrigin: "https://deployment.example",
+    },
+  ]);
+  assert.equal(isTrustedOrigin(request(), config), false);
+  assert.equal(isTrustedOrigin(request("null"), config), false);
+  assert.equal(
+    isTrustedOrigin(
+      request(
+        "https://user:private-password@attacker.example/private-path?key=private-query",
+      ),
+      config,
+    ),
+    false,
+  );
+  assert.equal(warning.mock.calls[1].arguments[1].receivedOrigin, "<missing>");
+  assert.equal(warning.mock.calls[2].arguments[1].receivedOrigin, "null");
+  assert.equal(warning.mock.calls[3].arguments[1].receivedOrigin, "<invalid>");
+  const output = JSON.stringify(
+    warning.mock.calls.map((call) => call.arguments),
+  );
+  for (const hidden of [
+    secret,
+    productionEnvironment.ADMIN_PASSWORD,
+    "private-",
+    "authorization",
+    "cookie",
+  ])
+    assert.ok(!output.includes(hidden));
+});
+
 test("request forwarding headers cannot expand the development origin allowlist", () => {
   const config = getAuthConfig({
     NODE_ENV: "development",

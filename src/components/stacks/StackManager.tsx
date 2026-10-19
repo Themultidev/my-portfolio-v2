@@ -23,6 +23,8 @@ async function request(url: string, init: RequestInit) {
       body?.error?.message ??
         "Unable to save. Your changes are still here; try again.",
     );
+  if (init.method && !["GET", "HEAD"].includes(init.method))
+    window.dispatchEvent(new Event("portfolio:saved"));
   return body;
 }
 

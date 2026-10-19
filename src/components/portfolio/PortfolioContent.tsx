@@ -7,6 +7,7 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 import PortfolioEffects from "../PortfolioEffects";
 import type { ProjectRecord } from "../../lib/project-types";
+import NearbyProjects from "../projects/NearbyProjects";
 
 export default function PortfolioContent({
   editable = false,
@@ -21,6 +22,7 @@ export default function PortfolioContent({
       <DesktopNavigation />
       <Home />
       <About />
+      {!editable && <NearbyProjects />}
       <Projects projects={projects} editable={editable} />
       <Contact />
       <Footer />

@@ -28,6 +28,7 @@
     "test:auth": "node --conditions=react-server --import tsx --test tests/auth/unit.test.ts tests/auth/http.test.ts",
     "test:content": "node --conditions=react-server --import tsx --test tests/content/content-api.test.ts",
     "test:editor": "node --conditions=react-server --import tsx --test tests/editor/inline-editor.test.ts",
+    "test:history": "node --conditions=react-server --import tsx --test tests/editor/history.test.ts",
     "test:projects": "node --conditions=react-server --import tsx --test --test-concurrency=1 tests/projects/project-api.test.ts tests/projects/project-migration.test.ts",
     "test:stacks": "node --conditions=react-server --import tsx --test tests/stacks/stack-api.test.ts"
   },

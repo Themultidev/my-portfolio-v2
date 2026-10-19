@@ -433,7 +433,8 @@ validation, and the browser catalog/picker workflow.
 In `/admin/edit/portfolio`, click the résumé icon to upload a PDF (up to 5 MB),
 view it, replace it, or remove it after confirmation. Uploads save immediately;
 failed saves retain the uploaded PDF for retry. Removing the résumé disables
-its public link. Replaced/removed attached PDFs are deleted from upload storage.
+its public link. Replaced/removed PDFs remain in upload storage so undo can restore
+their links. Uploaded files are retained when resetting the portfolio too.
 
 Click the X or LinkedIn icon to change its destination URL. Save link or
 Ctrl/Cmd+Enter persists it; Cancel or Escape discards the draft. Mobile and
@@ -441,6 +442,62 @@ desktop navigation share the same saved destination. Leaving with unsaved
 changes prompts first. URLs must use HTTP(S); uploads and link mutations require
 a live admin session and trusted Origin. No database schema migration is needed;
 link settings are stored as dedicated content records when first saved.
+
+## Undo, redo and original defaults
+
+The admin toolbar provides Undo, Redo and Restore defaults on portfolio, overview,
+project and stack pages. The database retains the latest 50 saved changes across
+refreshes and sign-ins. Text, project CRUD and memberships, stack CRUD, profile
+links and résumé changes are recorded atomically with their revisions. A new save
+after undo discards the redo branch. The account and password are never included
+in history. Concurrent tab changes cause a conflict instead of a stale restore.
+
+Outside text inputs, Ctrl/Cmd+Z undoes the latest saved change; Ctrl/Cmd+Shift+Z
+or Ctrl+Y redoes it. Inside inputs, native text undo continues to work. Save or
+cancel open drafts before using portfolio history. A successful history action
+reloads the page so all sections, cards and catalog rows agree with the database.
+
+Restore defaults requires typing `RESTORE ORIGINAL PORTFOLIO`. It replaces all
+current content, projects, memberships, stack definitions and custom site links
+with the checked-in original portfolio, removing additions and country tags.
+The admin account remains unchanged. The reset is itself undoable. Changes made
+before this feature was deployed have no individual revisions; a full reset can
+still restore the originals and records the current state so that reset can be
+undone. Existing edits are not reset merely by deploying or running migrations.
+
+Run `npm run db:migrate` locally after pulling this update. Vercel applies the
+new migrations during its build. `npm run test:history` verifies reset, durable
+history, guards, country/state filtering and injection messages with isolated data.
+
+## Nearby client projects
+
+All published projects stay visible on the main page. A separate prompt between
+About and Projects uses Vercel's country estimate, plus the state estimate for
+Nigeria, to introduce work built for people near the visitor. Its button expands
+the matching list without filtering the main portfolio. When no state matches
+exist it offers country-level work, with an explicit fallback message. When no
+country projects exist it says so and points to all projects. Unknown locations
+hide the prompt. No manual visitor picker, browser GPS request or third-party IP
+lookup is used; raw IP addresses are neither read nor stored by this feature.
+
+In Project options, select Client country and, for Nigeria, one of the 36 states
+or FCT. New projects can be tagged after creation. Original projects start without
+tags; assigning a location does not claim the client exists until you add one.
+The public `/api/nearby` response contains only published matches and uses
+`Cache-Control: no-store` to avoid sharing country-specific responses. Vercel's
+`x-vercel-ip-country` and `x-vercel-ip-country-region` are consulted only on Vercel.
+IP-based location is approximate and can reflect a mobile carrier or VPN instead
+of the visitor's actual state; the prompt describes it as an estimate.
+
+## Custom SQL-probe response
+
+Clear SQL-comment/UNION/stacked-statement probes in failed login fields and admin
+query parameters receive the owner's custom message. Normal `--` punctuation,
+portfolio text and successful logins with SQL-looking passwords remain supported.
+The response is cosmetic: Prisma's parameterized queries, session validation,
+trusted-origin checks, bounded parsing and rate limits remain the protections.
+TLS/SSL negotiation happens before the application and is not handled by this
+SQL-probe message.
 
 ## Migration status
 

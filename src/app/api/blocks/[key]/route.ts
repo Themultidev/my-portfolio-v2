@@ -11,7 +11,7 @@ import {
   contentKeySchema,
   contentPatchSchema,
 } from "../../../../lib/content-validation";
-import { db } from "../../../../lib/db";
+import { portfolioTransaction } from "../../../../lib/portfolio-history";
 import { readJsonBody } from "../../../../lib/json-body";
 import { getProjectContentBinding } from "../../../../lib/project-reference";
 import { isSiteLinkKey } from "../../../../lib/site-links";
@@ -62,17 +62,20 @@ export async function PATCH(
       select: { key: true, value: true, label: true, updatedAt: true },
     } as const;
     const binding = getProjectContentBinding(key.data);
-    const block = binding
-      ? await db.$transaction(async (transaction) => {
+    const block = await portfolioTransaction(
+      "Edit portfolio text",
+      async (transaction) => {
+        if (binding) {
           // Keep the established inline keys working with model-backed cards.
           await transaction.project.update({
             where: { id: binding.projectId },
             data: { [binding.field]: patch.data.value },
             select: { id: true },
           });
-          return transaction.contentBlock.update(update);
-        })
-      : await db.contentBlock.update(update);
+        }
+        return transaction.contentBlock.update(update);
+      },
+    );
     return apiJson({ block });
   } catch (error) {
     if (

@@ -1,0 +1,14 @@
+ALTER TABLE "Project" ADD COLUMN "countryCode" TEXT;
+ALTER TABLE "Project" ADD COLUMN "regionCode" TEXT;
+CREATE TABLE "PortfolioRevision" (
+  "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "label" TEXT NOT NULL,
+  "before" TEXT NOT NULL,
+  "after" TEXT NOT NULL,
+  "undone" BOOLEAN NOT NULL DEFAULT false,
+  "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "PortfolioHistoryState" (
+  "id" INTEGER NOT NULL PRIMARY KEY,
+  "version" INTEGER NOT NULL DEFAULT 0
+);

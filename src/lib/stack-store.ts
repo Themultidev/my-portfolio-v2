@@ -4,6 +4,7 @@ import { storedUploadExists } from "./upload-storage";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { db } from "./db";
+import { portfolioTransaction } from "./portfolio-history";
 import { ApiError, apiFailure, unexpectedApiFailure } from "./api-response";
 import { requireSession } from "./auth";
 import { getAuthConfig, isTrustedOrigin } from "./auth-config";
@@ -97,32 +98,35 @@ export async function saveStack(
       });
     }
   }
-  return db.$transaction(async (transaction) => {
-    if (id !== undefined)
+  return portfolioTransaction(
+    id === undefined ? "Create stack" : "Edit stack",
+    async (transaction) => {
+      if (id !== undefined)
+        return record(
+          await transaction.stack.update({
+            where: { id },
+            data: parsed.data,
+            select: selection,
+          }),
+        );
+      const data = createSchema.parse(parsed.data);
+      const order =
+        data.order ??
+        ((await transaction.stack.aggregate({ _max: { order: true } }))._max
+          .order ?? -1) + 1;
+      if (order > PROJECT_MAX_ID)
+        throw new ApiError(400, "VALIDATION", "Provide a smaller stack order.");
       return record(
-        await transaction.stack.update({
-          where: { id },
-          data: parsed.data,
+        await transaction.stack.create({
+          data: { ...data, order },
           select: selection,
         }),
       );
-    const data = createSchema.parse(parsed.data);
-    const order =
-      data.order ??
-      ((await transaction.stack.aggregate({ _max: { order: true } }))._max
-        .order ?? -1) + 1;
-    if (order > PROJECT_MAX_ID)
-      throw new ApiError(400, "VALIDATION", "Provide a smaller stack order.");
-    return record(
-      await transaction.stack.create({
-        data: { ...data, order },
-        select: selection,
-      }),
-    );
-  });
+    },
+  );
 }
 export async function deleteStack(id: number) {
-  return db.$transaction(async (transaction) => {
+  return portfolioTransaction("Delete stack", async (transaction) => {
     const stack = await transaction.stack.findUnique({
       where: { id },
       select: selection,

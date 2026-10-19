@@ -23,6 +23,19 @@ const directory = mkdtempSync(join(parent, "portfolio-project-migration-"));
 const migrations = join(directory, "migrations");
 const initial = "20261005000000_init";
 const promotion = "20261012090000_promote_project_content";
+const historyCountry = "20261019000000_history_country";
+const legacySelection = {
+  id: true,
+  title: true,
+  description: true,
+  photoUrl: true,
+  link: true,
+  repoUrl: true,
+  order: true,
+  published: true,
+  createdAt: true,
+  updatedAt: true,
+} as const;
 const databaseUrl = `file:${join(directory, "test.db").replaceAll("\\", "/")}`;
 const db = new PrismaClient({ datasources: { db: { url: databaseUrl } } });
 const credentials = {
@@ -94,9 +107,11 @@ test("upgrading a seeded old database preserves all original text edits, empty v
     await db.contentBlock.update({ where: { key }, data: { value } });
   const missingDescription = await db.project.findUniqueOrThrow({
     where: { id: 3 },
+    select: legacySelection,
   });
   await db.contentBlock.delete({ where: { key: "projects.text.012" } });
   const untouched = await db.project.create({
+    select: legacySelection,
     data: {
       title: "New historical project",
       description: "Keep unrelated data",
@@ -111,6 +126,11 @@ test("upgrading a seeded old database preserves all original text edits, empty v
     resolve(root, "prisma/migrations", promotion, "migration.sql"),
     join(migrations, promotion, "migration.sql"),
   );
+  mkdirSync(join(migrations, historyCountry));
+  copyFileSync(
+    resolve(root, "prisma/migrations", historyCountry, "migration.sql"),
+    join(migrations, historyCountry, "migration.sql"),
+  );
   deploy();
   for (const [id, title, description] of [
     [1, changes[0][1], changes[1][1]],
@@ -124,7 +144,7 @@ test("upgrading a seeded old database preserves all original text edits, empty v
   }
   assert.deepEqual(
     await db.project.findUniqueOrThrow({ where: { id: untouched.id } }),
-    untouched,
+    { ...untouched, countryCode: null, regionCode: null },
   );
   assert.deepEqual(
     await db.projectStack.findMany({
@@ -137,7 +157,7 @@ test("upgrading a seeded old database preserves all original text edits, empty v
   >`SELECT migration_name, finished_at FROM _prisma_migrations ORDER BY migration_name`;
   assert.deepEqual(
     ledger.map(({ migration_name }) => migration_name),
-    [initial, promotion],
+    [initial, promotion, historyCountry],
   );
   assert.ok(ledger.every(({ finished_at }) => finished_at !== null));
 });

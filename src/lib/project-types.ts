@@ -13,6 +13,8 @@ export interface ProjectRecord {
   photoUrl: string | null;
   link: string | null;
   repoUrl: string | null;
+  countryCode?: string | null;
+  regionCode?: string | null;
   order: number;
   published: boolean;
   createdAt: string;

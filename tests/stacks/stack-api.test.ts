@@ -255,7 +255,11 @@ test("résumé and social link APIs enforce authentication, validate files and U
     (await mutate("DELETE", "/api/site-links/site.resume.url")).status,
     200,
   );
-  assert.equal((await request(url)).status, 404);
+  assert.equal(
+    (await request(url)).status,
+    200,
+    "Undo keeps detached résumé files available",
+  );
   await db.contentBlock.deleteMany({
     where: {
       key: { in: ["site.resume.url", "site.social.x", "site.social.linkedin"] },
@@ -369,7 +373,7 @@ test(
           where: { key: "site.resume.url" },
         });
         uploaded.push(saved.value);
-        if (previous) assert.equal((await request(previous)).status, 404);
+        if (previous) assert.equal((await request(previous)).status, 200);
         previous = saved.value;
         assert.deepEqual(
           await page
@@ -401,7 +405,7 @@ test(
         await desktop.locator('[data-site-link="resume"]').getAttribute("href"),
         null,
       );
-      assert.equal((await request(previous!)).status, 404);
+      assert.equal((await request(previous!)).status, 200);
       const publicPage = await context.newPage();
       await publicPage.goto(origin);
       await expect(
