@@ -14,6 +14,7 @@ import {
 import { db } from "../../../../lib/db";
 import { readJsonBody } from "../../../../lib/json-body";
 import { getProjectContentBinding } from "../../../../lib/project-reference";
+import { isSiteLinkKey } from "../../../../lib/site-links";
 
 export const runtime = "nodejs";
 
@@ -33,6 +34,12 @@ export async function PATCH(
         key: key.error.issues.map((issue) => issue.message),
       });
 
+    if (isSiteLinkKey(key.data))
+      throw new ApiError(
+        400,
+        "VALIDATION",
+        "Use the site link editor to update this URL.",
+      );
     const patch = contentPatchSchema.safeParse(await readJsonBody(request));
     if (!patch.success) {
       const fields: Record<string, string[]> = {};

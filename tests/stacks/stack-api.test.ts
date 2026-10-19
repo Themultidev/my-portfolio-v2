@@ -85,6 +85,374 @@ function track(url: string) {
 }
 const svg =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 20"><rect width="40" height="20" fill="#06b6d4"/></svg>';
+const resumePdf = Buffer.from(
+  "%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [] /Count 0 >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF\n",
+);
+
+test("Blob upload tokens require a live session and origin and restrict size, MIME and owner path", async () => {
+  const { POST } = await import("../../src/app/api/blob-upload/route");
+  const { getPayloadFromClientToken } = await import("@vercel/blob/client");
+  const previous = process.env.BLOB_READ_WRITE_TOKEN;
+  process.env.BLOB_READ_WRITE_TOKEN = "vercel_blob_rw_test_testonly";
+  const path = `portfolio-staging/${admin.id}/project/00000000-0000-0000-0000-000000000000.bin`;
+  const send = (pathname: string, requestHeaders: HeadersInit = headers()) =>
+    POST(
+      new Request(`${origin}/api/blob-upload`, {
+        method: "POST",
+        headers: requestHeaders,
+        body: JSON.stringify({
+          type: "blob.generate-client-token",
+          payload: { pathname, clientPayload: null, multipart: false },
+        }),
+      }),
+    );
+  try {
+    await failure(
+      await send(path, { Origin: origin, "Content-Type": "application/json" }),
+      401,
+      "UNAUTHORIZED",
+    );
+    await failure(
+      await send(path, { ...headers(), Origin: "https://untrusted.invalid" }),
+      403,
+      "ORIGIN",
+    );
+    for (const invalid of [
+      path.replace(`/${admin.id}/`, `/${admin.id + 1}/`),
+      "/uploads/projects/owned.png",
+      "https://untrusted.invalid/upload",
+    ])
+      await failure(await send(invalid), 400, "VALIDATION");
+    const response = await send(path);
+    assert.equal(response.status, 200);
+    const body = await response.json();
+    const scope = getPayloadFromClientToken(body.clientToken);
+    assert.equal(scope.pathname, path);
+    assert.equal(scope.maximumSizeInBytes, 5 * 1024 * 1024);
+    assert.deepEqual(scope.allowedContentTypes, ["application/octet-stream"]);
+    assert.equal(scope.allowOverwrite, false);
+    assert.equal(scope.addRandomSuffix, false);
+    assert.ok(
+      scope.validUntil > Date.now() &&
+        scope.validUntil <= Date.now() + 5 * 60_000,
+    );
+    const config = await upload.GET(
+      new Request(`${origin}/api/upload`, { headers: headers() }),
+    );
+    assert.deepEqual(await config.json(), {
+      provider: "blob",
+      adminId: admin.id,
+    });
+    await failure(
+      await upload.POST(
+        new Request(`${origin}/api/upload?kind=project`, {
+          method: "POST",
+          headers: headers(),
+          body: JSON.stringify({
+            stagingPath: path.replace(`/${admin.id}/`, `/${admin.id + 1}/`),
+          }),
+        }),
+      ),
+      400,
+      "VALIDATION",
+    );
+  } finally {
+    if (previous === undefined) delete process.env.BLOB_READ_WRITE_TOKEN;
+    else process.env.BLOB_READ_WRITE_TOKEN = previous;
+  }
+});
+
+test("résumé and social link APIs enforce authentication, validate files and URLs, and remove PDFs", async () => {
+  for (const path of [
+    "/api/site-links/site.social.x",
+    "/api/upload?kind=resume",
+  ]) {
+    const method = path.includes("upload") ? "POST" : "PATCH";
+    await failure(
+      await request(path, { method, headers: { Origin: origin } }),
+      401,
+      "UNAUTHORIZED",
+    );
+    await failure(
+      await request(path, {
+        method,
+        headers: {
+          Cookie: headers().Cookie,
+          Origin: "https://untrusted.invalid",
+        },
+      }),
+      403,
+      "ORIGIN",
+    );
+  }
+  for (const value of [
+    "javascript:alert(1)",
+    "data:text/html,test",
+    "https://user:secret@example.invalid",
+    "//x.com/example",
+  ])
+    await failure(
+      await mutate("PATCH", "/api/site-links/site.social.x", { value }),
+      400,
+      "VALIDATION",
+    );
+  await failure(
+    await mutate("PATCH", "/api/site-links/unknown", {
+      value: "https://x.com/example",
+    }),
+    404,
+    "NOT_FOUND",
+  );
+  await failure(
+    await mutate("PATCH", "/api/site-links/site.resume.url", {
+      value: "/uploads/resumes/00000000-0000-0000-0000-000000000000.pdf",
+    }),
+    400,
+    "VALIDATION",
+  );
+  const invalid = new FormData();
+  invalid.append("file", new Blob(["<html>not a PDF</html>"]), "resume.pdf");
+  await failure(
+    await request("/api/upload?kind=resume", {
+      method: "POST",
+      headers: { Cookie: headers().Cookie, Origin: origin },
+      body: invalid,
+    }),
+    400,
+    "VALIDATION",
+  );
+  const form = new FormData();
+  form.append(
+    "file",
+    new Blob([resumePdf], { type: "application/pdf" }),
+    "resume.pdf",
+  );
+  const response = await request("/api/upload?kind=resume", {
+    method: "POST",
+    headers: { Cookie: headers().Cookie, Origin: origin },
+    body: form,
+  });
+  assert.equal(response.status, 201);
+  const { url } = await response.json();
+  uploaded.push(url);
+  assert.equal(
+    (await mutate("PATCH", "/api/site-links/site.resume.url", { value: url }))
+      .status,
+    200,
+  );
+  const served = await request(url);
+  assert.equal(served.status, 200);
+  assert.equal(served.headers.get("content-type"), "application/pdf");
+  assert.equal(served.headers.get("x-content-type-options"), "nosniff");
+  await failure(
+    await mutate("PATCH", "/api/blocks/site.resume.url", {
+      value: "javascript:alert(1)",
+    }),
+    400,
+    "VALIDATION",
+  );
+  assert.equal(
+    (await mutate("DELETE", "/api/site-links/site.resume.url")).status,
+    200,
+  );
+  assert.equal((await request(url)).status, 404);
+  await db.contentBlock.deleteMany({
+    where: {
+      key: { in: ["site.resume.url", "site.social.x", "site.social.linkedin"] },
+    },
+  });
+});
+
+test(
+  "browser edits profile URLs and uploads, replaces and removes résumé by clicking navigation icons",
+  { timeout: 180_000 },
+  async () => {
+    const browser = await chromium.launch({
+      channel: "chrome",
+      headless: true,
+    });
+    const context = await browser.newContext({
+      viewport: { width: 1440, height: 1000 },
+    });
+    await replayFonts(context);
+    await context.addCookies([
+      {
+        name: "__Host-portfolio_session",
+        value: createSessionToken(admin, secret),
+        url: origin.replace("http:", "https:"),
+        secure: true,
+        httpOnly: true,
+        sameSite: "Strict",
+      },
+    ]);
+    const page = await context.newPage();
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    try {
+      await page.goto(`${origin}/admin/edit/portfolio`);
+      const desktop = page.locator('header[class~="lg:block"]');
+      await desktop.locator('[data-site-link="x"]').click();
+      const x = page.locator('[data-site-link-editor="x"]');
+      await x
+        .getByLabel("X profile URL", { exact: true })
+        .fill("https://x.com/edited_profile");
+      let fail = true;
+      await page.route("**/api/site-links/site.social.x", async (route) => {
+        if (fail) {
+          fail = false;
+          await route.fulfill({
+            status: 503,
+            contentType: "application/json",
+            body: JSON.stringify({
+              error: { message: "Temporary link save failure" },
+            }),
+          });
+        } else await route.continue();
+      });
+      await x.getByRole("button", { name: "Save link", exact: true }).click();
+      await expect(x.getByRole("alert")).toHaveText(
+        "Temporary link save failure",
+      );
+      const dialog = page.waitForEvent("dialog");
+      const navigating = page.locator('a[href="/admin/projects"]').click();
+      await (await dialog).dismiss();
+      await navigating;
+      await expect(x.getByLabel("X profile URL", { exact: true })).toHaveValue(
+        "https://x.com/edited_profile",
+      );
+      await x.getByRole("button", { name: "Retry", exact: true }).click();
+      await expect(x).toHaveCount(0);
+      assert.deepEqual(
+        await page
+          .locator('[data-site-link="x"]')
+          .evaluateAll((elements) =>
+            elements.map((element) => element.getAttribute("href")),
+          ),
+        ["https://x.com/edited_profile", "https://x.com/edited_profile"],
+      );
+      await desktop.locator('[data-site-link="linkedin"]').click();
+      const linked = page.locator('[data-site-link-editor="linkedin"]');
+      await linked
+        .getByLabel("LinkedIn profile URL", { exact: true })
+        .fill("javascript:alert(1)");
+      await linked
+        .getByRole("button", { name: "Save link", exact: true })
+        .click();
+      await expect(linked.getByRole("alert")).toContainText("HTTP or HTTPS");
+      await linked
+        .getByLabel("LinkedIn profile URL", { exact: true })
+        .fill("https://www.linkedin.com/in/edited-profile");
+      await linked
+        .getByRole("button", { name: "Save link", exact: true })
+        .click();
+      await expect(linked).toHaveCount(0);
+      let previous: string | undefined;
+      for (let attempt = 0; attempt < 2; attempt++) {
+        await desktop.locator('[data-site-link="resume"]').click();
+        const pane = page.locator('[data-site-link-editor="resume"]');
+        const chooser = page.waitForEvent("filechooser");
+        await pane
+          .getByRole("button", {
+            name: attempt ? "Replace résumé" : "Upload résumé",
+            exact: true,
+          })
+          .click();
+        await (
+          await chooser
+        ).setFiles({
+          name: "resume.pdf",
+          mimeType: "application/pdf",
+          buffer: resumePdf,
+        });
+        await expect(pane).toHaveCount(0);
+        const saved = await db.contentBlock.findUniqueOrThrow({
+          where: { key: "site.resume.url" },
+        });
+        uploaded.push(saved.value);
+        if (previous) assert.equal((await request(previous)).status, 404);
+        previous = saved.value;
+        assert.deepEqual(
+          await page
+            .locator('[data-site-link="resume"]')
+            .evaluateAll((elements) =>
+              elements.map((element) => element.getAttribute("href")),
+            ),
+          [saved.value, saved.value],
+        );
+      }
+      await page.reload();
+      await expect(desktop.locator('[data-site-link="x"]')).toHaveAttribute(
+        "href",
+        "https://x.com/edited_profile",
+      );
+      await expect(
+        desktop.locator('[data-site-link="linkedin"]'),
+      ).toHaveAttribute("href", "https://www.linkedin.com/in/edited-profile");
+      await desktop.locator('[data-site-link="resume"]').click();
+      page.once("dialog", (dialog) => void dialog.accept());
+      await page
+        .locator('[data-site-link-editor="resume"]')
+        .getByRole("button", { name: "Remove résumé", exact: true })
+        .click();
+      await expect(
+        page.locator('[data-site-link-editor="resume"]'),
+      ).toHaveCount(0);
+      assert.equal(
+        await desktop.locator('[data-site-link="resume"]').getAttribute("href"),
+        null,
+      );
+      assert.equal((await request(previous!)).status, 404);
+      const publicPage = await context.newPage();
+      await publicPage.goto(origin);
+      await expect(
+        publicPage.locator('a[href="https://x.com/edited_profile"]'),
+      ).toHaveCount(2);
+      await expect(
+        publicPage.locator(
+          'a[href="https://www.linkedin.com/in/edited-profile"]',
+        ),
+      ).toHaveCount(2);
+      await publicPage.close();
+      await page.setViewportSize({ width: 375, height: 900 });
+      await page.goto(`${origin}/admin/projects`);
+      const trigger = page.locator('[data-project-stacks="1"]');
+      await expect(trigger).toHaveText(/\+\s*Add stack/);
+      await trigger.click();
+      const picker = page.locator('[data-stack-picker="1"]');
+      await expect(
+        picker.getByRole("link", {
+          name: "Manage stack names and SVG icons",
+          exact: true,
+        }),
+      ).toBeVisible();
+      assert.equal(
+        await picker.evaluate((element) => {
+          const rect = element.getBoundingClientRect();
+          return rect.left >= 0 && rect.right <= window.innerWidth;
+        }),
+        true,
+      );
+      await page.screenshot({
+        path: resolve(parent, "admin-stack-picker-mobile.png"),
+      });
+      await picker
+        .getByRole("button", { name: "Close stack picker", exact: true })
+        .click();
+      await expect(picker).toHaveCount(0);
+      assert.deepEqual(errors, []);
+    } finally {
+      await context.close();
+      await browser.close();
+      await db.contentBlock.deleteMany({
+        where: {
+          key: {
+            in: ["site.resume.url", "site.social.x", "site.social.linkedin"],
+          },
+        },
+      });
+    }
+  },
+);
 
 test(
   "project tile creates, retries, edits photos and copy, removes chips, orders and deletes",
@@ -427,12 +795,16 @@ after(async () => {
     else process.env[key] = value;
   }
   for (const url of uploaded) {
-    assert.match(url, /^\/uploads\/(stacks|projects)\/[a-f0-9-]{36}\.png$/);
+    assert.match(
+      url,
+      /^\/uploads\/(?:(stacks|projects)\/[a-f0-9-]{36}\.png|resumes\/[a-f0-9-]{36}\.pdf)$/,
+    );
     const path = resolve(root, "public", `.${url}`);
     assert.ok(
       [
         resolve(root, "public/uploads/stacks"),
         resolve(root, "public/uploads/projects"),
+        resolve(root, "public/uploads/resumes"),
       ].includes(dirname(path)),
     );
     try {

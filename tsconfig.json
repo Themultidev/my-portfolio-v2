@@ -24,6 +24,7 @@
     "next.config.ts",
     "prisma.config.ts",
     "prisma/**/*.ts",
+    "scripts/*.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],

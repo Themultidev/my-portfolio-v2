@@ -1,6 +1,6 @@
 import "server-only";
-import { access } from "node:fs/promises";
-import { resolve } from "node:path";
+import manifest from "../../prisma/seed-data.json";
+import { storedUploadExists } from "./upload-storage";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { db } from "./db";
@@ -85,7 +85,12 @@ export async function saveStack(
   }
   if (parsed.data.svgPath) {
     try {
-      await access(resolve(process.cwd(), "public", `.${parsed.data.svgPath}`));
+      if (parsed.data.svgPath.startsWith("/uploads/"))
+        await storedUploadExists(parsed.data.svgPath);
+      else if (
+        !manifest.stacks.some((stack) => stack.svgPath === parsed.data.svgPath)
+      )
+        throw new Error("Unknown bundled icon.");
     } catch {
       throw new ApiError(400, "VALIDATION", "Icon was not found.", {
         svgPath: ["Choose an existing icon or upload it first."],

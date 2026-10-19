@@ -10,6 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { isSiteLinkKey, siteLinkKeys } from "../../lib/site-links";
 
 export type ContentRecord = Record<string, { value: string; label: string }>;
 export type SaveResult =
@@ -159,12 +160,17 @@ export default function EditModeProvider({
       const request = (async (): Promise<SaveResult> => {
         try {
           const response = await fetch(
-            `/api/blocks/${encodeURIComponent(key)}`,
+            `${isSiteLinkKey(key) ? "/api/site-links" : "/api/blocks"}/${encodeURIComponent(key)}`,
             {
-              method: "PATCH",
+              method:
+                key === siteLinkKeys.resume && value === ""
+                  ? "DELETE"
+                  : "PATCH",
               credentials: "same-origin",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ value }),
+              ...(key === siteLinkKeys.resume && value === ""
+                ? {}
+                : { body: JSON.stringify({ value }) }),
             },
           );
           const body: unknown = await response.json().catch(() => null);

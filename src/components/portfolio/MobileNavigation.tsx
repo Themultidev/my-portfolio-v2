@@ -1,5 +1,6 @@
 // Generated from the frozen static source; run node scripts/bind-content-components.mjs.
 import EditableText from "../editor/EditableText";
+import EditableSiteLink from "../editor/EditableSiteLink";
 export default function MobileNavigation() {
   return (
     <>
@@ -173,11 +174,13 @@ export default function MobileNavigation() {
           {"\n\n      \n      \n      "}
           <ul className={"flex items-center justify-normal"}>
             {"\n       \n          "}
-            <a
-              className={
-                "relative flex flex-col items-center justify-center gap-1 p-3 transition-all rounded-2xl group-hover:block animate-pulse bg-zinc-200 group "
-              }
-              href={"#skills"}
+            <EditableSiteLink
+              kind="resume"
+              elementProps={{
+                className:
+                  "relative flex flex-col items-center justify-center gap-1 p-3 transition-all rounded-2xl group-hover:block animate-pulse bg-zinc-200 group ",
+                href: "#skills",
+              }}
             >
               {"\n            "}
               <svg
@@ -238,7 +241,7 @@ export default function MobileNavigation() {
                 </EditableText>
               </span>
               {"\n\n          "}
-            </a>
+            </EditableSiteLink>
             {"\n          \n    \n      "}
           </ul>
           {"\n\n      \n\n      "}
@@ -250,7 +253,10 @@ export default function MobileNavigation() {
               }
             >
               {"\n          "}
-              <a href={"http://x.com/skcodes__?s=21"}>
+              <EditableSiteLink
+                kind="x"
+                elementProps={{ href: "http://x.com/skcodes__?s=21" }}
+              >
                 {"\n            "}
                 <svg
                   xmlns={"http://www.w3.org/2000/svg"}
@@ -273,7 +279,7 @@ export default function MobileNavigation() {
                   {"\n            "}
                 </svg>
                 {"  \n          "}
-              </a>
+              </EditableSiteLink>
               {"\n          "}
               <span
                 className={
@@ -293,10 +299,11 @@ export default function MobileNavigation() {
               }
             >
               {"\n          "}
-              <a
-                href={
-                  "https://www.linkedin.com/in/worlu-prince-796449376?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app "
-                }
+              <EditableSiteLink
+                kind="linkedin"
+                elementProps={{
+                  href: "https://www.linkedin.com/in/worlu-prince-796449376?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app ",
+                }}
               >
                 {"\n            "}
                 <svg
@@ -320,7 +327,7 @@ export default function MobileNavigation() {
                   {"\n            "}
                 </svg>
                 {"   \n          "}
-              </a>
+              </EditableSiteLink>
               {"\n          "}
               <span
                 className={

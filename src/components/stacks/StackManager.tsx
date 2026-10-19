@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { StackRecord } from "../../lib/stack-types";
 import { useEditMode } from "../editor/EditModeProvider";
+import { uploadPortfolioFile } from "../../lib/upload-client";
 
 type Icon = { name: string; svgPath: string };
 const button =
@@ -53,15 +54,7 @@ function IconSelector({
     setError("");
     let success = false;
     try {
-      const form = new FormData();
-      form.append("file", file);
-      const body = await request("/api/upload?kind=stack", {
-        method: "POST",
-        body: form,
-      });
-      if (typeof body?.url !== "string")
-        throw new Error("Unable to confirm the upload. Try again.");
-      onChange(body.url);
+      onChange(await uploadPortfolioFile(file, "stack"));
       success = true;
     } catch (error) {
       setError(
@@ -364,16 +357,25 @@ export default function StackManager({
       <p className="mb-8 text-gray-300">
         Add a technology name, attach an SVG using Upload / replace icon (or
         choose a bundled icon), and save it to the catalog. Its name appears in
-        the project editor&apos;s Add stack picker; selecting it displays its icon.
-        Replace an icon here to update project cards that use that stack.
+        the project editor&apos;s Add stack picker; selecting it displays its
+        icon. Replace an icon here to update project cards that use that stack.
       </p>
-      <section aria-labelledby="new-stack-heading" className="mb-10 max-w-xl">
+      <section
+        aria-labelledby="new-stack-heading"
+        className="mb-10 max-w-xl rounded-2xl border-2 border-dashed border-cyan-400 bg-gray-900 p-6"
+      >
         <h2 id="new-stack-heading" className="mb-3 text-xl text-cyan-400">
-          New stack
+          <span
+            aria-hidden="true"
+            className="mr-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-cyan-400"
+          >
+            +
+          </span>{" "}
+          Add a stack
         </h2>
         <p className="mb-3 text-sm text-gray-300">
-          SVG or raster image, up to 5 MiB. Uploaded icons fit a fixed square
-          while keeping their proportions.
+          Give it a name and attach an SVG or choose a bundled icon. Save once,
+          then select that name in any project. Uploads support up to 5 MB.
         </p>
         <StackForm icons={icons} saved={saved} />
       </section>

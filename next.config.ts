@@ -1,9 +1,15 @@
 import type { NextConfig } from "next";
 import { getAuthConfig } from "./src/lib/auth-env";
+import { getDatabaseUrl } from "./src/lib/database-url";
+import { blobStorageEnabled } from "./src/lib/storage-config";
 
 // Fail startup when private authentication settings are incomplete.
 // Next.js loads .env/.env.local before evaluating this configuration.
 getAuthConfig();
+if (process.env.VERCEL === "1") {
+  getDatabaseUrl();
+  blobStorageEnabled();
+}
 
 const config: NextConfig = {
   // Keep the existing public EmailJS values working during the migration.

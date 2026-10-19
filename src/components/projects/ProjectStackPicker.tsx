@@ -41,7 +41,7 @@ export default function ProjectStackPicker({
     if (!onChange && !editor?.activateBlock(key)) return;
     const rect = trigger.current?.getBoundingClientRect();
     setPosition({
-      top: Math.max(16, Math.min(rect?.bottom ?? 16, window.innerHeight - 420)),
+      top: Math.max(16, Math.min(rect?.bottom ?? 16, window.innerHeight - 640)),
       left: Math.max(16, Math.min(rect?.left ?? 16, window.innerWidth - 376)),
     });
     setOpened(true);
@@ -125,18 +125,21 @@ export default function ProjectStackPicker({
           }
         />
       ))}
-      <li className="flex items-center justify-center border-2 border-dashed border-cyan-400">
+      <li className="!h-auto !w-auto flex items-center justify-center border border-dashed border-cyan-400 !bg-gray-900">
         <button
           ref={trigger}
           type="button"
           data-project-stacks={projectId}
           aria-label={`Add stack to ${title}`}
           title="Add stack"
-          className="h-full w-full cursor-pointer text-cyan-400"
+          className="inline-flex min-h-8 cursor-pointer items-center gap-2 whitespace-nowrap rounded-full bg-cyan-400/10 px-3 py-1 text-sm font-semibold text-cyan-400 transition hover:bg-cyan-400 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
           onPointerDown={(event) => event.preventDefault()}
           onClick={() => void load()}
         >
-          +
+          <span aria-hidden="true" className="text-lg leading-none">
+            +
+          </span>
+          Add stack
         </button>
       </li>
       {!opened && error && (
@@ -157,7 +160,7 @@ export default function ProjectStackPicker({
             aria-label={`Choose stacks for ${title}`}
             data-content-editor-ui=""
             data-stack-picker={projectId}
-            className="fixed z-[1100] rounded-lg border border-cyan-400 bg-black p-4 text-sm text-white shadow-lg"
+            className="fixed z-[1100] rounded-2xl border border-cyan-400 bg-gray-900 p-5 text-sm text-white shadow-lg"
             style={{
               ...position,
               width: "min(360px, calc(100vw - 32px))",
@@ -171,27 +174,63 @@ export default function ProjectStackPicker({
               }
             }}
           >
-            <h2 className="mb-3 font-bold text-cyan-400">Choose stacks</h2>
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div>
+                <h2 className="text-lg font-semibold text-cyan-400">
+                  Add project stacks
+                </h2>
+                <p className="mt-1 text-xs text-gray-300">
+                  Choose up to five. Each name becomes its icon.
+                </p>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <span className="rounded-full border border-cyan-400 px-2 py-1 text-xs text-cyan-400">
+                  {current.length}/5
+                </span>
+                <button
+                  type="button"
+                  aria-label="Close stack picker"
+                  disabled={busy}
+                  onClick={close}
+                  className="rounded border border-gray-600 px-2 py-1 text-gray-300 hover:border-cyan-400 hover:text-cyan-400 disabled:opacity-50"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
             <a
               href="/admin/stacks"
-              className="mb-3 block text-cyan-400 underline"
+              className="mb-4 flex items-center justify-between gap-3 rounded-lg border border-dashed border-cyan-400 bg-cyan-400/10 px-3 py-3 font-semibold text-cyan-400 transition hover:bg-cyan-400 hover:text-black"
             >
-              Manage stack names and SVG icons
+              <span>Manage stack names and SVG icons</span>
+              <span aria-hidden="true">↗</span>
             </a>
             <input
               autoFocus
               aria-label="Search stacks"
+              placeholder="Search technologies…"
               className="mb-3 w-full rounded border border-gray-600 bg-black px-2 py-2 text-white"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
             />
-            <div className="max-h-64 space-y-2 overflow-y-auto">
+            <div
+              className="max-h-64 space-y-2 overflow-y-auto"
+              style={{
+                maxHeight: Math.max(
+                  120,
+                  Math.min(256, window.innerHeight - position.top - 390),
+                ),
+              }}
+            >
               {catalog
                 .filter(({ name }) =>
                   name.toLowerCase().includes(search.trim().toLowerCase()),
                 )
                 .map((stack) => (
-                  <label key={stack.id} className="flex items-center gap-3">
+                  <label
+                    key={stack.id}
+                    className={`flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-3 transition ${current.some(({ id }) => id === stack.id) ? "border-cyan-400 bg-cyan-400/10 text-cyan-400" : "border-gray-700 hover:border-cyan-400"}`}
+                  >
                     <input
                       type="checkbox"
                       checked={current.some(({ id }) => id === stack.id)}

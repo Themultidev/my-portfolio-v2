@@ -212,7 +212,7 @@ export default function AddProjectTile() {
           </div>
           <div className="px-3">
             <p className="text-cyan-400">Add stack</p>
-            <ul className="mt-5 flex gap-4 items-center justify-center border-gray-400 border-t-2 relative *:relative *:-top-4 *:bg-gray-900 *:rounded-full *:w-8 *:h-8">
+            <ul className="mt-5 flex flex-wrap gap-4 items-center justify-center border-gray-400 border-t-2 relative *:relative *:-top-4 *:bg-gray-900 *:rounded-full *:w-8 *:h-8">
               <ProjectStackPicker
                 projectId={0}
                 title="new project"

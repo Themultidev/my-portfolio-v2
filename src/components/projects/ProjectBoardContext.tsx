@@ -6,6 +6,7 @@ import {
   type SetStateAction,
 } from "react";
 import type { ProjectRecord } from "../../lib/project-types";
+import { uploadPortfolioFile } from "../../lib/upload-client";
 
 export const ProjectBoardContext = createContext<{
   records: ProjectRecord[];
@@ -40,16 +41,5 @@ export async function projectRequest(
 export async function uploadProjectPhoto(file: File) {
   if (!file.type.startsWith("image/") || file.size > 5 * 1024 * 1024)
     throw new Error("Choose an image no larger than 5 MB.");
-  const form = new FormData();
-  form.append("file", file);
-  const response = await fetch("/api/upload?kind=project", {
-    method: "POST",
-    body: form,
-    credentials: "same-origin",
-    signal: AbortSignal.timeout(30_000),
-  });
-  const body = await response.json();
-  if (!response.ok)
-    throw new Error(body?.error?.message ?? "Photo upload failed. Try again.");
-  return body.url as string;
+  return uploadPortfolioFile(file, "project");
 }

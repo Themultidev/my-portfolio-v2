@@ -71,13 +71,16 @@ is sent.
 
 ## Database setup
 
-The database layer uses SQLite and matching Prisma 6 CLI/client versions to
-retain the schema syntax specified in the PRD. Prisma commands load `.env`
-and `.env.local` with the same precedence as Next.js. Set `DATABASE_URL` in
-`.env.local`; the development default is `file:./dev.db`, relative to the
-schema directory (`prisma/dev.db`). A production database connection requires
-an explicit URL. For deployment, use an absolute `file:` URL on a persistent,
-writable disk; the database file is not committed to Git.
+The database layer supports local SQLite and hosted PostgreSQL with Prisma 6.
+Prisma commands load `.env` and `.env.local` with the same precedence as Next.js.
+The local default is `file:./dev.db`, relative to `prisma/schema.prisma`.
+A `postgres://` or `postgresql://` `DATABASE_URL` selects the PostgreSQL schema
+and its separate migration history. Run `npm run db:generate` whenever changing
+database providers. Neither database credentials nor SQLite files belong in Git.
+
+Vercel uses Neon PostgreSQL and a **public** Vercel Blob store. Local SQLite and
+filesystem uploads remain available for development; Vercel rejects that setup
+before deployment because its functions cannot persist those files.
 
 Prisma CLI commands use `RUST_LOG=info` so missing-file errors are parsed
 correctly even in environments that suppress engine logs. This works around
@@ -91,8 +94,62 @@ npm run db:migrate
 
 `db:migrate` applies the committed migration history. During development,
 `npm run db:push` can synchronize a disposable database with the schema;
-use committed migrations for shared and production databases. Builds generate
-the client but do not migrate or seed a database.
+use committed migrations for shared and production databases. Local builds
+generate the client. Vercel builds also migrate and initialize an empty database;
+existing populated databases are retained without restoring deleted seed rows.
+The PostgreSQL models mirror SQLite. After changing models, regenerate the
+PostgreSQL schema with `node scripts/sync-postgres-schema.mjs` and add migrations
+for both providers before deploying.
+
+## Deploy on Vercel
+
+Connect Neon and a **public** Blob store to the Vercel project. In the environment
+settings for the deployment, configure:
+
+| Variable | Value |
+| --- | --- |
+| `DATABASE_URL` | Neon pooled PostgreSQL connection string, including SSL settings |
+| `DIRECT_URL` | Neon direct/unpooled connection string for migrations |
+| `BLOB_READ_WRITE_TOKEN` | Token supplied by the connected public Blob store |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Initial admin credentials; password at least 12 characters, at most 72 UTF-8 bytes |
+| `SESSION_SECRET` | Private random secret of at least 32 UTF-8 bytes |
+| `APP_ORIGIN` | `https://worluprincesoftwareengineer.vercel.app` |
+
+Keep existing public EmailJS settings too. Set the Vercel build command to
+`npm run build`. Push the code and redeploy after saving environment settings.
+The build generates the matching Prisma client, applies PostgreSQL migrations,
+and seeds only an entirely empty database. Missing storage settings or failed
+database initialization stop the build with diagnostics instead of deploying an
+unusable homepage. Partial database initialization must be resolved before retrying.
+
+For a custom domain, change `APP_ORIGIN` to the exact HTTPS origin used to sign in,
+without a path or trailing slash, then redeploy. Login checks the stored password
+hash; changing `ADMIN_PASSWORD` does not reset an existing account.
+
+### Transfer existing local edits
+
+Do this **before the first cloud deployment initializes Neon** if you want your
+current local account, edits, deleted cards, stack memberships and uploaded files.
+The importer accepts only an empty migrated database and never overwrites rows.
+
+1. Keep your local SQLite settings and run `npm run db:export`. It creates a
+   private `.tmp/portfolio-export-<timestamp>.json` containing data, password hash
+   and referenced PNG/PDF uploads. Keep this backup private and outside Git.
+2. Configure Neon `DATABASE_URL`, `DIRECT_URL` and `BLOB_READ_WRITE_TOKEN` locally
+   in the ignored environment file, or in your shell, using the same cloud services
+   as Vercel. Then run `npm run db:generate` and `npm run db:migrate`.
+3. Run `npm run db:import -- .tmp/portfolio-export-<timestamp>.json` with the actual
+   backup filename. It preserves IDs, timestamps and the original login, uploads
+   referenced files to Blob, and advances PostgreSQL sequences for future CRUD.
+4. Deploy. Bootstrap retains the imported portfolio. Keep the original SQLite file
+   and `public/uploads` backup until the deployed portfolio is verified.
+
+To return to local SQLite development, restore the local environment settings and
+run `npm run db:generate` again. Fresh cloud deployments can skip the transfer and
+use the original seeded portfolio instead. Check migrations and runtime logs in
+Vercel after deployment. `npm run test:deployment` verifies the schema, bootstrap
+preservation, backup validation and Blob adapter with disposable local fixtures;
+it does not connect to Neon or your real Blob store.
 
 The models cover the single admin, plain-text content blocks, projects, stack
 definitions, and ordered project/stack memberships. Project deletion removes
@@ -287,7 +344,7 @@ runs do not overwrite subsequent edits. Other content, accounts, and stack
 memberships remain unchanged.
 
 Public and admin project views share `ProjectBoard`. Cards read Project fields
-and ordered stack memberships from SQLite on each request. Public pages render
+and ordered stack memberships from the configured database on each request. Public pages render
 only published cards and omit unpublished/deleted card copy from their content
 payload. Admin views include unpublished cards. Original seeded cards retain
 their individual markup, classes, SVG artwork, and feature lists.
@@ -325,6 +382,10 @@ restores it.
 
 ## Stack icons and selection
 
+The project editor shows a labeled Add stack pill. Its popover has searchable
+technology names, a selection count and a prominent link to the SVG catalog.
+The catalog's bordered Add a stack pane creates reusable name/icon pairs.
+
 Open `/admin/stacks`, choose Stack icons in the admin toolbar, or use Manage
 stack names and SVG icons inside the project picker. Add a name with a
 bundled icon or upload an SVG/PNG/JPEG/WebP/GIF/AVIF image. Each catalog row can
@@ -347,14 +408,39 @@ the Origin. Duplicate names return 409; referenced-stack deletion returns
 transparent 128×128 PNGs using [Sharp](https://sharp.pixelplumbing.com/api-resize/).
 SVG input is restricted to self-contained artwork before conversion; raw SVG
 uploads are never served. Files are limited to 5 MiB and decoded images to
-16 million pixels. Uploads live under `public/uploads`, excluded from Git;
-back up that directory with the SQLite database and use persistent writable
-storage. A public image handler serves newly uploaded files immediately.
+16 million pixels. Local uploads live under `public/uploads`, excluded from Git;
+back up that directory with the SQLite database. With `BLOB_READ_WRITE_TOKEN`,
+uploads persist in Blob and the existing `/uploads/...` links redirect there.
+A public handler serves newly uploaded files immediately.
 Deleting a stack retains uploaded files so other references remain valid.
+
+On Vercel, files upload directly to Blob as inert `.bin` staging objects because
+the supported 5 MiB limit exceeds the function request limit. Token generation
+requires a live admin session and trusted Origin, restricts the exact admin-owned
+path, size and MIME type, expires after five minutes and forbids overwrite.
+The finalize API verifies ownership, type and size, validates/normalizes the file,
+then publishes the PNG/PDF and removes staging. No upload webhook is used.
+Failed or abandoned uploads can leave staging objects; periodically remove old
+objects under `portfolio-staging/` in the Blob dashboard. Final published files
+are public, as required for portfolio images and résumé links.
 
 `npm run test:stacks` uses a disposable account/database and removes only its
 own generated images. It checks API guards, CRUD, icon conversion, upload
 validation, and the browser catalog/picker workflow.
+
+## Résumé and profile links
+
+In `/admin/edit/portfolio`, click the résumé icon to upload a PDF (up to 5 MB),
+view it, replace it, or remove it after confirmation. Uploads save immediately;
+failed saves retain the uploaded PDF for retry. Removing the résumé disables
+its public link. Replaced/removed attached PDFs are deleted from upload storage.
+
+Click the X or LinkedIn icon to change its destination URL. Save link or
+Ctrl/Cmd+Enter persists it; Cancel or Escape discards the draft. Mobile and
+desktop navigation share the same saved destination. Leaving with unsaved
+changes prompts first. URLs must use HTTP(S); uploads and link mutations require
+a live admin session and trusted Origin. No database schema migration is needed;
+link settings are stored as dedicated content records when first saved.
 
 ## Migration status
 

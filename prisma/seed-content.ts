@@ -2,6 +2,7 @@ import type { PrismaClient } from "@prisma/client";
 import { hash } from "bcryptjs";
 import { z } from "zod";
 import manifest from "./seed-data.json";
+import { resetPostgresSequences } from "./reset-postgres-sequences";
 
 const environmentSchema = z.object({
   ADMIN_EMAIL: z.string().trim().toLowerCase().email(),
@@ -109,6 +110,12 @@ export async function seedPortfolio(
           update: {},
         });
       }
+      if (
+        /^postgres(?:ql)?:\/\//.test(
+          environment.DATABASE_URL ?? process.env.DATABASE_URL ?? "",
+        )
+      )
+        await resetPostgresSequences(transaction);
       return {
         admins: await transaction.admin.count(),
         content: await transaction.contentBlock.count(),

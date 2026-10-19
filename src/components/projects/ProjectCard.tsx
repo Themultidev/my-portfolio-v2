@@ -80,6 +80,11 @@ function Card1({
           }
           data-aos={"fade-out"}
           data-aos-duration={"80"}
+          style={
+            editable
+              ? { flexWrap: "wrap", rowGap: "1.25rem", opacity: 1 }
+              : undefined
+          }
         >
           {editable ? (
             <ProjectStackPicker
@@ -238,6 +243,11 @@ function Card2({
           className={
             " text-sm font-semibold text-cyan-600 flex  gap-4  items-center justify-center border-gray-400 border-t-2  relative *:relative *:-top-4 *:bg-gray-900 *:rounded-full *:w-8 *:h-8"
           }
+          style={
+            editable
+              ? { flexWrap: "wrap", rowGap: "1.25rem", opacity: 1 }
+              : undefined
+          }
         >
           {editable ? (
             <ProjectStackPicker
@@ -394,6 +404,11 @@ function Card3({
         <ul
           className={
             " text-sm font-semibold text-cyan-600 flex  gap-4  items-center justify-center border-gray-400 border-t-2  relative *:relative *:-top-4 *:bg-gray-900 *:rounded-full"
+          }
+          style={
+            editable
+              ? { flexWrap: "wrap", rowGap: "1.25rem", opacity: 1 }
+              : undefined
           }
         >
           {editable ? (
@@ -668,6 +683,11 @@ function Card4({
         <ul
           className={
             " text-sm font-semibold text-cyan-600 flex  gap-4  items-center justify-center border-gray-400 border-t-2  relative *:relative *:-top-3 *:bg-gray-900 *:rounded-full"
+          }
+          style={
+            editable
+              ? { flexWrap: "wrap", rowGap: "1.25rem", opacity: 1 }
+              : undefined
           }
         >
           {editable ? (

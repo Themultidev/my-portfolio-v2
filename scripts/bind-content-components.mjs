@@ -184,6 +184,28 @@ function render(node, section, path, overrides = new Map()) {
         render(child, section, [...path, index], overrides),
       )
       .join("");
+  if (
+    ["mobileNavigation", "desktopNavigation"].includes(section) &&
+    node.tagName === "a"
+  ) {
+    const href = attribute(node, "href") ?? "";
+    const resume =
+      elements(
+        node,
+        (child) =>
+          child.tagName === "svg" &&
+          attribute(child, "class")?.includes("si-glyph-document"),
+      ).length > 0;
+    const kind = resume
+      ? "resume"
+      : /(?:x|twitter)\.com\//.test(href)
+        ? "x"
+        : /linkedin\.com\//.test(href)
+          ? "linkedin"
+          : null;
+    if (kind)
+      return `<EditableSiteLink kind=${JSON.stringify(kind)} elementProps={${JSON.stringify(reactProps(node))}}>${children()}</EditableSiteLink>`;
+  }
   if (attributeBlocks.length) {
     assert.ok(["img", "input", "textarea"].includes(node.tagName));
     const blockKeys = {};
@@ -374,7 +396,7 @@ async function generateProjectComponents(tree) {
     overrides.set(
       iconList,
       () =>
-        `<ul ${jsxAttributes(iconList)}>{editable ? <ProjectStackPicker projectId={project.id} title={project.title} stacks={project.stacks} profile={${project.id}}>{project.stacks.map((stack, index) => <Fragment key={stack.id}><${spacingName} index={index} /><StackChip stack={stack} profile={${project.id}} /></Fragment>)}</ProjectStackPicker> : project.stacks.map((stack, index) => <Fragment key={stack.id}><${spacingName} index={index} /><StackChip stack={stack} profile={${project.id}} /></Fragment>)}${space.after}</ul>`,
+        `<ul ${jsxAttributes(iconList)} style={editable ? { flexWrap: "wrap", rowGap: "1.25rem", opacity: 1 } : undefined}>{editable ? <ProjectStackPicker projectId={project.id} title={project.title} stacks={project.stacks} profile={${project.id}}>{project.stacks.map((stack, index) => <Fragment key={stack.id}><${spacingName} index={index} /><StackChip stack={stack} profile={${project.id}} /></Fragment>)}</ProjectStackPicker> : project.stacks.map((stack, index) => <Fragment key={stack.id}><${spacingName} index={index} /><StackChip stack={stack} profile={${project.id}} /></Fragment>)}${space.after}</ul>`,
     );
 
     const visit = elements(card, (node) => node.tagName === "a")[0];
@@ -501,6 +523,9 @@ for (const { name, section, directory, tree } of components) {
       : "",
     isProjects ? 'import ProjectBoard from "../projects/ProjectBoard";' : "",
     'import EditableText from "../editor/EditableText";',
+    ["mobileNavigation", "desktopNavigation"].includes(section)
+      ? 'import EditableSiteLink from "../editor/EditableSiteLink";'
+      : "",
     hasAttributes && !isProjects
       ? 'import EditableElement from "../editor/EditableElement";'
       : "",

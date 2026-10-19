@@ -1,7 +1,5 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
 import {
   parseFragment,
   serializeOuter,
@@ -9,6 +7,7 @@ import {
 } from "parse5";
 import sharp from "sharp";
 import { ApiError } from "./api-response";
+import { writeStoredUpload } from "./upload-storage";
 
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const svgTags = new Set([
@@ -252,7 +251,7 @@ export async function readImageForm(request: Request): Promise<File> {
   if (!/^multipart\/form-data\s*;/i.test(type))
     invalidImage("Upload a multipart form containing one file.");
   const reader = request.body?.getReader();
-  if (!reader) invalidImage("Choose an icon file.");
+  if (!reader) invalidImage("Choose a file to upload.");
   const chunks: Uint8Array[] = [];
   let size = 0;
   try {
@@ -263,7 +262,7 @@ export async function readImageForm(request: Request): Promise<File> {
       if (size > MAX_IMAGE_BYTES + 64 * 1024) {
         await reader.cancel();
         invalidImage(
-          "The upload is too large. Choose an image of at most 5 MiB.",
+          "The upload is too large. Choose a file of at most 5 MiB.",
         );
       }
       chunks.push(chunk.value);
@@ -293,15 +292,6 @@ export async function storeImage(input: Buffer, kind: "stack" | "project") {
   if (normalized.length > MAX_IMAGE_BYTES)
     invalidImage("The decoded image is too large. Choose a smaller image.");
   const url = `/uploads/${kind === "stack" ? "stacks" : "projects"}/${randomUUID()}.png`;
-  const directory = resolve(
-    process.cwd(),
-    "public",
-    "uploads",
-    kind === "stack" ? "stacks" : "projects",
-  );
-  await mkdir(directory, { recursive: true });
-  await writeFile(resolve(directory, url.split("/").at(-1)!), normalized, {
-    flag: "wx",
-  });
+  await writeStoredUpload(url, normalized, "image/png");
   return url;
 }

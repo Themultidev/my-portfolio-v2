@@ -1,5 +1,6 @@
 // Generated from the frozen static source; run node scripts/bind-content-components.mjs.
 import EditableText from "../editor/EditableText";
+import EditableSiteLink from "../editor/EditableSiteLink";
 export default function DesktopNavigation() {
   return (
     <>
@@ -101,11 +102,13 @@ export default function DesktopNavigation() {
               {"\n        "}
             </ul>
             {"\n\n      \n        "}
-            <a
-              className={
-                "relative flex items-center justify-center p-3 transition border-gray-400 border-r-3 border-r-dashed bg-amber-50 rounded-2xl hover:bg-black hover:px-5 group animate-pulse"
-              }
-              href={"www.google.com "}
+            <EditableSiteLink
+              kind="resume"
+              elementProps={{
+                className:
+                  "relative flex items-center justify-center p-3 transition border-gray-400 border-r-3 border-r-dashed bg-amber-50 rounded-2xl hover:bg-black hover:px-5 group animate-pulse",
+                href: "www.google.com ",
+              }}
             >
               {"\n            "}
               <svg
@@ -166,7 +169,7 @@ export default function DesktopNavigation() {
                 </EditableText>
               </span>
               {"\n        "}
-            </a>
+            </EditableSiteLink>
             {"\n\n        \n\n      "}
           </div>
           {"\n\n      "}
@@ -178,7 +181,10 @@ export default function DesktopNavigation() {
               }
             >
               {"\n          "}
-              <a href={"http://x.com/skcodes__?s=21"}>
+              <EditableSiteLink
+                kind="x"
+                elementProps={{ href: "http://x.com/skcodes__?s=21" }}
+              >
                 {"\n            "}
                 <svg
                   xmlns={"http://www.w3.org/2000/svg"}
@@ -201,7 +207,7 @@ export default function DesktopNavigation() {
                   {"\n            "}
                 </svg>
                 {"  \n          "}
-              </a>
+              </EditableSiteLink>
               {"\n          "}
               <span
                 className={
@@ -221,10 +227,11 @@ export default function DesktopNavigation() {
               }
             >
               {"\n          "}
-              <a
-                href={
-                  "https://www.linkedin.com/in/worlu-prince-796449376?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app "
-                }
+              <EditableSiteLink
+                kind="linkedin"
+                elementProps={{
+                  href: "https://www.linkedin.com/in/worlu-prince-796449376?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app ",
+                }}
               >
                 {"\n            "}
                 <svg
@@ -248,7 +255,7 @@ export default function DesktopNavigation() {
                   {"\n            "}
                 </svg>
                 {"   \n          "}
-              </a>
+              </EditableSiteLink>
               {"\n          "}
               <span
                 className={
