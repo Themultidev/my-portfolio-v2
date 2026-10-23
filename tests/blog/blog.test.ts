@@ -430,9 +430,29 @@ test(
   { timeout: 120000 },
   async () => {
     assert(browser);
+    const freshPage = await browser.newPage();
+    await freshPage.route("https://fonts.googleapis.com/**", (route) =>
+      route.abort(),
+    );
+    await freshPage.goto(origin + "/blog");
+    await expect(freshPage.locator("html")).toHaveAttribute(
+      "data-theme",
+      "dark",
+    );
+    assert.equal(
+      await freshPage
+        .locator("body")
+        .evaluate((el) => getComputedStyle(el).backgroundColor),
+      "rgb(0, 0, 0)",
+    );
+    await freshPage.close();
     const context = await browser.newContext({
       viewport: { width: 1440, height: 1000 },
       colorScheme: "light",
+    });
+    await context.addInitScript(() => {
+      if (!localStorage.getItem("portfolio-theme"))
+        localStorage.setItem("portfolio-theme", "light");
     });
     await context.route("https://fonts.googleapis.com/**", (r) => r.abort());
     await context.route("**/api/github**", (r) =>
@@ -457,7 +477,6 @@ test(
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(origin + "/");
     await expect(page.locator(".new-hero")).toBeVisible();
-    await page.getByRole("button", { name: "Toggle navigation" }).click();
     await expect(
       page.getByRole("link", { name: "Blog", exact: false }).first(),
     ).toBeVisible();
