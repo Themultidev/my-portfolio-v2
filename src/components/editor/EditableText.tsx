@@ -99,7 +99,7 @@ function editorPosition(element: HTMLElement): EditorPosition {
       letterSpacing: computed.letterSpacing,
       textAlign: computed.textAlign as CSSProperties["textAlign"],
       // Gradient text uses a transparent inherited color; keep its edit field visible.
-      color: transparentText ? "#06b6d4" : computed.color,
+      color: transparentText ? "#ff6600" : computed.color,
     },
   };
 }
