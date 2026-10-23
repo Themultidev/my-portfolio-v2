@@ -1993,6 +1993,25 @@ summary:focus-visible {
   text-align: left;
   font-size: 42px;
 }
+
+/* Hard project-card frames with a solid, offset black backing layer. */
+#projects > .grid > :is([id], [data-add-project-tile]) {
+  border: 4px solid #000;
+  border-radius: 0;
+  background: var(--surface);
+  outline: 1px solid var(--line);
+  box-shadow:
+    10px 10px 0 #000,
+    10px 10px 0 2px var(--accent);
+}
+
+@media (max-width: 650px) {
+  #projects > .grid > :is([id], [data-add-project-tile]) {
+    box-shadow:
+      6px 6px 0 #000,
+      6px 6px 0 2px var(--accent);
+  }
+}
 #footer {
   border-top: 1px solid var(--line);
   padding: 35px 0;
