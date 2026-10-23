@@ -229,18 +229,26 @@ test(
       await saveWithKeyboard(page, key, "Mistaken headline for undo test");
       const undo = page.getByRole("button", { name: "Undo", exact: true });
       await expect(undo).toBeEnabled();
-      await undo.click();
+      await Promise.all([page.waitForEvent("load"), undo.click()]);
       await expect(marker(page, key)).toHaveText(before);
       const redo = page.getByRole("button", { name: "Redo", exact: true });
       await expect(redo).toBeEnabled();
       await page.locator("body").click({ position: { x: 2, y: 2 } });
-      await page.keyboard.press("Control+Shift+Z");
+      await Promise.all([
+        page.waitForEvent("load"),
+        page.keyboard.press("Control+Shift+Z"),
+      ]);
       await expect(marker(page, key)).toHaveText(
         "Mistaken headline for undo test",
       );
+      await expect(undo).toBeEnabled();
       await page.locator("body").click({ position: { x: 2, y: 2 } });
-      await page.keyboard.press("Control+Z");
+      await Promise.all([
+        page.waitForEvent("load"),
+        page.keyboard.press("Control+Z"),
+      ]);
       await expect(marker(page, key)).toHaveText(before);
+      await expect(redo).toBeEnabled();
       const input = await openEditor(page, key);
       await input.press("End");
       await input.pressSequentially(" draft");
@@ -282,26 +290,52 @@ test(
   },
 );
 
-test("browser assigns country and Nigerian state through project options", { timeout: 90_000 }, async () => {
-  await withEditor(async (page) => {
-    const actions = page.locator('[data-project-actions="1"]');
-    await actions.getByRole("button", { name: "Project options", exact: true }).click();
-    await actions.getByLabel("Client country", { exact: true }).selectOption("NG");
-    await actions.getByLabel("Nigerian state", { exact: true }).selectOption("AN");
-    await actions.getByRole("button", { name: "Save options", exact: true }).click();
-    await expect(actions.getByLabel("Client country", { exact: true })).toHaveCount(0);
-    let project = await db.project.findUniqueOrThrow({ where: { id: 1 } });
-    assert.equal(project.countryCode, "NG"); assert.equal(project.regionCode, "AN");
-    await page.reload();
-    await actions.getByRole("button", { name: "Project options", exact: true }).click();
-    await expect(actions.getByLabel("Nigerian state", { exact: true })).toHaveValue("AN");
-    await actions.getByLabel("Client country", { exact: true }).selectOption("");
-    await actions.getByRole("button", { name: "Save options", exact: true }).click();
-    await expect(actions.getByLabel("Client country", { exact: true })).toHaveCount(0);
-    project = await db.project.findUniqueOrThrow({ where: { id: 1 } });
-    assert.equal(project.countryCode, null); assert.equal(project.regionCode, null);
-  });
-});
+test(
+  "browser assigns country and Nigerian state through project options",
+  { timeout: 90_000 },
+  async () => {
+    await withEditor(async (page) => {
+      const actions = page.locator('[data-project-actions="1"]');
+      await actions
+        .getByRole("button", { name: "Project options", exact: true })
+        .click();
+      await actions
+        .getByLabel("Client country", { exact: true })
+        .selectOption("NG");
+      await actions
+        .getByLabel("Nigerian state", { exact: true })
+        .selectOption("AN");
+      await actions
+        .getByRole("button", { name: "Save options", exact: true })
+        .click();
+      await expect(
+        actions.getByLabel("Client country", { exact: true }),
+      ).toHaveCount(0);
+      let project = await db.project.findUniqueOrThrow({ where: { id: 1 } });
+      assert.equal(project.countryCode, "NG");
+      assert.equal(project.regionCode, "AN");
+      await page.reload();
+      await actions
+        .getByRole("button", { name: "Project options", exact: true })
+        .click();
+      await expect(
+        actions.getByLabel("Nigerian state", { exact: true }),
+      ).toHaveValue("AN");
+      await actions
+        .getByLabel("Client country", { exact: true })
+        .selectOption("");
+      await actions
+        .getByRole("button", { name: "Save options", exact: true })
+        .click();
+      await expect(
+        actions.getByLabel("Client country", { exact: true }),
+      ).toHaveCount(0);
+      project = await db.project.findUniqueOrThrow({ where: { id: 1 } });
+      assert.equal(project.countryCode, null);
+      assert.equal(project.regionCode, null);
+    });
+  },
+);
 
 test(
   "public nearby prompt shows Anambra matches while all main project cards remain visible",
@@ -452,12 +486,8 @@ test(
       await page.waitForURL(`${origin}${editorPath}`);
       for (const id of ["home", "about", "projects", "contact", "footer"])
         await expect(page.locator(`section#${id}`)).toHaveCount(1);
-      await expect(page.locator('header[class~="lg:hidden"] nav')).toHaveCount(
-        1,
-      );
-      await expect(page.locator('header[class~="lg:block"] nav')).toHaveCount(
-        1,
-      );
+      await expect(page.locator("header.site-header nav")).toHaveCount(1);
+      await expect(page.locator("header.site-header nav")).toHaveCount(1);
       const actual = await page
         .locator("[data-content-editor][data-block-key]")
         .evaluateAll((elements) =>
@@ -468,7 +498,20 @@ test(
           ].sort(),
         );
       const expected = manifest.content
-        .filter(({ key }) => !key.startsWith("overview."))
+        .filter(
+          ({ key }) =>
+            !key.startsWith("overview.") &&
+            !key.startsWith("mobileNavigation.") &&
+            ![
+              "about.text.001",
+              "about.text.010",
+              "about.text.038",
+              ...Array.from(
+                { length: 14 },
+                (_, i) => `about.text.${String(i + 39).padStart(3, "0")}`,
+              ),
+            ].includes(key),
+        )
         .map(({ key }) => key)
         .sort();
       assert.deepEqual(

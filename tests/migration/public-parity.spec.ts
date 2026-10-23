@@ -1,10 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
-import pixelmatch from "pixelmatch";
-import { PNG } from "pngjs";
+import { readFileSync } from "node:fs";
 import { replayFonts } from "./font-fixtures";
-import { iconCorrections } from "../../scripts/lib/approved-icon-corrections.mjs";
 const baseline: {
   viewports: number[];
   assets: { url: string; sha256: string | null }[];
@@ -15,7 +12,6 @@ const baseline: {
   ),
 );
 
-const staticOrigin = "http://127.0.0.1:4100";
 const nextOrigin = "http://127.0.0.1:3100";
 const frozenStyles = `
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -28,178 +24,62 @@ async function ready(page: Page, url: string) {
   await page.evaluate(async () => {
     await document.fonts.ready;
     await Promise.all(
-      [...document.images].map((image) =>
-        image.decode().catch(() => undefined),
-      ),
+      [...document.images]
+        .filter((image) => image.complete)
+        .map((image) => image.decode().catch(() => undefined)),
     );
   });
   await page.addStyleTag({ content: frozenStyles });
 }
 
-async function publicDom(page: Page) {
-  return page.evaluate(() => {
-    function visit(node: Node): unknown {
-      if (node.nodeType === Node.COMMENT_NODE) return null;
-      if (node.nodeType === Node.TEXT_NODE)
-        return node.textContent?.trim() ? { text: node.textContent } : null;
-      if (!(node instanceof Element)) return null;
-      if (node.matches("script, style, link, next-route-announcer"))
-        return null;
-      // Next's streamed metadata placeholder is an empty, hidden body child.
-      const children = [...node.childNodes].map(visit).filter(Boolean);
-      if (
-        node.parentElement === document.body &&
-        node.matches("div[hidden]") &&
-        !children.length
-      )
-        return null;
-      const inlineStyle =
-        node instanceof HTMLElement || node instanceof SVGElement
-          ? [...node.style]
-              .map(
-                (property) =>
-                  `${property}:${getComputedStyle(node).getPropertyValue(property)}`,
-              )
-              .sort()
-              .join(";")
-          : "";
-      const attrs = [...node.attributes]
-        .filter(
-          (attr) =>
-            !["data-aos", "data-aos-delay", "data-aos-duration"].includes(
-              attr.name,
-            ),
-        )
-        .filter((attr) => !(attr.name === "minlength" && attr.value === ""))
-        .filter((attr) => attr.name !== "style" || inlineStyle)
-        .map((attr) => [
-          attr.name,
-          attr.name === "class"
-            ? attr.value.replace(/\s*aos-(?:init|animate)\b/g, "")
-            : attr.name === "style"
-              ? inlineStyle
-              : attr.value,
-        ])
-        .sort(([a], [b]) => a.localeCompare(b));
-      return {
-        tag: node.tagName.toLowerCase(),
-        attrs,
-        children,
-      };
-    }
-    return visit(document.body);
-  });
-}
-
+// The owner approved a new theme, navigation, hero and About design.
+// Test responsive behavior and capture review artifacts instead of comparing
+// these pages to the retired black/blue/yellow screenshots.
 for (const width of baseline.viewports) {
-  for (const route of ["/", "/overview.html"]) {
-    test(`${route} matches the original at ${width}px`, async ({
-      context,
-    }, testInfo) => {
-      await replayFonts(context);
-      // The embedded map is third-party content. Keep its frame and dimensions,
-      // but replace its document consistently and mask it in both screenshots.
-      await context.route("https://www.google.com/maps/embed**", (route) =>
-        route.fulfill({
-          contentType: "text/html",
-          body: "<!doctype html><html><body></body></html>",
-        }),
-      );
-      const original = await context.newPage();
-      const migrated = await context.newPage();
-      await original.setViewportSize({ width, height: 900 });
-      await migrated.setViewportSize({ width, height: 900 });
-      const errors: string[] = [];
-      migrated.on("pageerror", (error) => errors.push(error.message));
-      await ready(original, `${staticOrigin}${route}`);
-      // Explicit owner-requested artwork changes; compare all remaining markup
-      // and pixels strictly against the frozen original without rewriting it.
-      if (route === "/")
-        await original.evaluate((icons) => {
-          for (const [name, svg] of Object.entries(icons)) {
-            const label = [...document.querySelectorAll("#about span")].find(
-              (span) => span.textContent?.trim() === name,
-            );
-            const old = label?.parentElement?.querySelector("svg");
-            if (!old) throw new Error(`Missing original icon ${name}`);
-            old.outerHTML = svg;
-          }
-        }, iconCorrections());
-      await ready(migrated, `${nextOrigin}${route}`);
-      writeFileSync(
-        testInfo.outputPath("browser-errors.json"),
-        JSON.stringify(errors, null, 2),
-      );
-      expect(await publicDom(migrated)).toEqual(await publicDom(original));
-      expect(errors).toEqual([]);
-
-      const referenceBuffer = await original.screenshot({
-        fullPage: true,
-        animations: "disabled",
-        mask: [original.locator("iframe")],
-      });
-      const migratedBuffer = await migrated.screenshot({
-        fullPage: true,
-        animations: "disabled",
-        mask: [migrated.locator("iframe")],
-      });
-      await testInfo.attach("original", {
-        body: referenceBuffer,
-        contentType: "image/png",
-      });
-      await testInfo.attach("next", {
-        body: migratedBuffer,
-        contentType: "image/png",
-      });
-      const reference = PNG.sync.read(referenceBuffer);
-      const actual = PNG.sync.read(migratedBuffer);
-      expect({ width: actual.width, height: actual.height }).toEqual({
-        width: reference.width,
-        height: reference.height,
-      });
-      const diff = new PNG({
-        width: reference.width,
-        height: reference.height,
-      });
-      const pixels = pixelmatch(
-        reference.data,
-        actual.data,
-        diff.data,
-        reference.width,
-        reference.height,
-        { threshold: 0.1 },
-      );
-      if (pixels)
-        await testInfo.attach("diff", {
-          body: PNG.sync.write(diff),
-          contentType: "image/png",
-        });
-      expect(
-        pixels,
-        "Different screenshot pixels (excluding anti-aliasing)",
-      ).toBe(0);
-
-      const fonts = await migrated.evaluate(() =>
-        [...document.fonts].map((font) => ({
-          family: font.family,
-          status: font.status,
-        })),
-      );
-      writeFileSync(
-        testInfo.outputPath("fonts.json"),
-        JSON.stringify(fonts, null, 2),
-      );
-      if (route === "/") {
-        expect(
-          fonts.some(
-            (font) => font.family === "Michroma" && font.status === "loaded",
-          ),
-        ).toBe(true);
-        expect(fonts.some((font) => font.family === "Google Sans Code")).toBe(
-          true,
+  for (const route of ["/", "/overview.html", "/blog"]) {
+    test(
+      route + " supports both themes at " + width + "px",
+      async ({ context }, testInfo) => {
+        await replayFonts(context);
+        await context.route("**/api/github**", (r) =>
+          r.fulfill({ json: { calendar: [], commits: [], nextPage: null } }),
         );
-      }
-    });
+        await context.route("https://www.google.com/maps/embed**", (r) =>
+          r.fulfill({ contentType: "text/html", body: "" }),
+        );
+        const page = await context.newPage();
+        await page.setViewportSize({ width, height: 900 });
+        const errors: string[] = [];
+        page.on("pageerror", (e) => errors.push(e.message));
+        await ready(page, nextOrigin + route);
+        await expect(page.locator("[data-admin-toolbar]")).toHaveCount(0);
+        if (route === "/") {
+          await expect(page.locator(".new-hero")).toBeVisible();
+          await expect(page.locator(".skills-columns>div")).toHaveCount(3);
+        }
+        if (route === "/blog")
+          await expect(page.locator(".blog-heading")).toBeVisible();
+        for (const theme of ["light", "dark"]) {
+          await page.evaluate((t) => {
+            document.documentElement.dataset.theme = t;
+          }, theme);
+          expect(
+            await page.evaluate(
+              () => document.documentElement.scrollWidth <= innerWidth,
+            ),
+          ).toBe(true);
+          await testInfo.attach(theme, {
+            body: await page.screenshot({
+              fullPage: true,
+              animations: "disabled",
+              mask: [page.locator("iframe")],
+            }),
+            contentType: "image/png",
+          });
+        }
+        expect(errors).toEqual([]);
+      },
+    );
   }
 }
 
@@ -216,7 +96,7 @@ test("AOS retains its duration and activates sections on scroll", async ({
     "data-aos-duration",
     "1000",
   );
-  const animated = page.locator("#about [data-aos]").first();
+  const animated = page.locator("#projects [data-aos]").first();
   await expect(animated).toHaveClass(/aos-init/);
   await animated.scrollIntoViewIfNeeded();
   await expect(animated).toHaveClass(/aos-animate/);

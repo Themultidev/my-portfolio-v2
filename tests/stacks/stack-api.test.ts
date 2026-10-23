@@ -294,7 +294,7 @@ test(
     page.on("pageerror", (error) => errors.push(error.message));
     try {
       await page.goto(`${origin}/admin/edit/portfolio`);
-      const desktop = page.locator('header[class~="lg:block"]');
+      const desktop = page.locator("body");
       await desktop.locator('[data-site-link="x"]').click();
       const x = page.locator('[data-site-link-editor="x"]');
       await x
@@ -332,7 +332,7 @@ test(
           .evaluateAll((elements) =>
             elements.map((element) => element.getAttribute("href")),
           ),
-        ["https://x.com/edited_profile", "https://x.com/edited_profile"],
+        ["https://x.com/edited_profile"],
       );
       await desktop.locator('[data-site-link="linkedin"]').click();
       const linked = page.locator('[data-site-link-editor="linkedin"]');
@@ -381,7 +381,7 @@ test(
             .evaluateAll((elements) =>
               elements.map((element) => element.getAttribute("href")),
             ),
-          [saved.value, saved.value],
+          [saved.value],
         );
       }
       await page.reload();
@@ -410,12 +410,12 @@ test(
       await publicPage.goto(origin);
       await expect(
         publicPage.locator('a[href="https://x.com/edited_profile"]'),
-      ).toHaveCount(2);
+      ).toHaveCount(1);
       await expect(
         publicPage.locator(
           'a[href="https://www.linkedin.com/in/edited-profile"]',
         ),
-      ).toHaveCount(2);
+      ).toHaveCount(1);
       await publicPage.close();
       await page.setViewportSize({ width: 375, height: 900 });
       await page.goto(`${origin}/admin/projects`);
@@ -1085,6 +1085,10 @@ test(
           mimeType: "image/svg+xml",
           buffer: Buffer.from(svg),
         });
+      await expect(creator.locator("img")).toHaveAttribute(
+        "src",
+        /^\/uploads\/stacks\/[a-f0-9-]{36}\.png$/,
+      );
       await expect(
         creator.getByRole("button", { name: "Add stack", exact: true }),
       ).toBeEnabled();

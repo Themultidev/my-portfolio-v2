@@ -72,7 +72,18 @@ comparisons.push({
     /<body[^>]*>([\s\S]*?)<\/body>/,
   )[1],
 });
-for (const { name, directory, original: reference } of comparisons) {
+const redesigned = new Set([
+  "MobileNavigation",
+  "DesktopNavigation",
+  "Home",
+  "About",
+]);
+console.log(
+  "Navigation, hero and About have an approved redesign; original parity applies only to retained sections.",
+);
+for (const { name, directory, original: reference } of comparisons.filter(
+  (c) => !redesigned.has(c.name),
+)) {
   // Import the actual graph through tsx, including the editor's client leaves.
   // Without a provider those leaves render the original fallback markup.
   const file = resolve(root, `src/components/${directory}/${name}.tsx`);

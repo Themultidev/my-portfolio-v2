@@ -106,14 +106,14 @@ for both providers before deploying.
 Connect Neon and a **public** Blob store to the Vercel project. In the environment
 settings for the deployment, configure:
 
-| Variable | Value |
-| --- | --- |
-| `DATABASE_URL` | Neon pooled PostgreSQL connection string, including SSL settings |
-| `DIRECT_URL` | Neon direct/unpooled connection string for migrations |
-| `BLOB_READ_WRITE_TOKEN` | Token supplied by the connected public Blob store |
+| Variable                         | Value                                                                              |
+| -------------------------------- | ---------------------------------------------------------------------------------- |
+| `DATABASE_URL`                   | Neon pooled PostgreSQL connection string, including SSL settings                   |
+| `DIRECT_URL`                     | Neon direct/unpooled connection string for migrations                              |
+| `BLOB_READ_WRITE_TOKEN`          | Token supplied by the connected public Blob store                                  |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Initial admin credentials; password at least 12 characters, at most 72 UTF-8 bytes |
-| `SESSION_SECRET` | Private random secret of at least 32 UTF-8 bytes |
-| `APP_ORIGIN` | `https://worluprincesoftwareengineer.vercel.app` |
+| `SESSION_SECRET`                 | Private random secret of at least 32 UTF-8 bytes                                   |
+| `APP_ORIGIN`                     | `https://worluprincesoftwareengineer.vercel.app`                                   |
 
 Keep existing public EmailJS settings too. Set the Vercel build command to
 `npm run build`. Push the code and redeploy after saving environment settings.
@@ -351,12 +351,12 @@ their individual markup, classes, SVG artwork, and feature lists.
 
 The authenticated project endpoints are:
 
-| Method | Route | Result |
-| ------ | ----- | ------ |
-| GET | `/api/projects` | All projects and the stack catalog |
-| GET | `/api/projects/[id]` | One project |
-| POST | `/api/projects` | Create a project (201) |
-| PATCH | `/api/projects/[id]` | Update supplied fields |
+| Method | Route                | Result                                 |
+| ------ | -------------------- | -------------------------------------- |
+| GET    | `/api/projects`      | All projects and the stack catalog     |
+| GET    | `/api/projects/[id]` | One project                            |
+| POST   | `/api/projects`      | Create a project (201)                 |
+| PATCH  | `/api/projects/[id]` | Update supplied fields                 |
 | DELETE | `/api/projects/[id]` | Delete the project and its memberships |
 
 Mutations require a live session and trusted Origin. Supported JSON fields are
@@ -506,8 +506,7 @@ preserving each page's original body styles and metadata. The schema, database
 client, content seed, authentication, inline editor, project API, and shared
 database-backed project board, stack icon CRUD, uploads, and project stack picker
 are ready, including project creation, photo replacement, inline copy, order,
-publication and confirmed deletion. Blog work
-awaits clarification.
+publication and confirmed deletion. The orange theme, blog studio, technical skills settings, GitHub activity and soundtrack controls are now implemented.
 
 The original HTML components and Vite tools are retained as a reference until
 the migration comparisons are needed. React components under
@@ -517,3 +516,17 @@ from the original HTML and **overwrites edits**; it is a migration tool only.
 
 Next.js uses the existing global CSS with Tailwind v4 via PostCSS. Linting runs
 ESLint directly; it is separate from the production build.
+
+## Journal and theme
+
+The active Next.js portfolio uses #ff6600 with persistent light/dark mode. The old HTML files remain migration references. Do not regenerate the redesigned components with port:html. Original visual parity no longer applies to navigation, hero, About or the theme; retained markup still has parity checks.
+
+- Visit /admin/blog (Blog CRUD) to create a draft, upload a cover, choose a category, feature a story, publish, edit, unpublish or delete it. Comments appear immediately; load/delete them in the post editor. Published stories are at /blog and /blog/[slug]. Likes are per signed browser cookie, with no visitor account required. Comments are plain text and rate limited in the database.
+- Visit /admin/settings (Skills & music) to add, rename, move or remove technical skills, choose catalog icons or upload SVG/images, change the GitHub username, and choose the blog soundtrack. Project stack icons remain in /admin/stacks.
+- Use + Add text in About to add editable learning notes. Notes, skills and music settings participate in portfolio undo/redo/defaults. Blog posts and visitor engagement have their own CRUD and are intentionally independent of portfolio history/reset.
+- Soundtrack choices: uploaded MP3/WAV/OGG/M4A (20 MB maximum), Spotify track/album/playlist/show/episode, Spotify Jam invitation, or Off. Autoplay is attempted for audio and Spotify. Browser/Spotify policies may require Play. Jam opens Spotify's invite; a website cannot silently join a visitor to a Jam. The disc spins only when playback is confirmed. Configure a source in admin; no music is supplied by default.
+- GitHub activity uses Themultidev by default. Optional server-only GITHUB_TOKEN improves limits and enables the official GraphQL calendar. Without it the calendar reads public GitHub contributions, with a graceful fallback. Commit language filters classify changed file extensions in paginated batches of 20; SQL/MySQL means SQL files. No sample activity is fabricated.
+
+Run npm run db:migrate locally before previewing these changes. Vercel's existing build script applies the PostgreSQL blog migration automatically. Existing portfolio content is preserved. Export/import includes blog posts, engagement, custom skill icons and audio; exports remain private. Run npm run test:blog after a production build for the new integration/browser checks.
+
+MySQL and Flutter SVG artwork comes from [Devicon](https://github.com/devicons/devicon), under its MIT license and the respective brand guidelines.

@@ -30,7 +30,8 @@
     "test:editor": "node --conditions=react-server --import tsx --test tests/editor/inline-editor.test.ts",
     "test:history": "node --conditions=react-server --import tsx --test tests/editor/history.test.ts",
     "test:projects": "node --conditions=react-server --import tsx --test --test-concurrency=1 tests/projects/project-api.test.ts tests/projects/project-migration.test.ts",
-    "test:stacks": "node --conditions=react-server --import tsx --test tests/stacks/stack-api.test.ts"
+    "test:stacks": "node --conditions=react-server --import tsx --test tests/stacks/stack-api.test.ts",
+    "test:blog": "node --conditions=react-server --import tsx --test tests/blog/blog.test.ts"
   },
   "devDependencies": {
     "@fontsource-variable/google-sans-code": "^5.3.1",
