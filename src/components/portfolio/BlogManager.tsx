@@ -1,4 +1,5 @@
 "use client";
+import SiteIcon from "./SiteIcon";
 import { useState } from "react";
 import { blogCategories, type PostDraft } from "../../lib/blog-validation";
 import { uploadPortfolioFile } from "../../lib/upload-client";
@@ -167,7 +168,7 @@ export default function BlogManager({ initial }: { initial: Post[] }) {
       <p className="page-description">
         Write, publish and keep the conversation going.{" "}
         <a href="/blog" target="_blank" rel="noreferrer">
-          View blog ↗
+          View blog <SiteIcon name="arrow-up-right" />
         </a>{" "}
         · <a href="/admin/settings">Music settings</a>
       </p>
@@ -341,7 +342,7 @@ export default function BlogManager({ initial }: { initial: Post[] }) {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Read post ↗
+                  Read post <SiteIcon name="arrow-up-right" />
                 </a>
               )}
             </fieldset>
@@ -397,7 +398,9 @@ export default function BlogManager({ initial }: { initial: Post[] }) {
           </form>
         ) : (
           <div className="studio-panel studio-empty">
-            <span className="empty-symbol">✳</span>
+            <span className="empty-symbol">
+              <SiteIcon name="star" />
+            </span>
             <h2>A space for your next thought.</h2>
             <p>Select a post, or start something new.</p>
           </div>

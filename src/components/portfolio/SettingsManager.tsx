@@ -1,4 +1,5 @@
 "use client";
+import SiteIcon from "./SiteIcon";
 import { useState } from "react";
 import {
   type SiteSettings,
@@ -72,7 +73,7 @@ export default function SettingsManager({
   return (
     <main className="studio-page">
       <a className="eyebrow" href="/admin/edit/portfolio">
-        ← PORTFOLIO EDITOR
+        <SiteIcon name="arrow-left" /> PORTFOLIO EDITOR
       </a>
       <h1>
         Make it yours<span className="accent">.</span>
@@ -211,7 +212,7 @@ export default function SettingsManager({
                   update({ ...settings, skills });
                 }}
               >
-                ↑
+                <SiteIcon name="arrow-up" />
               </button>
               <button
                 type="button"
