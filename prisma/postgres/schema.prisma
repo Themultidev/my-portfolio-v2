@@ -72,3 +72,47 @@ model PortfolioHistoryState {
   id      Int @id
   version Int @default(0)
 }
+
+model BlogPost {
+  id          Int @id @default(autoincrement())
+  slug        String @unique
+  title       String
+  excerpt     String @default("")
+  body        String
+  coverUrl    String?
+  category    String
+  featured    Boolean @default(false)
+  published   Boolean @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  comments    BlogComment[]
+  likes       BlogLike[]
+  @@index([published, publishedAt])
+}
+
+model BlogComment {
+  id          Int @id @default(autoincrement())
+  postId      Int
+  author      String
+  body        String
+  visitorHash String
+  createdAt   DateTime @default(now())
+  post        BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  @@index([postId, createdAt])
+}
+
+model BlogLike {
+  id          Int @id @default(autoincrement())
+  postId      Int
+  visitorHash String
+  createdAt   DateTime @default(now())
+  post        BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  @@unique([postId, visitorHash])
+}
+
+model BlogActionLimit {
+  key         String @id
+  count       Int @default(0)
+  windowStart DateTime
+}

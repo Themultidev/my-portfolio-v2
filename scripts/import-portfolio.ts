@@ -27,6 +27,7 @@ try {
     db.stack.count(),
     db.project.count(),
     db.projectStack.count(),
+    db.blogPost.count(),
   ]);
   if (counts.some((count) => count > 0))
     throw new Error("Target must be empty.");
@@ -38,7 +39,16 @@ try {
         access: "public",
         contentType: file.path.endsWith(".pdf")
           ? "application/pdf"
-          : "image/png",
+          : file.path.startsWith("/uploads/music/")
+            ? (
+                {
+                  mp3: "audio/mpeg",
+                  wav: "audio/wav",
+                  ogg: "audio/ogg",
+                  m4a: "audio/mp4",
+                } as Record<string, string>
+              )[file.path.split(".").pop()!]
+            : "image/png",
         addRandomSuffix: false,
         allowOverwrite: false,
       },
@@ -53,6 +63,7 @@ try {
         tx.stack.count(),
         tx.project.count(),
         tx.projectStack.count(),
+        tx.blogPost.count(),
       ]);
       if (current.some((count) => count > 0))
         throw new Error("Target must be empty.");
@@ -61,7 +72,10 @@ try {
       await tx.stack.createMany({ data: data.stacks });
       await tx.project.createMany({ data: data.projects });
       await tx.projectStack.createMany({ data: data.memberships });
-      await resetPostgresSequences(tx);
+      await tx.blogPost.createMany({ data: data.posts });
+      await tx.blogComment.createMany({ data: data.comments });
+      await tx.blogLike.createMany({ data: data.likes });
+      await resetPostgresSequences(tx, true);
     },
     { isolationLevel: "Serializable", timeout: 60_000 },
   );

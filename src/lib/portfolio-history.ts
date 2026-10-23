@@ -6,10 +6,11 @@ import manifest from "../../prisma/seed-data.json";
 import { resetPostgresSequences } from "../../prisma/reset-postgres-sequences";
 import { snapshotSchema } from "../../prisma/portfolio-snapshot";
 
-const stateSchema = snapshotSchema.omit({
-  version: true,
-  admins: true,
-  files: true,
+const stateSchema = snapshotSchema.pick({
+  blocks: true,
+  stacks: true,
+  projects: true,
+  memberships: true,
 });
 const LIMIT = 50;
 async function snapshot(tx: Prisma.TransactionClient) {

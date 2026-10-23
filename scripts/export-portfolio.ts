@@ -12,20 +12,39 @@ if (isPostgresUrl(url))
   );
 const db = new PrismaClient({ datasources: { db: { url } } });
 try {
-  const [admins, blocks, stacks, projects, memberships] = await db.$transaction(
-    [
-      db.admin.findMany(),
-      db.contentBlock.findMany(),
-      db.stack.findMany(),
-      db.project.findMany(),
-      db.projectStack.findMany(),
-    ],
-  );
-  const rows = { admins, blocks, stacks, projects, memberships };
+  const [
+    admins,
+    blocks,
+    stacks,
+    projects,
+    memberships,
+    posts,
+    comments,
+    likes,
+  ] = await db.$transaction([
+    db.admin.findMany(),
+    db.contentBlock.findMany(),
+    db.stack.findMany(),
+    db.project.findMany(),
+    db.projectStack.findMany(),
+    db.blogPost.findMany(),
+    db.blogComment.findMany(),
+    db.blogLike.findMany(),
+  ]);
+  const rows = {
+    admins,
+    blocks,
+    stacks,
+    projects,
+    memberships,
+    posts,
+    comments,
+    likes,
+  };
   const files = [];
   for (const path of uploadReferences(rows)) {
     if (
-      !/^\/uploads\/(?:(?:stacks|projects)\/[a-f0-9-]{36}\.png|resumes\/[a-f0-9-]{36}\.pdf)$/.test(
+      !/^\/uploads\/(?:(?:stacks|projects)\/[a-f0-9-]{36}\.png|resumes\/[a-f0-9-]{36}\.pdf|music\/[a-f0-9-]{36}\.(?:mp3|wav|ogg|m4a))$/.test(
         path,
       )
     )
