@@ -294,7 +294,7 @@ test(
     page.on("pageerror", (error) => errors.push(error.message));
     try {
       await page.goto(`${origin}/admin/edit/portfolio`);
-      const desktop = page.locator("body");
+      const desktop = page.locator("header.classic-navbar");
       await desktop.locator('[data-site-link="x"]').click();
       const x = page.locator('[data-site-link-editor="x"]');
       await x
@@ -332,7 +332,7 @@ test(
           .evaluateAll((elements) =>
             elements.map((element) => element.getAttribute("href")),
           ),
-        ["https://x.com/edited_profile"],
+        ["https://x.com/edited_profile", "https://x.com/edited_profile"],
       );
       await desktop.locator('[data-site-link="linkedin"]').click();
       const linked = page.locator('[data-site-link-editor="linkedin"]');
@@ -410,12 +410,12 @@ test(
       await publicPage.goto(origin);
       await expect(
         publicPage.locator('a[href="https://x.com/edited_profile"]'),
-      ).toHaveCount(1);
+      ).toHaveCount(2);
       await expect(
         publicPage.locator(
           'a[href="https://www.linkedin.com/in/edited-profile"]',
         ),
-      ).toHaveCount(1);
+      ).toHaveCount(2);
       await publicPage.close();
       await page.setViewportSize({ width: 375, height: 900 });
       await page.goto(`${origin}/admin/projects`);
