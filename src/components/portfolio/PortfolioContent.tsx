@@ -1,3 +1,4 @@
+import LoadAnimation from "./LoadAnimation";
 import MobileNavigation from "./MobileNavigation";
 import DesktopNavigation from "./DesktopNavigation";
 import Home from "./Home";
@@ -18,6 +19,7 @@ export default function PortfolioContent({
 }) {
   return (
     <>
+      {!editable && <LoadAnimation />}
       <MobileNavigation />
       <DesktopNavigation />
       <Home />

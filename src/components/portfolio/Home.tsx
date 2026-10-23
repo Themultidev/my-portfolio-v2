@@ -1,103 +1,102 @@
-// Generated from the frozen static source; run node scripts/bind-content-components.mjs.
-import EditableText from "../editor/EditableText";
 import EditableElement from "../editor/EditableElement";
+import EditableSiteLink from "../editor/EditableSiteLink";
+import EditableText from "../editor/EditableText";
+const E = EditableText;
 export default function Home() {
   return (
-    <>
-      <section
-        className={
-          " min-h-[100vh] md:h-full text-center text-white flex flex-col justify-center items-center   space-y-4 px-5 md:px-20 md:py-30 "
-        }
-        id={"home"}
-      >
-        {"\n  "}
-        <div
-          className={
-            "border-2 border-dashed rounded-full border-cyan-400 animate-pulse"
-          }
-        >
-          {" "}
+    <section id="home" className="new-hero">
+      <div className="hero-copy">
+        <p className="eyebrow">
+          <span className="status-dot" />
+          <E blockKey="hero.text.002">Hello 👋, I am</E>
+        </p>
+        <h1>
+          <E blockKey="hero.text.003">WO</E>
+          <E blockKey="hero.text.004">RLU </E>
+          <br />
+          <span className="name-outline">
+            <E blockKey="hero.text.005">PRINCE</E>
+          </span>
+          <small>
+            <E blockKey="hero.text.006"> (JNR)</E>
+          </small>
+          <span className="accent">.</span>
+        </h1>
+        <div className="hero-description">
+          <span className="hero-rule" />
+          <div>
+            <h2>
+              <E blockKey="hero.text.007">A Full Stack Web and AI developer</E>
+            </h2>
+            <p>
+              <E blockKey="hero.text.008" multiline>
+                Multitalented personality and a sharp-witted learner with great
+                attention to detail.
+              </E>
+            </p>
+          </div>
+        </div>
+        <div className="hero-actions">
+          <a className="accent-button" href="#contact">
+            <E blockKey="hero.text.009">Connect With Me!</E> ↗
+          </a>
+          <a className="text-button" href="#projects">
+            <E blockKey="hero.text.010">View </E>
+            <E blockKey="hero.text.011">Prjo</E>
+            <E blockKey="hero.text.012">ects</E> ↓
+          </a>
+        </div>
+        <div className="hero-socials">
+          <a
+            href="https://github.com/Themultidev"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub ↗
+          </a>
+          <EditableSiteLink
+            kind="x"
+            elementProps={{
+              href: "https://x.com/skcodes__?s=21",
+              target: "_blank",
+              rel: "noreferrer",
+            }}
+          >
+            <E blockKey="desktopNavigation.text.007">X</E> ↗
+          </EditableSiteLink>
+          <EditableSiteLink
+            kind="linkedin"
+            elementProps={{
+              href: "https://www.linkedin.com/in/worlu-prince-796449376",
+              target: "_blank",
+              rel: "noreferrer",
+            }}
+          >
+            <E blockKey="desktopNavigation.text.008">LinkedIn</E> ↗
+          </EditableSiteLink>
+        </div>
+      </div>
+      <div className="hero-portrait">
+        <div className="portrait-orbit" />
+        <div className="portrait-frame">
           <EditableElement
             tag="img"
             blockKeys={{ alt: "hero.alt.001" }}
             elementProps={{
-              className: "w-full h-40 max-w-[160px] rounded-full object-cover",
               src: "/mypictop.jpg",
-              alt: "Worlu Prince — Front-end Developer avatar",
+              alt: "Worlu Prince",
+              width: 480,
+              height: 600,
+              fetchPriority: "high",
             }}
-          />{" "}
+          />
         </div>
-        {"\n    "}
-        <div className={"font-mono text-2xl font-bold"}>
-          <EditableText blockKey="hero.text.002">
-            {"Hello 👋, i am   "}
-          </EditableText>
-        </div>
-        {"\n    "}
-        <div className={"text-4xl md:text-[40px] font-bold font-[Michroma]"}>
-          <h1>
-            <span className={"text-cyan-400"}>
-              <EditableText blockKey="hero.text.003">{"WO"}</EditableText>
-            </span>
-            <EditableText blockKey="hero.text.004">{"RLU "}</EditableText>
-            <span
-              className={
-                "text-transparent bg-gradient-to-r from-yellow-300 to-cyan-400 bg-clip-text "
-              }
-            >
-              <EditableText blockKey="hero.text.005">{"PRINCE"}</EditableText>
-            </span>
-            <EditableText blockKey="hero.text.006">{" (JNR)"}</EditableText>
-          </h1>
-        </div>
-        {"\n    "}
-        <div className={"text-[15px]"}>
-          <p>
-            <EditableText blockKey="hero.text.007">
-              {"A Full Stack Web and AI developer"}
-            </EditableText>
-          </p>
-        </div>
-        {"\n    "}
-        <div>
-          <p className={"leading-loose "}>
-            <EditableText blockKey="hero.text.008">
-              {
-                " Multitalented personality and a sharp-witted learner with great attention to detail."
-              }
-            </EditableText>
-          </p>
-        </div>
-        {"\n    "}
-        <div className={"flex space-x-2"}>
-          {"\n      "}
-          <a
-            className={
-              "p-3 font-bold text-black transition-all border-2 w-fit h-fit rounded-4xl border-zinc-600 bg-zinc-100 hover:bg-black hover:text-white"
-            }
-            href={"#contact"}
-          >
-            <EditableText blockKey="hero.text.009">
-              {"Connect With Me!"}
-            </EditableText>
-          </a>
-          {"\n      "}
-          <a
-            className={
-              "p-3 font-sm text-zinc-8 transition-all border w-fit h-fit rounded-4xl border-zinc-400 bg-linear-to-r from-[#1e2228] via-[#6b727a] via-[#e2e5ea] to-[#2a2f36] hover:bg-black hover:text-white"
-            }
-            href={"#contact"}
-          >
-            <EditableText blockKey="hero.text.010">{" View "}</EditableText>
-            <span className={"text-zinc-800 font-mono font-bold text-md"}>
-              <EditableText blockKey="hero.text.011">{"Prjo"}</EditableText>
-            </span>
-            <EditableText blockKey="hero.text.012">{"ects"}</EditableText>
-          </a>
-          {"\n    "}
-        </div>
-        {"\n\n  "}
-      </section>
-    </>
+        <span className="portrait-caption">THE PERSON BEHIND THE CODE</span>
+        <span className="hero-coordinate">01 / BUILDING WITH PURPOSE</span>
+        <span className="portrait-spark" aria-hidden="true">
+          ✳
+        </span>
+      </div>
+    </section>
   );
 }
