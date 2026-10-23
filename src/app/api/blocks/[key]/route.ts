@@ -34,7 +34,7 @@ export async function PATCH(
         key: key.error.issues.map((issue) => issue.message),
       });
 
-    if (isSiteLinkKey(key.data))
+    if (isSiteLinkKey(key.data) || key.data === "site.settings")
       throw new ApiError(
         400,
         "VALIDATION",
