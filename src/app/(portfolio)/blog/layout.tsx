@@ -1,3 +1,4 @@
+import SiteIcon from "../../../components/portfolio/SiteIcon";
 import type { ReactNode } from "react";
 import SiteNavigation from "../../../components/portfolio/SiteNavigation";
 import EditModeProvider from "../../../components/editor/EditModeProvider";
@@ -27,7 +28,9 @@ export default async function BlogLayout({
           Themultidev<span className="accent">.</span>
         </a>
         <p>Code, curiosity & everything in between.</p>
-        <a href="/#contact">Let’s connect ↗</a>
+        <a href="/#contact">
+          Let’s connect <SiteIcon name="arrow-up-right" />
+        </a>
       </footer>
       <BlogMusic music={settings.music} />
     </EditModeProvider>

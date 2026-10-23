@@ -1,4 +1,5 @@
 "use client";
+import SiteIcon from "./SiteIcon";
 import { useCallback, useEffect, useState } from "react";
 type Comment = { id: number; author: string; body: string; createdAt: string };
 type State = {
@@ -95,11 +96,11 @@ export default function BlogEngagement({
           disabled={busy || !state}
           onClick={() => void mutate("like")}
         >
-          {state?.liked ? "♥" : "♡"} {state?.likes ?? 0}{" "}
+          <SiteIcon name="heart" /> {state?.likes ?? 0}{" "}
           <span>{state?.liked ? "Liked" : "Like this story"}</span>
         </button>
         <button className="outline-button" onClick={() => void share()}>
-          Share story ↗
+          Share story <SiteIcon name="arrow-up-right" />
         </button>
         <span role="status">{shareMessage}</span>
       </div>
@@ -155,7 +156,13 @@ export default function BlogEngagement({
           </label>
         </div>
         <button className="accent-button" disabled={busy}>
-          {busy ? "Sending…" : "Post comment ↗"}
+          {busy ? (
+            "Sending…"
+          ) : (
+            <>
+              Post comment <SiteIcon name="arrow-up-right" />
+            </>
+          )}
         </button>
       </form>
       {error && (
@@ -198,14 +205,14 @@ export default function BlogEngagement({
             disabled={page === 1 || busy}
             onClick={() => setPage(page - 1)}
           >
-            ← Previous
+            <SiteIcon name="arrow-left" /> Previous
           </button>
           <span>Page {page}</span>
           <button
             disabled={page * 20 >= (state?.total ?? 0) || busy}
             onClick={() => setPage(page + 1)}
           >
-            Next →
+            Next <SiteIcon name="arrow-right" />
           </button>
         </div>
       )}

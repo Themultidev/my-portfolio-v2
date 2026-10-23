@@ -1,3 +1,4 @@
+import SiteIcon from "../../../../components/portfolio/SiteIcon";
 import { notFound } from "next/navigation";
 import { db } from "../../../../lib/db";
 import BlogEngagement from "../../../../components/portfolio/BlogEngagement";
@@ -43,7 +44,7 @@ export default async function PostPage({
   return (
     <main className="article-page">
       <Link className="eyebrow" href="/blog">
-        ← BACK TO THE JOURNAL
+        <SiteIcon name="arrow-left" /> BACK TO THE JOURNAL
       </Link>
       <header className="article-header">
         <span className="article-category">{post.category}</span>
@@ -76,7 +77,7 @@ export default async function PostPage({
       </div>
       <BlogEngagement id={post.id} title={post.title} />
       <Link className="text-button" href="/blog">
-        More from the journal →
+        More from the journal <SiteIcon name="arrow-right" />
       </Link>
     </main>
   );

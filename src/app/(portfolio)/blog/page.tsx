@@ -1,3 +1,4 @@
+import SiteIcon from "../../../components/portfolio/SiteIcon";
 import { db } from "../../../lib/db";
 import { blogCategories } from "../../../lib/blog-validation";
 import { blogCounts } from "../../../lib/blog-store";
@@ -81,14 +82,18 @@ export default async function BlogPage({
                 <br />
                 putting into words.
               </span>
-              <i>✳</i>
+              <i>
+                <SiteIcon name="star" />
+              </i>
             </div>
           )}
           <div className="featured-overlay">
             <span className="eyebrow">FEATURED / {feature.category}</span>
             <h2>
               {feature.title}
-              <span>↗</span>
+              <span>
+                <SiteIcon name="arrow-up-right" />
+              </span>
             </h2>
             <p>{feature.excerpt}</p>
             <div className="article-meta">
@@ -157,13 +162,17 @@ export default async function BlogPage({
                 ) : (
                   <div className="card-art" aria-hidden="true">
                     <span>{post.category}</span>
-                    <i>✳</i>
+                    <i>
+                      <SiteIcon name="star" />
+                    </i>
                   </div>
                 )}
                 <p className="article-category">{post.category}</p>
                 <h2>
                   {post.title}
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">
+                    <SiteIcon name="arrow-up-right" />
+                  </span>
                 </h2>
                 <p className="article-excerpt">{post.excerpt}</p>
                 <div className="article-meta">
@@ -186,7 +195,9 @@ export default async function BlogPage({
         </div>
       ) : (
         <div className="journal-empty">
-          <span>✳</span>
+          <span>
+            <SiteIcon name="star" />
+          </span>
           <h2>
             {search || category
               ? "No stories here just yet."
@@ -202,14 +213,16 @@ export default async function BlogPage({
             href={search || category ? "/blog" : "/#projects"}
           >
             {search || category ? "Browse all stories" : "Explore my projects"}{" "}
-            ↗
+            <SiteIcon name="arrow-up-right" />
           </Link>
         </div>
       )}
       {total > 9 && (
         <nav className="pagination" aria-label="Blog pages">
           {page > 1 ? (
-            <Link href={url(category, page - 1)}>← Previous</Link>
+            <Link href={url(category, page - 1)}>
+              <SiteIcon name="arrow-left" /> Previous
+            </Link>
           ) : (
             <span />
           )}
@@ -217,7 +230,9 @@ export default async function BlogPage({
             Page {page} of {Math.ceil(total / 9)}
           </span>
           {page * 9 < total ? (
-            <Link href={url(category, page + 1)}>Next →</Link>
+            <Link href={url(category, page + 1)}>
+              Next <SiteIcon name="arrow-right" />
+            </Link>
           ) : (
             <span />
           )}
