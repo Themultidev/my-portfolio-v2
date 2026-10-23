@@ -1,4 +1,5 @@
 "use client";
+import SiteIcon from "./SiteIcon";
 import { useEffect, useRef, useState } from "react";
 type Playback = { data: { isPaused: boolean; isBuffering: boolean } };
 type Controller = {
@@ -105,7 +106,7 @@ export default function SpotifyPlayer({
         <p role="status" className="help-text">
           {error}{" "}
           <a href={source} target="_blank" rel="noreferrer">
-            Open Spotify ↗
+            Open Spotify <SiteIcon name="arrow-up-right" />
           </a>
         </p>
       )}

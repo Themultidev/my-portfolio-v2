@@ -1,4 +1,5 @@
 "use client";
+import SiteIcon from "./SiteIcon";
 import { useEffect, useRef, useState } from "react";
 import SpotifyPlayer from "./SpotifyPlayer";
 import { spotifyEmbed, type SiteSettings } from "../../lib/site-settings";
@@ -55,7 +56,9 @@ export default function BlogMusic({ music }: { music: SiteSettings["music"] }) {
             }
           }}
         >
-          <span className="disc-label">{playing ? "Ⅱ" : "▶"}</span>
+          <span className="disc-label">
+            <SiteIcon name={playing ? "pause" : "play"} />
+          </span>
         </button>
         <div>
           <small>ON THE TURNTABLE</small>
@@ -110,7 +113,7 @@ export default function BlogMusic({ music }: { music: SiteSettings["music"] }) {
           target="_blank"
           rel="noreferrer"
         >
-          Join my Spotify Jam ↗
+          Join my Spotify Jam <SiteIcon name="arrow-up-right" />
         </a>
       )}
       {notice && (
