@@ -28,7 +28,7 @@ export default function BlogMusic({ music }: { music: SiteSettings["music"] }) {
   if (music.mode === "off" || !music.source) return null;
   const embed = spotifyEmbed(music.source);
   return (
-    <aside className="music-widget" aria-label="Blog soundtrack">
+    <aside className="music-widget" aria-label="Site soundtrack">
       <div className="music-mini">
         <button
           type="button"
