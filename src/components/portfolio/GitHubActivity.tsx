@@ -1,4 +1,5 @@
 "use client";
+import SiteIcon from "./SiteIcon";
 import { useEffect, useState } from "react";
 import { useEditMode } from "../editor/EditModeProvider";
 import { parseSettings, SETTINGS_KEY } from "../../lib/site-settings";
@@ -64,7 +65,7 @@ export default function GitHubActivity() {
           rel="noreferrer"
           className="text-button"
         >
-          GitHub ↗
+          GitHub <SiteIcon name="arrow-up-right" />
         </a>
       </div>
       <div className="contribution-panel">
@@ -95,9 +96,14 @@ export default function GitHubActivity() {
           </>
         ) : (
           <p>
-            {loading
-              ? "Fetching activity from GitHub…"
-              : "Calendar unavailable right now. View my activity on GitHub ↗"}
+            {loading ? (
+              "Fetching activity from GitHub…"
+            ) : (
+              <>
+                Calendar unavailable right now. View my activity on GitHub{" "}
+                <SiteIcon name="arrow-up-right" />
+              </>
+            )}
           </p>
         )}
       </div>
@@ -149,7 +155,7 @@ export default function GitHubActivity() {
               target="_blank"
               rel="noreferrer"
             >
-              See activity on GitHub ↗
+              See activity on GitHub <SiteIcon name="arrow-up-right" />
             </a>
           </p>
         ) : data?.commits.length ? (
@@ -175,7 +181,9 @@ export default function GitHubActivity() {
                   timeZone: "UTC",
                 })}
               </time>
-              <code>{commit.sha.slice(0, 7)} ↗</code>
+              <code>
+                {commit.sha.slice(0, 7)} <SiteIcon name="arrow-up-right" />
+              </code>
             </a>
           ))
         ) : (
@@ -193,7 +201,7 @@ export default function GitHubActivity() {
             setPage(page - 1);
           }}
         >
-          ← Previous
+          <SiteIcon name="arrow-left" /> Previous
         </button>
         <span>Batch {page}</span>
         <button
@@ -203,7 +211,7 @@ export default function GitHubActivity() {
             setPage(data!.nextPage!);
           }}
         >
-          Next →
+          Next <SiteIcon name="arrow-right" />
         </button>
       </div>
       <p className="help-text">
