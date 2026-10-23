@@ -1,5 +1,5 @@
 import "server-only";
-import manifest from "../../prisma/seed-data.json";
+import { bundledStackIcons } from "./stack-icons";
 import { storedUploadExists } from "./upload-storage";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
@@ -89,7 +89,9 @@ export async function saveStack(
       if (parsed.data.svgPath.startsWith("/uploads/"))
         await storedUploadExists(parsed.data.svgPath);
       else if (
-        !manifest.stacks.some((stack) => stack.svgPath === parsed.data.svgPath)
+        !bundledStackIcons.some(
+          (stack) => stack.svgPath === parsed.data.svgPath,
+        )
       )
         throw new Error("Unknown bundled icon.");
     } catch {
