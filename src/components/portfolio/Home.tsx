@@ -1,3 +1,4 @@
+import SiteIcon from "./SiteIcon";
 import EditableElement from "../editor/EditableElement";
 import EditableSiteLink from "../editor/EditableSiteLink";
 import EditableText from "../editor/EditableText";
@@ -38,12 +39,13 @@ export default function Home() {
         </div>
         <div className="hero-actions">
           <a className="accent-button" href="#contact">
-            <E blockKey="hero.text.009">Connect With Me!</E> ↗
+            <E blockKey="hero.text.009">Connect With Me!</E>{" "}
+            <SiteIcon name="arrow-up-right" />
           </a>
           <a className="text-button" href="#projects">
             <E blockKey="hero.text.010">View </E>
             <E blockKey="hero.text.011">Prjo</E>
-            <E blockKey="hero.text.012">ects</E> ↓
+            <E blockKey="hero.text.012">ects</E> <SiteIcon name="arrow-down" />
           </a>
         </div>
         <div className="hero-socials">
@@ -52,7 +54,7 @@ export default function Home() {
             target="_blank"
             rel="noreferrer"
           >
-            GitHub ↗
+            GitHub <SiteIcon name="arrow-up-right" />
           </a>
           <EditableSiteLink
             kind="x"
@@ -62,7 +64,8 @@ export default function Home() {
               rel: "noreferrer",
             }}
           >
-            <E blockKey="desktopNavigation.text.007">X</E> ↗
+            <E blockKey="desktopNavigation.text.007">X</E>{" "}
+            <SiteIcon name="arrow-up-right" />
           </EditableSiteLink>
           <EditableSiteLink
             kind="linkedin"
@@ -72,7 +75,8 @@ export default function Home() {
               rel: "noreferrer",
             }}
           >
-            <E blockKey="desktopNavigation.text.008">LinkedIn</E> ↗
+            <E blockKey="desktopNavigation.text.008">LinkedIn</E>{" "}
+            <SiteIcon name="arrow-up-right" />
           </EditableSiteLink>
         </div>
       </div>
@@ -94,7 +98,7 @@ export default function Home() {
         <span className="portrait-caption">THE PERSON BEHIND THE CODE</span>
         <span className="hero-coordinate">01 / BUILDING WITH PURPOSE</span>
         <span className="portrait-spark" aria-hidden="true">
-          ✳
+          <SiteIcon name="star" />
         </span>
       </div>
     </section>
