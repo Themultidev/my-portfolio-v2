@@ -1,15 +1,16 @@
 "use client";
 import { useSyncExternalStore } from "react";
+import SiteIcon from "./SiteIcon";
 function subscribe(callback: () => void) {
   window.addEventListener("themechange", callback);
   return () => window.removeEventListener("themechange", callback);
 }
-export const themeScript = `(function(){try{var t=localStorage.getItem('portfolio-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch(e){}})()`;
+export const themeScript = `(function(){try{var t=localStorage.getItem('portfolio-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:'dark'}catch(e){document.documentElement.dataset.theme='dark'}})()`;
 export default function ThemeToggle() {
   const theme = useSyncExternalStore(
     subscribe,
-    () => document.documentElement.dataset.theme ?? "light",
-    () => "light",
+    () => document.documentElement.dataset.theme ?? "dark",
+    () => "dark",
   );
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";
@@ -27,7 +28,7 @@ export default function ThemeToggle() {
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       title="Change theme"
     >
-      {theme === "dark" ? "☀" : "☾"}
+      <SiteIcon name={theme === "dark" ? "sun" : "moon"} />
     </button>
   );
 }

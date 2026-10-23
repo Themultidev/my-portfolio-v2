@@ -1,4 +1,16 @@
 :root {
+  color-scheme: dark;
+  --page: #000000;
+  --surface: #141416;
+  --surface-2: #1e1e21;
+  --ink: #f3f0ea;
+  --muted: #a5a4a0;
+  --line: #303034;
+  --accent: #ff6600;
+  --accent-soft: #ff660015;
+  --shadow: 0 20px 70px #0005;
+}
+:root[data-theme="light"] {
   color-scheme: light;
   --page: #faf9f6;
   --surface: #fff;
@@ -12,7 +24,7 @@
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page: #0c0c0d;
+  --page: #000000;
   --surface: #141416;
   --surface-2: #1e1e21;
   --ink: #f3f0ea;
@@ -2030,4 +2042,188 @@ summary:focus-visible {
 #contact form {
   min-width: 0;
   max-width: 100%;
+}
+
+/* Floating navigation from the original portfolio, in the orange theme. */
+.site-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  flex-shrink: 0;
+}
+.classic-navbar {
+  position: fixed;
+  inset: 48px 0 auto;
+  width: min(1240px, calc(100% - 120px));
+  height: 64px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  gap: 18px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--page) 82%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 12px 36px #00000020;
+}
+.classic-navbar .wordmark {
+  font-size: 18px;
+  letter-spacing: -0.035em;
+  gap: 10px;
+  white-space: nowrap;
+}
+.classic-navbar .wordmark > .site-icon {
+  width: 24px;
+  height: 24px;
+}
+.classic-navbar .site-links {
+  display: flex;
+  position: static;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  gap: 2px;
+  margin: 0;
+  padding: 0 12px;
+  border: 0;
+  border-inline: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.classic-navbar .site-links > .nav-item,
+.classic-navbar .navbar-social,
+.classic-navbar .theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
+}
+.classic-navbar .nav-item:hover,
+.classic-navbar .navbar-social:hover,
+.classic-navbar .theme-toggle:hover,
+.classic-navbar .nav-item:focus-visible,
+.classic-navbar .navbar-social:focus-visible,
+.classic-navbar .theme-toggle:focus-visible {
+  color: #080808;
+  background: linear-gradient(120deg, #ffb373, #ff6600 65%, #ed4c00);
+  box-shadow: 0 3px 18px #ff660025;
+}
+.classic-navbar .nav-item-icon {
+  display: none;
+}
+.classic-navbar .nav-resume .nav-item-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+.classic-navbar .nav-link-arrow {
+  width: 13px;
+  height: 13px;
+}
+.navbar-socials {
+  display: flex;
+  gap: 2px;
+}
+.classic-navbar .navbar-social {
+  width: 34px;
+  padding: 7px;
+}
+.classic-navbar .navbar-social .site-icon {
+  width: 20px;
+  height: 20px;
+}
+.classic-navbar .theme-toggle {
+  width: 34px;
+  padding: 7px;
+  flex-shrink: 0;
+}
+.classic-navbar .theme-toggle .site-icon {
+  width: 20px;
+  height: 20px;
+}
+.classic-navbar .wordmark:hover {
+  color: var(--accent);
+}
+.desktop-nav-spacer {
+  display: block;
+  height: 144px;
+}
+html {
+  scroll-padding-top: 144px;
+}
+.disc-label .site-icon {
+  width: 12px;
+  height: 12px;
+}
+.like-button > .site-icon {
+  width: 17px;
+  height: 17px;
+}
+.like-button.liked > .site-icon {
+  fill: currentColor;
+}
+@media (max-width: 1023px) {
+  .classic-navbar {
+    inset: 24px 0 auto;
+    width: min(560px, calc(100% - 28px));
+    height: 60px;
+    padding: 10px;
+    gap: 6px;
+    border-radius: 22px;
+  }
+  .classic-navbar .wordmark,
+  .classic-navbar .navbar-socials,
+  .classic-navbar .nav-link-arrow {
+    display: none;
+  }
+  .classic-navbar .site-links {
+    padding: 0 5px 0 0;
+    gap: 2px;
+    border-left: 0;
+    justify-content: space-evenly;
+  }
+  .classic-navbar .site-links > .nav-item {
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+  }
+  .classic-navbar .nav-item-icon,
+  .classic-navbar .nav-resume .nav-item-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+  .classic-navbar .nav-item-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .desktop-nav-spacer {
+    height: 108px;
+  }
+  html {
+    scroll-padding-top: 108px;
+  }
 }
