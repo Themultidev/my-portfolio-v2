@@ -2,7 +2,7 @@ import "server-only";
 import { head, del } from "@vercel/blob";
 import { ApiError } from "./api-response";
 import {
-  MAX_UPLOAD_BYTES,
+  maxUploadBytes,
   validStagingPath,
   type UploadKind,
 } from "./upload-kinds";
@@ -17,7 +17,7 @@ export async function readStagingFile(
   if (
     blob.pathname !== path ||
     blob.contentType !== "application/octet-stream" ||
-    blob.size > MAX_UPLOAD_BYTES ||
+    blob.size > maxUploadBytes(kind) ||
     blob.size <= 0
   )
     throw new ApiError(400, "VALIDATION", "Invalid staged upload.");
@@ -43,12 +43,12 @@ export async function readStagingFile(
       const chunk = await reader.read();
       if (chunk.done) break;
       size += chunk.value.length;
-      if (size > MAX_UPLOAD_BYTES) {
+      if (size > maxUploadBytes(kind)) {
         await reader.cancel();
         throw new ApiError(
           400,
           "VALIDATION",
-          "Choose a file no larger than 5 MB.",
+          "The uploaded file exceeds the size limit.",
         );
       }
       chunks.push(chunk.value);

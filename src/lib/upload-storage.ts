@@ -5,7 +5,7 @@ import { resolve, dirname } from "node:path";
 import { ApiError } from "./api-response";
 import { blobStorageEnabled } from "./storage-config";
 export const UPLOAD_PATH =
-  /^\/uploads\/(?:(?:stacks|projects)\/[a-f0-9-]{36}\.png|resumes\/[a-f0-9-]{36}\.pdf)$/;
+  /^\/uploads\/(?:(?:stacks|projects)\/[a-f0-9-]{36}\.png|resumes\/[a-f0-9-]{36}\.pdf|music\/[a-f0-9-]{36}\.(?:mp3|wav|ogg|m4a))$/;
 function pathname(url: string) {
   if (!UPLOAD_PATH.test(url))
     throw new ApiError(400, "VALIDATION", "Invalid uploaded file path.");

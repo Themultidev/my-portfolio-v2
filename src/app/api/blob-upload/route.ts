@@ -8,7 +8,11 @@ import {
 } from "../../../lib/api-response";
 import { readJsonBody } from "../../../lib/json-body";
 import { blobStorageEnabled } from "../../../lib/storage-config";
-import { MAX_UPLOAD_BYTES, validStagingPath } from "../../../lib/upload-kinds";
+import {
+  maxUploadBytes,
+  validStagingPath,
+  type UploadKind,
+} from "../../../lib/upload-kinds";
 import { z } from "zod";
 export const runtime = "nodejs";
 export async function POST(request: Request) {
@@ -41,7 +45,7 @@ export async function POST(request: Request) {
           throw new ApiError(400, "VALIDATION", "Invalid upload destination.");
         return {
           allowedContentTypes: ["application/octet-stream"],
-          maximumSizeInBytes: MAX_UPLOAD_BYTES,
+          maximumSizeInBytes: maxUploadBytes(path.split("/")[2] as UploadKind),
           validUntil: Date.now() + 5 * 60_000,
           addRandomSuffix: false,
           allowOverwrite: false,

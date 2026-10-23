@@ -8,7 +8,8 @@ import { readImageForm, storeImage } from "../../../lib/image-upload";
 import { storeResume } from "../../../lib/resume-upload";
 import { requireSession } from "../../../lib/auth";
 import { blobStorageEnabled } from "../../../lib/storage-config";
-import { isUploadKind } from "../../../lib/upload-kinds";
+import { storeMusic } from "../../../lib/music-upload";
+import { isUploadKind, maxUploadBytes } from "../../../lib/upload-kinds";
 import { readJsonBody } from "../../../lib/json-body";
 import { readStagingFile, discardStagingFile } from "../../../lib/blob-staging";
 import { z } from "zod";
@@ -51,11 +52,13 @@ export async function POST(request: Request) {
       const session = await requireSession(request);
       stagingPath = input.data.stagingPath;
       file = await readStagingFile(stagingPath, session.id, kind);
-    } else file = await readImageForm(request);
+    } else file = await readImageForm(request, maxUploadBytes(kind));
     const url =
-      kind === "resume"
-        ? await storeResume(file)
-        : await storeImage(Buffer.from(await file.arrayBuffer()), kind);
+      kind === "music"
+        ? await storeMusic(file)
+        : kind === "resume"
+          ? await storeResume(file)
+          : await storeImage(Buffer.from(await file.arrayBuffer()), kind);
     if (stagingPath) {
       try {
         await discardStagingFile(stagingPath);

@@ -246,7 +246,10 @@ export async function normalizeImage(
     );
   }
 }
-export async function readImageForm(request: Request): Promise<File> {
+export async function readImageForm(
+  request: Request,
+  maxBytes = MAX_IMAGE_BYTES,
+): Promise<File> {
   const type = request.headers.get("content-type") ?? "";
   if (!/^multipart\/form-data\s*;/i.test(type))
     invalidImage("Upload a multipart form containing one file.");
@@ -259,11 +262,9 @@ export async function readImageForm(request: Request): Promise<File> {
       const chunk = await reader.read();
       if (chunk.done) break;
       size += chunk.value.byteLength;
-      if (size > MAX_IMAGE_BYTES + 64 * 1024) {
+      if (size > maxBytes + 64 * 1024) {
         await reader.cancel();
-        invalidImage(
-          "The upload is too large. Choose a file of at most 5 MiB.",
-        );
+        invalidImage("The upload exceeds the allowed size.");
       }
       chunks.push(chunk.value);
     }

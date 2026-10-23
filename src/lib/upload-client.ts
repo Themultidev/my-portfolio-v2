@@ -1,5 +1,5 @@
 "use client";
-import { MAX_UPLOAD_BYTES, type UploadKind } from "./upload-kinds";
+import { maxUploadBytes, type UploadKind } from "./upload-kinds";
 async function json(response: Response) {
   const body = await response.json();
   if (!response.ok)
@@ -7,8 +7,10 @@ async function json(response: Response) {
   return body;
 }
 export async function uploadPortfolioFile(file: File, kind: UploadKind) {
-  if (file.size > MAX_UPLOAD_BYTES)
-    throw new Error("Choose a file no larger than 5 MB.");
+  if (file.size > maxUploadBytes(kind))
+    throw new Error(
+      `Choose a file no larger than ${kind === "music" ? 20 : 5} MB.`,
+    );
   const config = await json(
     await fetch("/api/upload", {
       credentials: "same-origin",
